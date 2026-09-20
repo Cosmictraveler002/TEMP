@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Meet Me | Cafe & Restaurant • Kalyani</title>
+    <meta name="description" content="Meet Me Cafe & Restaurant in Kalyani, West Bengal. Discover delicious Indo-Chinese appetizers, Continental burgers, momos, artisanal beverages, shakes, and grand combos.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Meet Me</a>
+            <div class="nav-links">
+                <a href="#page3" class="nav-link">Menu</a>
+                <a href="#page4" class="nav-link">Bookings</a>
+                <a href="#page2" class="nav-link">Fine Dining</a>
+                <a href="#page5" class="nav-link">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+    <main id="main-content">
+        <!-- Hero Scroll Track for Scroll-Triggered Video Frame Animation -->
+        <div id="hero-scroll-track" class="hero-scroll-track">
+            <section id="page1" class="hero-section">
+                <div class="hero-video-wrapper">
+                    <video class="hero-bg-video" muted playsinline preload="auto">
+                        <source src="download.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero-halftone-overlay" aria-hidden="true"></div>
+                    <div class="hero-gradient-overlay" aria-hidden="true"></div>
+                </div>
+
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Where Flavors Meet <br>
+                        <span class="hero-title-highlight">Good Times</span>
+                    </h1>
+
+                    <div class="hero-cta-group">
+                        <a href="#page3" class="hero-btn-primary">
+                            <span>Explore Menu</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+                        </a>
+                        <a href="menu.html" class="hero-btn-secondary">
+                            <span>Full Menu Catalog</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#page3" class="hero-scroll-indicator" aria-label="Scroll to animate video">
+                    <div class="scroll-indicator-mouse">
+                        <div class="scroll-indicator-dot"></div>
+                    </div>
+                    <span class="scroll-indicator-text">Scroll to animate</span>
+                </a>
+            </section>
+        </div>
+
+        <div id="page2"></div>
+
+        <section id="page3" class="menu-section">
+            <div class="menu-container">
+                <!-- Sticky Category Filter Tabs Bar -->
+                <div class="menu-categories-nav" role="tablist">
+                    <button type="button" class="category-pill active" role="tab" aria-selected="true" data-target="section-all-specials">All Specials</button>
+                    <button type="button" class="category-pill" role="tab" aria-selected="false" data-target="section-appetizers">Appetizers</button>
+                    <button type="button" class="category-pill" role="tab" aria-selected="false" data-target="section-continental">Continental</button>
+                    <button type="button" class="category-pill" role="tab" aria-selected="false" data-target="section-beverages">Beverages</button>
+                    <button type="button" class="category-pill" role="tab" aria-selected="false" data-target="section-shakes">Shakes</button>
+                    <button type="button" class="category-pill" role="tab" aria-selected="false" data-target="section-desserts">Desserts</button>
+                    <button type="button" class="category-pill" role="tab" aria-selected="false" data-target="section-combos">Combos</button>
+                </div>
+
+                <div class="menu-sections-wrapper">
+                    <!-- ========================================================
+                         1. ALL SPECIALS SECTION (Default Visible Section)
+                         ======================================================== -->
+                    <div class="menu-category-section active" id="section-all-specials">
+                        <div class="category-header">
+                            <h2 class="category-title">All Specials</h2>
+                            <p class="category-subtitle">Chef's pick of sizzling house favorites & crowd-pleasing recipes</p>
+                        </div>
+
+                        <!-- Non-Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge non-veg-badge">Non-Veg</span>
+                                <h3 class="diet-title">Non-Veg Highlights</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_strips.jpg" alt="Chicken Strips" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">4 pcs</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Chicken Strips</h4>
+                                            <span class="item-price">₹140</span>
+                                        </div>
+                                        <p class="item-description">Crisp-fried tender chicken strips marinated in secret cafe spices, served with creamy dip.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Panko Crumb • Mustard Dip</span>
+                                            <button class="item-order-btn" aria-label="Add Chicken Strips" data-dish="Chicken Strips" data-price="140">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/kolkata_fish_fry.jpg" alt="Kolkata Fish Fry" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">1 pc</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Kolkata Fish Fry (Vetki)</h4>
+                                            <span class="item-price">₹130</span>
+                                        </div>
+                                        <p class="item-description">Iconic Kolkata style crumbed Bhetki fillet in fresh green herb marinade with authentic Kasundi.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Vetki Fillet • Kasundi Dip</span>
+                                            <button class="item-order-btn" aria-label="Add Fish Fry" data-dish="Kolkata Fish Fry (Vetki)" data-price="130">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_kurkure_momo.jpg" alt="Chicken Kurkure Momo" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">6 pcs</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Chicken Kurkure Momo</h4>
+                                            <span class="item-price">₹100</span>
+                                        </div>
+                                        <p class="item-description">Juicy minced chicken dumplings enveloped in an ultra-crispy spiced crust with fiery schezwan dip.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Kurkure Crust • Chili Mayo</span>
+                                            <button class="item-order-btn" aria-label="Add Kurkure Momo" data-dish="Chicken Kurkure Momo" data-price="100">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge veg-badge">Veg</span>
+                                <h3 class="diet-title">Veg Specials</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/crispy_chili_babycorn.jpg" alt="Crispy Chili Babycorn" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Special</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Crispy Chili Babycorn</h4>
+                                            <span class="item-price">₹200</span>
+                                        </div>
+                                        <p class="item-description">Golden batter-fried babycorn spears tossed with sweet bell peppers and tangy chili-garlic glaze.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Sesame • Scallions</span>
+                                            <button class="item-order-btn" aria-label="Add Crispy Chili Babycorn" data-dish="Crispy Chili Babycorn" data-price="200">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/dry_chili_mushroom.jpg" alt="Dry Chili Mushroom" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Chef's Pick</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Dry Chili Mushroom</h4>
+                                            <span class="item-price">₹200</span>
+                                        </div>
+                                        <p class="item-description">Fresh button mushrooms glazed in an aromatic Indo-Chinese wok sauce with diced capsicum and scallions.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Button Mushroom • Dark Soy</span>
+                                            <button class="item-order-btn" aria-label="Add Dry Chili Mushroom" data-dish="Dry Chili Mushroom" data-price="200">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/peri_peri_fries.jpg" alt="Peri Peri French Fries" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Popular</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Peri Peri French Fry</h4>
+                                            <span class="item-price">₹90</span>
+                                        </div>
+                                        <p class="item-description">Golden crispy french fries tossed in an addictive, zesty peri-peri spice dust with garlic dip.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Peri Peri Dust • Garlic Mayo</span>
+                                            <button class="item-order-btn" aria-label="Add Peri Peri Fries" data-dish="Peri Peri French Fry" data-price="90">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         2. APPETIZERS SECTION
+                         ======================================================== -->
+                    <div class="menu-category-section" id="section-appetizers">
+                        <div class="category-header">
+                            <h2 class="category-title">Appetizers</h2>
+                            <p class="category-subtitle">Tangra-style Indo-Chinese tossers, crispy chicken bites & golden fry favorites</p>
+                        </div>
+
+                        <!-- Non-Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge non-veg-badge">Non-Veg</span>
+                                <h3 class="diet-title">Non-Veg Starters & Sizzlers</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_strips.jpg" alt="Chicken Strips" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">4 pcs</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Chicken Strips</h4>
+                                            <span class="item-price">₹140</span>
+                                        </div>
+                                        <p class="item-description">Crisp-fried tender chicken strips marinated in secret cafe spices, served with creamy dip.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Panko Crumb • Mustard Dip</span>
+                                            <button class="item-order-btn" aria-label="Add Chicken Strips" data-dish="Chicken Strips" data-price="140">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/kolkata_fish_fry.jpg" alt="Kolkata Fish Fry" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">1 pc</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Kolkata Fish Fry (Vetki)</h4>
+                                            <span class="item-price">₹130</span>
+                                        </div>
+                                        <p class="item-description">Iconic Kolkata style crumbed Bhetki fillet in fresh green herb marinade with authentic Kasundi.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Vetki Fillet • Kasundi Dip</span>
+                                            <button class="item-order-btn" aria-label="Add Fish Fry" data-dish="Kolkata Fish Fry (Vetki)" data-price="130">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/dry_chili_chicken.jpg" alt="Dry Chili Chicken" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">6 pcs</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Dry Chili Chicken</h4>
+                                            <span class="item-price">₹160</span>
+                                        </div>
+                                        <p class="item-description">Tangra-style Kolkata Indo-Chinese boneless chicken tossed with peppers, chilies, and soy glaze.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Tangra Sauce • Bell Peppers</span>
+                                            <button class="item-order-btn" aria-label="Add Dry Chili Chicken" data-dish="Dry Chili Chicken" data-price="160">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 4 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_lollipop.jpg" alt="Chicken Lollipop" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">4 pcs</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Chicken Lollipop</h4>
+                                            <span class="item-price">₹120</span>
+                                        </div>
+                                        <p class="item-description">Crispy, succulent drummette-style chicken lollipops served with hot garlic dipping sauce.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Crisp Winglet • Garlic Dip</span>
+                                            <button class="item-order-btn" aria-label="Add Chicken Lollipop" data-dish="Chicken Lollipop" data-price="120">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge veg-badge">Veg</span>
+                                <h3 class="diet-title">Veg Starters & Crunchies</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/crispy_chili_babycorn.jpg" alt="Crispy Chili Babycorn" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Special</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Crispy Chili Babycorn</h4>
+                                            <span class="item-price">₹200</span>
+                                        </div>
+                                        <p class="item-description">Golden batter-fried babycorn spears tossed with sweet bell peppers and tangy chili-garlic glaze.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Sesame • Scallions</span>
+                                            <button class="item-order-btn" aria-label="Add Crispy Chili Babycorn" data-dish="Crispy Chili Babycorn" data-price="200">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/dry_chili_mushroom.jpg" alt="Dry Chili Mushroom" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Chef's Pick</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Dry Chili Mushroom</h4>
+                                            <span class="item-price">₹200</span>
+                                        </div>
+                                        <p class="item-description">Fresh button mushrooms glazed in an aromatic Indo-Chinese wok sauce with diced capsicum and scallions.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Button Mushroom • Dark Soy</span>
+                                            <button class="item-order-btn" aria-label="Add Dry Chili Mushroom" data-dish="Dry Chili Mushroom" data-price="200">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/honey_chilli_potatoes.jpg" alt="Honey Chilli Potatoes" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Popular</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Honey Chilli Potatoes</h4>
+                                            <span class="item-price">₹150</span>
+                                        </div>
+                                        <p class="item-description">Crispy potato fingers tossed in a glistening sweet-spicy honey chili glaze with toasted sesame seeds.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Pure Honey • White Sesame</span>
+                                            <button class="item-order-btn" aria-label="Add Honey Chilli Potatoes" data-dish="Honey Chilli Potatoes" data-price="150">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 4 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/peri_peri_fries.jpg" alt="Peri Peri French Fries" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Popular</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Peri Peri French Fry</h4>
+                                            <span class="item-price">₹90</span>
+                                        </div>
+                                        <p class="item-description">Golden crispy french fries tossed in an addictive, zesty peri-peri spice dust with garlic dip.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Peri Peri Dust • Garlic Mayo</span>
+                                            <button class="item-order-btn" aria-label="Add Peri Peri Fries" data-dish="Peri Peri French Fry" data-price="90">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         3. CONTINENTAL SECTION
+                         ======================================================== -->
+                    <div class="menu-category-section" id="section-continental">
+                        <div class="category-header">
+                            <h2 class="category-title">Continental</h2>
+                            <p class="category-subtitle">Juicy grilled burgers, steamed dumplings & flaky street-style paratha wraps</p>
+                        </div>
+
+                        <!-- Non-Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge non-veg-badge">Non-Veg</span>
+                                <h3 class="diet-title">Non-Veg Continental</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_burger.jpg" alt="Chicken Burger" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">1 pc</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Chicken Burger</h4>
+                                            <span class="item-price">₹100</span>
+                                        </div>
+                                        <p class="item-description">Juicy seasoned chicken patty layered with crisp garden veggies, melted cheese and creamy cafe dressing.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Toasted Bun • Herb Dressing</span>
+                                            <button class="item-order-btn" aria-label="Add Chicken Burger" data-dish="Chicken Burger" data-price="100">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_kurkure_momo.jpg" alt="Chicken Kurkure Momo" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">6 pcs</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Chicken Kurkure Momo</h4>
+                                            <span class="item-price">₹100</span>
+                                        </div>
+                                        <p class="item-description">Juicy minced chicken momos enveloped in a super-crispy spiced kurkure crust with fiery chutney.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Kurkure Crust • Chili Chutney</span>
+                                            <button class="item-order-btn" aria-label="Add Kurkure Momo" data-dish="Chicken Kurkure Momo" data-price="100">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_steam_momo.jpg" alt="Chicken Steam Momo" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">6 pcs</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Chicken Steam Momo</h4>
+                                            <span class="item-price">₹80</span>
+                                        </div>
+                                        <p class="item-description">Delicate steamed dumplings stuffed with juicy spiced chicken, served with piping hot chili chutney.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Clear Broth • Fiery Chutney</span>
+                                            <button class="item-order-btn" aria-label="Add Steam Momo" data-dish="Chicken Steam Momo" data-price="80">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge veg-badge">Veg</span>
+                                <h3 class="diet-title">Veg Continental & Wraps</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/paneer_wrap.jpg" alt="Paneer Wrap" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">1 roll</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Paneer Wrap</h4>
+                                            <span class="item-price">₹160</span>
+                                        </div>
+                                        <p class="item-description">Spiced tandoori paneer cubes wrapped in a warm, flaky layered laccha paratha with mint relish.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Laccha Paratha • Mint Relish</span>
+                                            <button class="item-order-btn" aria-label="Add Paneer Wrap" data-dish="Paneer Wrap" data-price="160">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         4. BEVERAGES SECTION
+                         ======================================================== -->
+                    <div class="menu-category-section" id="section-beverages">
+                        <div class="category-header">
+                            <h2 class="category-title">Beverages</h2>
+                            <p class="category-subtitle">Velvety iced coffees, ceremonial Japanese matcha & sparkling tropical coolers</p>
+                        </div>
+
+                        <!-- Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge veg-badge">Veg</span>
+                                <h3 class="diet-title">Artisanal Coolers & Coffees</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/cold_coffee.jpg" alt="Cold Coffee with Ice Cream" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Glass</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Cold Coffee with Ice Cream</h4>
+                                            <span class="item-price">₹120</span>
+                                        </div>
+                                        <p class="item-description">Rich frothy espresso blended cold with velvety milk, topped with a generous scoop of vanilla ice cream.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Espresso • Vanilla Scoop</span>
+                                            <button class="item-order-btn" aria-label="Add Cold Coffee" data-dish="Cold Coffee with Ice Cream" data-price="120">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Matcha_tea_latte_with_rosetta_latte_art.jpg/800px-Matcha_tea_latte_with_rosetta_latte_art.jpg" alt="Classic Matcha Latte" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Cup</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Classic Matcha Latte</h4>
+                                            <span class="item-price">₹120</span>
+                                        </div>
+                                        <p class="item-description">Vibrant Japanese ceremonial matcha green tea whisked smoothly with velvety steamed milk.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Ceremonial Matcha • Silky Milk</span>
+                                            <button class="item-order-btn" aria-label="Add Matcha Latte" data-dish="Classic Matcha Latte" data-price="120">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Blue_Curacao.jpg/800px-Blue_Curacao.jpg" alt="Meet Me Special Mocktail" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Special</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Meet Me Special Mocktail</h4>
+                                            <span class="item-price">₹80</span>
+                                        </div>
+                                        <p class="item-description">Signature layered tropical refresher with sparkling blue curacao, lime, mint, and soda.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Blue Curacao • Lime & Mint</span>
+                                            <button class="item-order-btn" aria-label="Add Special Mocktail" data-dish="Meet Me Special Mocktail" data-price="80">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 4 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Bubble-tea.jpg/800px-Bubble-tea.jpg" alt="Classic Matcha Bubble Tea" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Boba</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Classic Matcha Bubble Tea</h4>
+                                            <span class="item-price">₹150</span>
+                                        </div>
+                                        <p class="item-description">Iced matcha milk tea paired with delicious brown sugar tapioca boba pearls.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Tapioca Boba • Matcha</span>
+                                            <button class="item-order-btn" aria-label="Add Bubble Tea" data-dish="Classic Matcha Bubble Tea" data-price="150">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         5. SHAKES SECTION
+                         ======================================================== -->
+                    <div class="menu-category-section" id="section-shakes">
+                        <div class="category-header">
+                            <h2 class="category-title">Shakes</h2>
+                            <p class="category-subtitle">Thick, creamy artisan milkshakes crowned with velvety vanilla ice cream</p>
+                        </div>
+
+                        <!-- Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge veg-badge">Veg</span>
+                                <h3 class="diet-title">Artisan Thick Milkshakes</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Oreo_crumble_milkshake.jpg/800px-Oreo_crumble_milkshake.jpg" alt="Oreo Shake with Ice Cream" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Jar</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Oreo Shake with Ice Cream</h4>
+                                            <span class="item-price">₹150</span>
+                                        </div>
+                                        <p class="item-description">Thick and creamy shake packed with crushed Oreo cookies, chocolate syrup drizzle, and vanilla ice cream.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Oreo Cookie • Chocolate Drizzle</span>
+                                            <button class="item-order-btn" aria-label="Add Oreo Shake" data-dish="Oreo Shake with Ice Cream" data-price="150">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Chocolate_milkshake.jpg/800px-Chocolate_milkshake.jpg" alt="Belgian Chocolate Shake" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Glass</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Belgian Chocolate Shake</h4>
+                                            <span class="item-price">₹160</span>
+                                        </div>
+                                        <p class="item-description">Ultra-rich Belgian chocolate milkshake blended with dark cocoa fudge and creamy ice cream.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Belgian Cocoa • Choco Curls</span>
+                                            <button class="item-order-btn" aria-label="Add Chocolate Shake" data-dish="Belgian Chocolate Shake" data-price="160">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Milkshake_with_whipped_cream.jpg/800px-Milkshake_with_whipped_cream.jpg" alt="KitKat Thick Shake" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Thick Jar</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">KitKat Thick Shake</h4>
+                                            <span class="item-price">₹160</span>
+                                        </div>
+                                        <p class="item-description">Crunchy wafer KitKat bars blended into a decadent chocolate shake with whipped topping.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">KitKat Crunch • Whipped Cream</span>
+                                            <button class="item-order-btn" aria-label="Add KitKat Shake" data-dish="KitKat Thick Shake" data-price="160">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         6. DESSERTS SECTION
+                         ======================================================== -->
+                    <div class="menu-category-section" id="section-desserts">
+                        <div class="category-header">
+                            <h2 class="category-title">Desserts</h2>
+                            <p class="category-subtitle">Warm Belgian waffles with hazelnut spread & molten chocolate lava cakes</p>
+                        </div>
+
+                        <!-- Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge veg-badge">Veg</span>
+                                <h3 class="diet-title">Warm Waffles & Molten Bakes</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Waffles_with_maple_syrup_and_butter.jpg/800px-Waffles_with_maple_syrup_and_butter.jpg" alt="Nutella Belgian Waffle" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Plate</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Nutella Belgian Waffle</h4>
+                                            <span class="item-price">₹210</span>
+                                        </div>
+                                        <p class="item-description">Warm, thick Belgian waffle smothered in rich Nutella chocolate spread, paired with a scoop of ice cream.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Warm Nutella • Ice Cream</span>
+                                            <button class="item-order-btn" aria-label="Add Nutella Waffle" data-dish="Nutella Belgian Waffle" data-price="210">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Chocolate_Fondant.jpg/800px-Chocolate_Fondant.jpg" alt="Choco Lava with Ice Cream" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Dessert</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Choco Lava with Ice Cream</h4>
+                                            <span class="item-price">₹110</span>
+                                        </div>
+                                        <p class="item-description">Warm chocolate cake with molten oozing chocolate center, served with cold vanilla ice cream scoop.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Molten Center • Vanilla Scoop</span>
+                                            <button class="item-order-btn" aria-label="Add Choco Lava" data-dish="Choco Lava with Ice Cream" data-price="110">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         7. COMBOS SECTION
+                         ======================================================== -->
+                    <div class="menu-category-section" id="section-combos">
+                        <div class="category-header">
+                            <h2 class="category-title">Combos</h2>
+                            <p class="category-subtitle">Value sharing feasts designed for duos, groups & celebration parties</p>
+                        </div>
+
+                        <!-- Non-Veg Group -->
+                        <div class="category-diet-block">
+                            <div class="diet-header">
+                                <span class="diet-badge non-veg-badge">Non-Veg</span>
+                                <h3 class="diet-title">Non-Veg Sharing Meals & Feasts</h3>
+                            </div>
+                            <div class="menu-items-grid">
+                                <!-- Dish 1 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_burger.jpg" alt="Combo for 2 Person" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">For 2</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Combo for 2 Person</h4>
+                                            <span class="item-price">₹410</span>
+                                        </div>
+                                        <p class="item-description">Chicken Burger + Chicken Strips + Chicken Pakora + 2 Cokes. Perfect sharing meal for couples or friends.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Burger • Strips • 2 Cokes</span>
+                                            <button class="item-order-btn" aria-label="Add Combo for 2" data-dish="Combo for 2 Person" data-price="410">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 2 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/dry_chili_chicken.jpg" alt="Combo for 4 Person" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">For 4</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Combo for 4 Person</h4>
+                                            <span class="item-price">₹920</span>
+                                        </div>
+                                        <p class="item-description">Dry Chili Fish + Paper Chicken + Chicken Exotica Wrap + Chicken Mexicano Burger + 4 Cokes.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">Fish • Chicken • 4 Cokes</span>
+                                            <button class="item-order-btn" aria-label="Add Combo for 4" data-dish="Combo for 4 Person" data-price="920">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dish 3 -->
+                                <div class="menu-item-card">
+                                    <div class="item-img-box">
+                                        <img src="images/chicken_lollipop.jpg" alt="Meet Me Grand Feast for 6" class="item-food-img" loading="lazy">
+                                        <span class="item-portion-tag">Grand Feast</span>
+                                    </div>
+                                    <div class="item-content-box">
+                                        <div class="item-header-row">
+                                            <h4 class="item-title">Meet Me Grand Feast (6 Pax)</h4>
+                                            <span class="item-price">₹2,200</span>
+                                        </div>
+                                        <p class="item-description">10 Signature items: Paneer Balls, Chicken Balls, Dry Chili Baby Corn, 2 Burgers, 2 Wraps, 6 Ice Creams & 6 Cokes.</p>
+                                        <div class="item-footer-row">
+                                            <span class="item-ingredient-hint">10 Dishes • 6 Ice Creams • 6 Cokes</span>
+                                            <button class="item-order-btn" aria-label="Add Grand Feast" data-dish="Meet Me Grand Feast (6 Pax)" data-price="2200">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View All Menu Banner Card -->
+                    <div class="menu-view-all-banner">
+                        <div class="view-all-content">
+                            <span class="view-all-badge">Complete Menu • 100+ Dishes</span>
+                            <h3 class="view-all-title">Craving more? Explore our entire menu</h3>
+                            <p class="view-all-desc">Browse our complete lineup including Burgers, Sandwiches, Pastas, Bubble Teas, Japanese Matcha, Belgian Waffles, and Special Multi-Person Combos.</p>
+                        </div>
+                        <a href="menu.html" class="view-all-cta-btn">
+                            <span>Open Full Menu</span>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="page4"></div>
+    </main>
+
+    <footer id="page5"></footer>
+
+    <!-- GSAP & ScrollTrigger Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
