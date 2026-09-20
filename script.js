@@ -65,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isSequenceActive || hasSequenceCompleted) return;
             isSequenceActive = true;
 
-            // 1. Lock page scroll strictly on the hero section for 3 seconds
+            // 1. Lock page scroll strictly on the hero section for 2 seconds
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
 
-            // 2. Play the video at 1.6x speed to complete the 5s clip in 3s
+            // 2. Play the video at 2.4x speed to complete the 5s clip in 2s
             heroVideo.currentTime = 0;
-            heroVideo.playbackRate = 1.6;
+            heroVideo.playbackRate = 2.4;
             heroVideo.play().catch(() => {});
 
             // 3. Float headline and CTA buttons upward gracefully
@@ -79,20 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 gsap.to('.hero-title, .hero-cta-group', {
                     y: -60,
                     opacity: 0,
-                    duration: 0.75,
+                    duration: 0.6,
                     ease: 'power2.out',
-                    delay: 0.15
+                    delay: 0.1
                 });
 
                 gsap.to('.hero-scroll-indicator', {
                     opacity: 0,
                     y: -20,
-                    duration: 0.4,
+                    duration: 0.35,
                     ease: 'power2.out'
                 });
             }
 
-            // 4. Hold on hero for 3 seconds, then unlock and smoothly transition to menu
+            // 4. Hold on hero for 2 seconds, then unlock and smoothly transition to menu
             setTimeout(() => {
                 document.documentElement.style.overflow = '';
                 document.body.style.overflow = '';
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         behavior: 'smooth'
                     });
                 }
-            }, 3000);
+            }, 2000);
         };
 
         // Trigger on mouse wheel scroll downward when at hero
