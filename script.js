@@ -1,288 +1,310 @@
 document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
-    // Hero Entrance: GSAP TO animation with stagger between text and buttons
+    // Hero Entrance: Synchronized GSAP Master Timeline (Apple-style power4.out)
     // =========================================================================
+    let heroEntranceTL = null;
     if (typeof gsap !== 'undefined') {
-        gsap.from('.nav-logo', {
-            y: -35,
-            opacity: 0,
-            duration: 0.85,
-            delay: 0.5,
-            ease: 'power3.out'
+        heroEntranceTL = gsap.timeline({
+            defaults: {
+                ease: 'power4.out'
+            }
         });
 
-        // Set initial positions for hero elements
-        gsap.set('.hero-title', { y: 35, opacity: 0 });
-        gsap.set('.hero-cta-group', { y: 30, opacity: 0 });
-        gsap.set('.hero-scroll-indicator', { opacity: 0 });
+        // Set initial positions cleanly
+        gsap.set('.nav-logo', { y: -28, opacity: 0 });
+        gsap.set('.nav-link', { y: -20, opacity: 0 });
+        gsap.set('.hero-title', { y: 45, opacity: 0 });
+        gsap.set('.hero-cta-group', { y: 35, opacity: 0 });
+        gsap.set('.hero-scroll-indicator', { opacity: 0, y: 15 });
 
-        // Animate in using gsap.to with clear stagger between text and buttons
-        gsap.to('.hero-title', {
-            y: 0,
-            opacity: 1,
-            duration: 0.85,
-            delay: 0.45,
-            ease: 'power3.out'
-        });
-
-        gsap.to('.hero-cta-group', {
-            y: 0,
-            opacity: 1,
-            duration: 0.85,
-            delay: 0.65, // Stagger between text and buttons
-            ease: 'power3.out'
-        });
-
-        gsap.to('.hero-scroll-indicator', {
-            opacity: 0.85,
-            duration: 0.7,
-            delay: 0.9,
-            ease: 'power3.out'
-        });
+        heroEntranceTL
+            .to('.nav-logo', {
+                y: 0,
+                opacity: 1,
+                duration: 0.95,
+                delay: 0.2
+            })
+            .to('.nav-link', {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.08
+            }, '-=0.65')
+            .to('.hero-title', {
+                y: 0,
+                opacity: 1,
+                duration: 1.15
+            }, '-=0.55')
+            .to('.hero-cta-group', {
+                y: 0,
+                opacity: 1,
+                duration: 1.05
+            }, '-=0.75')
+            .to('.hero-scroll-indicator', {
+                y: 0,
+                opacity: 0.85,
+                duration: 0.85
+            }, '-=0.6');
     }
 
     // =========================================================================
-    // Hero Scroll Interaction: Animation Completes BEFORE Page Scroll Activates
+    // Scroll-Triggered Hero Video Sequence with 5-Second Hero Lock
     // =========================================================================
     const heroVideo = document.querySelector('.hero-bg-video');
+    let triggerHeroSequence = () => {};
+    let hasSequenceCompleted = window.scrollY > 100;
 
     if (heroVideo) {
         heroVideo.pause();
         heroVideo.currentTime = 0;
 
-        let isAnimating = false;
-        let hasCompleted = window.scrollY > 100;
-        let menuHasAnimated = false;
+        let isSequenceActive = false;
+        let touchStartY = 0;
 
-        // Calibrated GSAP fromTo entrance for menu sections on Y-axis
-        const triggerMenuEntranceAnimation = () => {
-            if (menuHasAnimated) return;
-            menuHasAnimated = true;
+        triggerHeroSequence = () => {
+            if (isSequenceActive || hasSequenceCompleted) return;
+            isSequenceActive = true;
 
-            if (typeof gsap !== 'undefined') {
-                gsap.fromTo('.menu-categories-nav',
-                    { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', overwrite: 'auto' }
-                );
-
-                gsap.fromTo('.menu-sections-wrapper',
-                    { y: 75, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.95, delay: 0.12, ease: 'power3.out', overwrite: 'auto' }
-                );
-            }
-        };
-
-        const startHeroSequence = () => {
-            if (isAnimating || hasCompleted) return;
-            isAnimating = true;
-
-            // Lock page scroll strictly during animation
+            // 1. Lock page scroll strictly on the hero section for 3 seconds
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
 
-            // 1. Fast the video (2.2x speed)
-            heroVideo.playbackRate = 2.2;
+            // 2. Play the video at 1.6x speed to complete the 5s clip in 3s
+            heroVideo.currentTime = 0;
+            heroVideo.playbackRate = 1.6;
             heroVideo.play().catch(() => {});
 
-            // 2. GSAP TO animation on text and buttons with stagger
+            // 3. Float headline and CTA buttons upward gracefully
             if (typeof gsap !== 'undefined') {
-                const tl = gsap.timeline({
-                    onComplete: () => {
-                        // =========================================================
-                        // ANIMATION END: Now and ONLY now activate page scroll!
-                        // =========================================================
-                        document.documentElement.style.overflow = '';
-                        document.body.style.overflow = '';
-                        isAnimating = false;
-                        hasCompleted = true;
-
-                        // Smoothly scroll down to menu section
-                        const target = document.getElementById('page3');
-                        if (target) {
-                            const targetY = target.getBoundingClientRect().top + window.scrollY - 70;
-                            window.scrollTo({
-                                top: targetY,
-                                behavior: 'smooth'
-                            });
-
-                            // Calibrated menu entrance: smoothly rises on Y-axis as scroll arrives
-                            setTimeout(() => {
-                                triggerMenuEntranceAnimation();
-                            }, 260);
-                        }
-                    }
-                });
-
-                // Title animates out
-                tl.to('.hero-title', {
-                    y: -45,
+                gsap.to('.hero-title, .hero-cta-group', {
+                    y: -60,
                     opacity: 0,
-                    scale: 0.96,
-                    duration: 0.5,
-                    ease: 'power2.inOut'
-                })
-                // Buttons animate out with clear stagger
-                .to('.hero-cta-group', {
-                    y: -30,
-                    opacity: 0,
-                    scale: 0.96,
-                    duration: 0.5,
-                    ease: 'power2.inOut'
-                }, '-=0.3')
-                // Scroll indicator fades out
-                .to('.hero-scroll-indicator', {
-                    opacity: 0,
-                    duration: 0.25,
-                    ease: 'power2.inOut'
-                }, '-=0.4')
-                // Showcase fast video (0.5s faster: 0.85s hold before scroll)
-                .to({}, { duration: 0.85 });
-            } else {
-                // Fallback without GSAP (1.4s delay)
-                setTimeout(() => {
-                    document.documentElement.style.overflow = '';
-                    document.body.style.overflow = '';
-                    isAnimating = false;
-                    hasCompleted = true;
-                    const target = document.getElementById('page3');
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                        triggerMenuEntranceAnimation();
-                    }
-                }, 1400);
-            }
-        };
-
-        const resetHeroSequence = () => {
-            if (isAnimating) return;
-            hasCompleted = false;
-            menuHasAnimated = false;
-
-            // Rewind and pause video
-            heroVideo.pause();
-            heroVideo.currentTime = 0;
-            heroVideo.playbackRate = 1.0;
-
-            // Animate text & buttons back in using gsap.to with stagger
-            if (typeof gsap !== 'undefined') {
-                gsap.to('.hero-title', {
-                    y: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.8,
-                    ease: 'power3.out'
-                });
-
-                gsap.to('.hero-cta-group', {
-                    y: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.8,
-                    delay: 0.2, // Stagger
-                    ease: 'power3.out'
+                    duration: 0.75,
+                    ease: 'power2.out',
+                    delay: 0.15
                 });
 
                 gsap.to('.hero-scroll-indicator', {
-                    opacity: 0.85,
-                    duration: 0.6,
-                    delay: 0.35,
-                    ease: 'power3.out'
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.4,
+                    ease: 'power2.out'
                 });
             }
+
+            // 4. Hold on hero for 3 seconds, then unlock and smoothly transition to menu
+            setTimeout(() => {
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+                isSequenceActive = false;
+                hasSequenceCompleted = true;
+
+                // Smoothly scroll down to menu section (#page3)
+                const menuSection = document.getElementById('page3');
+                if (menuSection) {
+                    const targetY = menuSection.getBoundingClientRect().top + window.scrollY - 70;
+                    window.scrollTo({
+                        top: targetY,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 3000);
         };
 
-        // Intercept downward scroll attempts at top of page so page DOES NOT scroll
+        // Trigger on mouse wheel scroll downward when at hero
         window.addEventListener('wheel', (e) => {
-            if (window.scrollY <= 15 && !hasCompleted) {
+            if (window.scrollY <= 15 && !hasSequenceCompleted && !isSequenceActive) {
                 if (e.deltaY > 0) {
                     e.preventDefault();
-                    startHeroSequence();
+                    triggerHeroSequence();
                 }
             }
         }, { passive: false });
 
-        // Touch event interception for mobile devices
-        let touchStartY = 0;
+        // Trigger on mobile touch drag upward (scrolling down)
         window.addEventListener('touchstart', (e) => {
-            if (e.touches && e.touches.length > 0) {
+            if (e.touches.length > 0) {
                 touchStartY = e.touches[0].clientY;
             }
         }, { passive: true });
 
         window.addEventListener('touchmove', (e) => {
-            if (window.scrollY <= 15 && !hasCompleted) {
-                if (e.touches && e.touches.length > 0) {
-                    const deltaY = touchStartY - e.touches[0].clientY;
-                    if (deltaY > 8) { // Swiping up to scroll down
+            if (window.scrollY <= 15 && !hasSequenceCompleted && !isSequenceActive) {
+                if (e.touches.length > 0) {
+                    const diffY = touchStartY - e.touches[0].clientY;
+                    if (diffY > 10) {
                         e.preventDefault();
-                        startHeroSequence();
+                        triggerHeroSequence();
                     }
                 }
             }
         }, { passive: false });
 
-        // Keyboard arrow/space navigation interception at top
+        // Trigger on keyboard scroll keys (ArrowDown, PageDown, Space)
         window.addEventListener('keydown', (e) => {
-            if (window.scrollY <= 15 && !hasCompleted) {
+            if (window.scrollY <= 15 && !hasSequenceCompleted && !isSequenceActive) {
                 if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
                     e.preventDefault();
-                    startHeroSequence();
+                    triggerHeroSequence();
                 }
             }
-        }, { passive: false });
+        });
 
-        // Reset state when scrolling back to the very top
+        // Reset sequence state if user scrolls back all the way to top
         window.addEventListener('scroll', () => {
-            if (window.scrollY <= 10 && hasCompleted && !isAnimating) {
-                resetHeroSequence();
+            if (window.scrollY <= 10 && hasSequenceCompleted && !isSequenceActive) {
+                hasSequenceCompleted = false;
+                heroVideo.pause();
+                heroVideo.currentTime = 0;
+
+                if (typeof gsap !== 'undefined') {
+                    gsap.to('.hero-title, .hero-cta-group', {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+
+                    gsap.to('.hero-scroll-indicator', {
+                        y: 0,
+                        opacity: 0.85,
+                        duration: 0.6,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+                }
             }
         }, { passive: true });
-
-        // Explore Menu & Scroll Indicator buttons trigger the sequence
-        const exploreBtn = document.querySelector('.hero-btn-primary');
-        const scrollIndicator = document.querySelector('.hero-scroll-indicator');
-        [exploreBtn, scrollIndicator].forEach(el => {
-            if (el) {
-                el.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    startHeroSequence();
-                });
-            }
-        });
     }
 
     // =========================================================================
-    // GSAP ScrollTrigger: Menu Sections Entrance Animation on Y-Axis
+    // Independent Viewport Parallax: Menu Nav, Section 1 & Section 2 Blocks
     // =========================================================================
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        ScrollTrigger.create({
-            trigger: '#page3',
-            start: 'top 85%',
-            onEnter: () => {
-                triggerMenuEntranceAnimation();
-            },
-            onLeaveBack: () => {
-                menuHasAnimated = false;
+        // 1. Menu Categories Bar & Category Header on Menu Top Arrival
+        gsap.fromTo('.menu-categories-nav',
+            { y: 65 },
+            {
+                y: 0,
+                duration: 0.95,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: '#page3',
+                    start: 'top 88%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        gsap.fromTo('.category-header',
+            { y: 60 },
+            {
+                y: 0,
+                duration: 0.95,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: '#page3',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        // 2. Separate Viewport Triggers for EACH Diet Section (Section 1 Non-Veg, Section 2 Veg, etc.)
+        const dietBlocks = document.querySelectorAll('.category-diet-block');
+        dietBlocks.forEach((block) => {
+            const header = block.querySelector('.diet-header');
+            const cards = block.querySelectorAll('.menu-item-card');
+
+            const tl = gsap.timeline({
+                defaults: {
+                    ease: 'power4.out'
+                },
+                scrollTrigger: {
+                    trigger: block,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            if (header) {
+                tl.fromTo(header, { y: 50 }, { y: 0, duration: 0.85 }, 0);
+            }
+            if (cards && cards.length > 0) {
+                tl.fromTo(cards, { y: 95 }, { y: 0, duration: 0.95, stagger: 0.08 }, '-=0.65');
             }
         });
+
+        // 3. View All Banner at bottom of menu
+        const banner = document.querySelector('.menu-view-all-banner');
+        if (banner) {
+            gsap.fromTo(banner,
+                { y: 75 },
+                {
+                    y: 0,
+                    duration: 0.95,
+                    ease: 'power4.out',
+                    scrollTrigger: {
+                        trigger: banner,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        }
+
+        // Recalibrate trigger dimensions after pin spacer is injected
+        ScrollTrigger.refresh();
     }
 
-    // Scroll listener backup to guarantee menu entrance fires when reaching #page3
-    window.addEventListener('scroll', () => {
-        const menuSection = document.getElementById('page3');
-        if (menuSection && !menuHasAnimated) {
-            const rect = menuSection.getBoundingClientRect();
-            if (rect.top <= window.innerHeight * 0.88) {
-                triggerMenuEntranceAnimation();
+    // Smooth Navigation to Menu from Buttons (Fast-scrub glide past pinned track)
+    const exploreBtn = document.querySelector('.hero-btn-primary');
+    const scrollIndicator = document.querySelector('.hero-scroll-indicator');
+    const menuNavLinks = document.querySelectorAll('a[href="#page3"]');
+
+    const handleExploreClick = (e) => {
+        e.preventDefault();
+        if (window.scrollY <= 15 && !hasSequenceCompleted) {
+            triggerHeroSequence();
+        } else {
+            const menuSection = document.getElementById('page3');
+            if (menuSection) {
+                const targetY = menuSection.getBoundingClientRect().top + window.scrollY - 70;
+                window.scrollTo({
+                    top: targetY,
+                    behavior: 'smooth'
+                });
             }
         }
-    }, { passive: true });
+    };
+
+    [exploreBtn, scrollIndicator, ...menuNavLinks].forEach(el => {
+        if (el) {
+            el.addEventListener('click', handleExploreClick);
+        }
+    });
+
+    // =========================================================================
+    // Dynamic Navbar: Frosted Glass in Hero, Adapts on Scroll to Menu
+    // =========================================================================
+    const navEl = document.getElementById('nav');
+    const updateNavScrollState = () => {
+        if (!navEl) return;
+        if (window.scrollY > 80) {
+            navEl.classList.add('scrolled');
+        } else {
+            navEl.classList.remove('scrolled');
+        }
+    };
+    window.addEventListener('scroll', updateNavScrollState, { passive: true });
+    updateNavScrollState();
 
     // Quick Add-to-Order button toast feedback
     const orderBtns = document.querySelectorAll('.item-order-btn');
-    
+
     // Create toast notification dynamically if not already present
     let toast = document.getElementById('toast');
     if (!toast) {
@@ -366,12 +388,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. Center active pill in mobile horizontal scrollbar
             pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
-            // 3. Replace visible category section in menu container
+            // 3. Replace visible category section in menu container with smooth cross-fade
             landingCategorySections.forEach(section => {
                 if (section.id === targetId) {
                     section.classList.add('active');
+                    if (typeof gsap !== 'undefined') {
+                        gsap.fromTo(section,
+                            { opacity: 0, y: 14 },
+                            { opacity: 1, y: 0, duration: 0.32, ease: 'power2.out', overwrite: 'auto' }
+                        );
+                    }
                 } else {
                     section.classList.remove('active');
+                    if (typeof gsap !== 'undefined') {
+                        gsap.set(section, { opacity: 0, y: 0 });
+                    }
                 }
             });
 
