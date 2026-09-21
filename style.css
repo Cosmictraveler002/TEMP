@@ -1296,9 +1296,9 @@ body {
 }
 
 .find-us-container {
-  max-width: 1360px;
+  max-width: 1385px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 3.5vw, 48px);
+  padding: 0 clamp(50px, 5vw, 60px);
 }
 
 .find-us-header {
@@ -1372,7 +1372,7 @@ body {
 .find-us-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: clamp(48px, 6vw, 88px);
+  gap: clamp(150px, 50vw, 200px);
   align-items: stretch;
 }
 
@@ -2518,9 +2518,13 @@ body {
   }
 
   /* Page 4 & Page 5 Mobile Optimizations */
+  .find-us-container {
+    padding: 0 16px;
+  }
+
   .find-us-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
   }
 
   .map-iframe-wrapper {
