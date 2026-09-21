@@ -102,10 +102,10 @@ To disguise pixelation without blurring the video, we overlaid a mathematical **
 2. **Scroll Gesture Interception**:
    - When the user scrolls down (via mouse wheel, touch swipe, or down arrow key), the scroll event is **intercepted and locked in place** (`preventDefault()`, `overflow = 'hidden'`). The page **does not prematurely move**.
 3. **In-Place Hero Sequence**:
-   - Video playback accelerates to **`2.2x` speed** (`heroVideo.playbackRate = 2.2; heroVideo.play();`).
-   - `gsap.to` animates the headline up and out (`y: -45, opacity: 0`).
-   - `gsap.to` animates the CTA button group up and out (`y: -30, opacity: 0`) with a staggered delay.
-   - The fast video is showcased in full view for a calibrated **`0.85s` hold**.
+   - Video playback accelerates to **`4.8x` speed** (`heroVideo.playbackRate = 4.8; heroVideo.play();`).
+   - `gsap.to` animates the headline up and out (`y: -60, opacity: 0`).
+   - `gsap.to` animates the CTA button group up and out with a staggered delay.
+   - The fast video is showcased in full view for a calibrated **`1s` hold**.
 4. **Scroll Activation & Menu Arrival**:
    - **Only after the animation ends**, page scrolling is unlocked (`overflow = ''`).
    - The page smoothly glides down into the menu section (`#page3`).
@@ -180,8 +180,9 @@ c:\Users\PC\Websites\Meet me\
   - `<div class="hero-halftone-overlay">`: Screen-print micro-dot matrix.
   - `<div class="hero-gradient-overlay">`: Dark vignette and optical clarity filter.
   - `.hero-content`: Headline with gradient text highlight, CTA group (`Explore Menu` & `Full Menu Catalog`), and mouse scroll indicator.
-- **Page 2 (`#page2`)**: Placeholder configured with `#page2:empty { display: none; }` to eliminate whitespace hitching.
+- **Page 2 (`#page2.reviews-section`)**: Continuous infinite horizontal marquee powered by GSAP displaying authentic Google Reviews (5.0 rating, avatars, ratings, timestamps, and customer feedback). Proportionately fits the 50vh section height with edge-fade masks and hover-pause interactivity.
 - **Menu Section (`#page3`)**:
+  - `#section-0.mobile-section-0`: Mobile-only 2-column visual category grid (hidden on desktop) displaying 6 boilerplate skeleton cards with an alternating X-axis staggered entrance.
   - `.menu-categories-nav`: Horizontally scrollable sticky pill tab list (`role="tablist"`).
   - `.menu-sections-wrapper`: Houses category blocks (`#section-all-specials`, `#section-appetizers`, etc.) toggled in-place.
   - Each item card (`.menu-item-card`) contains food imagery, title, price, description, portion size, and add-to-order button.
@@ -208,13 +209,19 @@ c:\Users\PC\Websites\Meet me\
 - **Logo Reveal**: GSAP from animation on Y-axis with a 0.5s delay.
 - **Hero Entrance**: GSAP `set` and `to` stagger between headline and CTA buttons.
 - **Scroll Lock Engine**: `wheel`, `touchmove`, and `keydown` interception at `window.scrollY <= 15`.
-- **Hero Timeline (`startHeroSequence`)**:
-  - Sets video `playbackRate = 2.2` and plays.
-  - Animates headline out (`y: -45`), buttons out (`y: -30`, staggered).
-  - Holds for **`0.85s`** to showcase video motion.
+- **Hero Timeline (`triggerHeroSequence`)**:
+  - Sets video `playbackRate = 4.8` and plays.
+  - Animates headline out (`y: -60`), buttons out.
+  - Holds for **`1s`** to showcase video motion.
   - Unlocks scroll on completion and smoothly scrolls to `#page3`.
-- **Menu Entrance (`triggerMenuEntranceAnimation`)**:
-  - `gsap.fromTo` bringing `.menu-categories-nav` (`y: 50`) and `.menu-sections-wrapper` (`y: 75`) up into view.
+- **Section 0 Mobile Entrance Timeline**:
+  - Independent GSAP timeline on `#section-0` (ScrollTrigger `start: 'top 85%'`, `toggleActions: 'play none none none'`).
+  - Alternating zigzag cascade (`0.08s` stagger, `0.95s` duration, `power4.out`): left cards slide in from `x: -80px`, right cards slide in from `x: +80px`.
+- **Menu Parallax & Direction-Reactive Scroll Retreat**:
+  - Independent ScrollTrigger timelines on `.category-header`, `.category-diet-block` (headers and dish cards), and `.menu-view-all-banner`.
+  - When scrolling down (`direction === 1`): items smoothly animate upward into place (`y: 0`).
+  - When scrolling up (`direction === -1`): items smoothly reverse downward in a retreat animation (`y: +95px` / `+50px`), maintaining full opacity.
+  - Recalibrates triggers dynamically via `ScrollTrigger.refresh()` upon tab switching.
 - **In-Place Tab Switcher**: Manages `.active` classes on pills and menu sections, centering active pill via `scrollIntoView`.
 - **Toast Feedback**: Dynamic DOM toast creation on item add button clicks with 2.6s auto-dismiss.
 

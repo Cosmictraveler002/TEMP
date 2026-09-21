@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // Scroll-Triggered Hero Video Sequence with 5-Second Hero Lock
+    // Scroll-Triggered Hero Video Sequence with 1-Second Hero Lock
     // =========================================================================
     const heroVideo = document.querySelector('.hero-bg-video');
     let triggerHeroSequence = () => {};
@@ -60,18 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let isSequenceActive = false;
         let touchStartY = 0;
+        let hasScrolledPastHero = window.scrollY > 150;
 
         triggerHeroSequence = () => {
             if (isSequenceActive || hasSequenceCompleted) return;
             isSequenceActive = true;
+            hasScrolledPastHero = false;
 
-            // 1. Lock page scroll strictly on the hero section for 2 seconds
+            // 1. Lock page scroll strictly on the hero section for 1 second
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
 
-            // 2. Play the video at 2.4x speed to complete the 5s clip in 2s
+            // 2. Play the video at 4.8x speed to complete the 5s clip in 1s
             heroVideo.currentTime = 0;
-            heroVideo.playbackRate = 2.4;
+            heroVideo.playbackRate = 4.8;
             heroVideo.play().catch(() => {});
 
             // 3. Float headline and CTA buttons upward gracefully
@@ -79,36 +81,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 gsap.to('.hero-title, .hero-cta-group', {
                     y: -60,
                     opacity: 0,
-                    duration: 0.6,
+                    duration: 0.80,
                     ease: 'power2.out',
-                    delay: 0.1
+                    delay: 0.09
                 });
 
                 gsap.to('.hero-scroll-indicator', {
                     opacity: 0,
                     y: -20,
-                    duration: 0.35,
+                    duration: 0.25,
                     ease: 'power2.out'
                 });
             }
 
-            // 4. Hold on hero for 2 seconds, then unlock and smoothly transition to menu
+            // 4. Hold on hero for 1 second, then unlock and smoothly transition to menu
             setTimeout(() => {
                 document.documentElement.style.overflow = '';
                 document.body.style.overflow = '';
-                isSequenceActive = false;
                 hasSequenceCompleted = true;
 
-                // Smoothly scroll down to menu section (#page3)
-                const menuSection = document.getElementById('page3');
-                if (menuSection) {
-                    const targetY = menuSection.getBoundingClientRect().top + window.scrollY - 70;
+                // Smoothly scroll down to reviews section (#page2)
+                const nextSection = document.getElementById('page2') || document.getElementById('page3');
+                if (nextSection) {
+                    const targetY = nextSection.getBoundingClientRect().top + window.scrollY - 70;
                     window.scrollTo({
                         top: targetY,
                         behavior: 'smooth'
                     });
                 }
-            }, 2000);
+
+                // Buffer transition period to prevent premature interaction or reset while scroll starts
+                setTimeout(() => {
+                    isSequenceActive = false;
+                    if (typeof ScrollTrigger !== 'undefined') {
+                        ScrollTrigger.refresh();
+                    }
+                }, 500);
+            }, 1000);
         };
 
         // Trigger on mouse wheel scroll downward when at hero
@@ -150,10 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Reset sequence state if user scrolls back all the way to top
+        // Reset sequence state ONLY if user has actually scrolled down past hero and returns to top
         window.addEventListener('scroll', () => {
-            if (window.scrollY <= 10 && hasSequenceCompleted && !isSequenceActive) {
+            if (window.scrollY > 150) {
+                hasScrolledPastHero = true;
+            }
+
+            if (window.scrollY <= 10 && hasSequenceCompleted && hasScrolledPastHero && !isSequenceActive) {
                 hasSequenceCompleted = false;
+                hasScrolledPastHero = false;
                 heroVideo.pause();
                 heroVideo.currentTime = 0;
 
@@ -179,12 +193,121 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // Independent Viewport Parallax: Menu Nav, Section 1 & Section 2 Blocks
+    // Page 2: Google Reviews Continuous Infinite Marquee with GSAP
     // =========================================================================
+    const marqueeTrack = document.querySelector('.reviews-marquee-track');
+    if (marqueeTrack && typeof gsap !== 'undefined') {
+        // Continuous horizontal scroll from 0 to -50% (half track containing 1 complete set)
+        const marqueeTween = gsap.to(marqueeTrack, {
+            xPercent: -50,
+            ease: 'none',
+            duration: 28,
+            repeat: -1
+        });
+
+        // Pause on hover so guests can read reviews easily
+        marqueeTrack.addEventListener('mouseenter', () => marqueeTween.pause());
+        marqueeTrack.addEventListener('mouseleave', () => marqueeTween.play());
+
+        // Mobile touch support to pause while touching
+        marqueeTrack.addEventListener('touchstart', () => marqueeTween.pause(), { passive: true });
+        marqueeTrack.addEventListener('touchend', () => marqueeTween.play(), { passive: true });
+    }
+
+    // =========================================================================
+    // Page 3: Section 0 Desktop Category Continuous Infinite Marquee with GSAP
+    // =========================================================================
+    const section0MarqueeTrack = document.querySelector('.section-0-marquee-track');
+    if (section0MarqueeTrack && typeof gsap !== 'undefined') {
+        // Continuous rightward infinite scroll from -50% to 0% (opposite direction, 33% faster: 20s)
+        gsap.fromTo(section0MarqueeTrack,
+            { xPercent: -50 },
+            {
+                xPercent: 0,
+                ease: 'none',
+                duration: 20,
+                repeat: -1
+            }
+        );
+    }
+
+    // =========================================================================
+    // Independent Viewport Parallax & Direction-Reactive Scroll Retreat
+    // =========================================================================
+    let setupDietSectionTriggers = null;
+
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        // 1. Menu Categories Bar & Category Header on Menu Top Arrival
+        // 0. Section 0: Responsive Animations (Mobile Screen-View Zigzag vs Desktop Marquee Glide)
+        const section0Grid = document.querySelector('#section-0 .section-0-grid');
+        const section0Mm = gsap.matchMedia();
+
+        // Mobile Viewport (<= 768px): Card rows individually triggered by screen view
+        section0Mm.add('(max-width: 768px)', () => {
+            if (!section0Grid) return;
+            const allCards = Array.from(section0Grid.querySelectorAll('.section-0-card'));
+            if (allCards.length === 0) return;
+
+            // Pair cards into alternating 2-column rows: [Left 1, Right 1], [Left 2, Right 2], etc.
+            const rows = [];
+            for (let i = 0; i < allCards.length; i += 2) {
+                rows.push({
+                    left: allCards[i],
+                    right: allCards[i + 1]
+                });
+            }
+
+            rows.forEach((row) => {
+                const leftCard = row.left;
+                const rightCard = row.right;
+
+                // Hardware-accelerated off-axis offsets (-75px left, +75px right) and 0 opacity
+                if (leftCard) gsap.set(leftCard, { x: -75, opacity: 0, force3d: true });
+                if (rightCard) gsap.set(rightCard, { x: 75, opacity: 0, force3d: true });
+
+                // Individual row trigger: each row animates crisply when entering the screen view (18% above bottom)
+                const rowTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: leftCard || rightCard,
+                        start: 'top 82%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    defaults: {
+                        duration: 0.85,
+                        ease: 'power4.out',
+                        force3d: true
+                    }
+                });
+
+                if (leftCard) {
+                    rowTl.to(leftCard, { x: 0, opacity: 1 }, 0);
+                }
+                if (rightCard) {
+                    rowTl.to(rightCard, { x: 0, opacity: 1 }, 0.08); // Signature 0.08s zig-zag cadence
+                }
+            });
+        });
+
+        // Desktop Viewport (> 768px): Category Continuous Marquee entrance glide
+        section0Mm.add('(min-width: 769px)', () => {
+            gsap.fromTo('.section-0-marquee-container',
+                { y: 35, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.85,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#page3',
+                        start: 'top 88%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+
+        // 1. Menu Categories Bar (Stable entrance on arrival, reverses when returning to Hero)
         gsap.fromTo('.menu-categories-nav',
             { y: 65 },
             {
@@ -194,17 +317,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrollTrigger: {
                     trigger: '#page3',
                     start: 'top 88%',
-                    toggleActions: 'play none none none'
+                    toggleActions: 'play none none reverse'
                 }
             }
         );
 
+        // Category Header: Stable entrance animation on reaching menu (never retreats downwards into diet headers)
         gsap.fromTo('.category-header',
-            { y: 60 },
+            { y: 30, opacity: 0 },
             {
                 y: 0,
-                duration: 0.95,
-                ease: 'power4.out',
+                opacity: 1,
+                duration: 0.75,
+                ease: 'power3.out',
                 scrollTrigger: {
                     trigger: '#page3',
                     start: 'top 85%',
@@ -213,51 +338,159 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
 
-        // 2. Separate Viewport Triggers for EACH Diet Section (Section 1 Non-Veg, Section 2 Veg, etc.)
-        const dietBlocks = document.querySelectorAll('.category-diet-block');
-        dietBlocks.forEach((block) => {
-            const header = block.querySelector('.diet-header');
-            const cards = block.querySelectorAll('.menu-item-card');
+        // 2. Separate Direction-Reactive Triggers for EACH Diet Section (Scoped to Active Category Section)
+        let activeDietTriggers = [];
 
-            const tl = gsap.timeline({
-                defaults: {
-                    ease: 'power4.out'
-                },
-                scrollTrigger: {
-                    trigger: block,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                }
+        function setupDietSectionTriggers(sectionElement, isInitialEntrance = true) {
+            // Clean up any previous diet ScrollTriggers to eliminate ghost triggers
+            activeDietTriggers.forEach(st => {
+                if (st && st.kill) st.kill();
             });
+            activeDietTriggers = [];
 
-            if (header) {
-                tl.fromTo(header, { y: 50 }, { y: 0, duration: 0.85 }, 0);
-            }
-            if (cards && cards.length > 0) {
-                tl.fromTo(cards, { y: 95 }, { y: 0, duration: 0.95, stagger: 0.08 }, '-=0.65');
-            }
-        });
+            if (!sectionElement) return;
+            const dietBlocks = sectionElement.querySelectorAll('.category-diet-block');
 
-        // 3. View All Banner at bottom of menu
+            dietBlocks.forEach((block) => {
+                const header = block.querySelector('.diet-header');
+                const cards = block.querySelectorAll('.menu-item-card');
+
+                const isMobile = window.innerWidth <= 768;
+                const headerEntranceY = isMobile ? 32 : 55;
+                const cardEntranceY = isMobile ? 80 : 150;
+                const entranceDuration = isMobile ? 0.9 : 1.1;
+                const staggerDuration = isMobile ? 0.06 : 0.08;
+
+                let hasCompletedEntrance = !isInitialEntrance;
+                let lastScrollDirection = 0;
+
+                let tl = null;
+                if (isInitialEntrance) {
+                    tl = gsap.timeline({
+                        paused: true,
+                        defaults: {
+                            ease: 'power3.out',
+                            force3d: true
+                        },
+                        onStart: () => {
+                            // Disable pointer events during entrance so hover CSS transitions do not fire
+                            cards.forEach(c => c.style.pointerEvents = 'none');
+                        },
+                        onComplete: () => {
+                            hasCompletedEntrance = true;
+                            cards.forEach(c => c.style.pointerEvents = '');
+                        }
+                    });
+
+                    if (header) {
+                        tl.fromTo(header,
+                            { y: headerEntranceY, opacity: 0 },
+                            { y: 0, opacity: 1, duration: isMobile ? 0.7 : 0.8, force3d: true },
+                            0
+                        );
+                    }
+                    if (cards && cards.length > 0) {
+                        // Pure GPU Y-axis transform with force3d: true (eliminates image re-rasterization and flickering)
+                        tl.fromTo(cards,
+                            { y: cardEntranceY },
+                            { y: 0, duration: entranceDuration, stagger: staggerDuration, force3d: true },
+                            '-=0.5'
+                        );
+                    }
+                } else {
+                    hasCompletedEntrance = true;
+                    if (cards.length > 0) {
+                        gsap.set(cards, { y: 0, force3d: true });
+                        cards.forEach(c => c.style.pointerEvents = '');
+                    }
+                }
+
+                const st = ScrollTrigger.create({
+                    trigger: block,
+                    start: 'top 70%',
+                    onEnter: () => {
+                        if (tl && !hasCompletedEntrance) tl.play();
+                    },
+                    onUpdate: (self) => {
+                        // Strict guard: NEVER run nudge if entrance is not yet completed
+                        if (!hasCompletedEntrance) return;
+
+                        // Only trigger tween when scroll direction actually flips to eliminate tween thrashing/flicker
+                        if (self.direction === lastScrollDirection) return;
+                        lastScrollDirection = self.direction;
+
+                        const mobile = window.innerWidth <= 768;
+                        const cardNudgeY = mobile ? 14 : 32;
+                        const nudgeDuration = mobile ? 0.35 : 0.38;
+                        const returnDuration = mobile ? 0.4 : 0.45;
+
+                        if (self.direction === -1) {
+                            // Repellent micro-nudge for cards only with hardware-accelerated 3D transforms
+                            gsap.to(cards, {
+                                y: cardNudgeY,
+                                duration: nudgeDuration,
+                                ease: 'power3.out',
+                                overwrite: 'auto',
+                                force3d: true
+                            });
+                        } else if (self.direction === 1) {
+                            // Return cards smoothly to baseline position with hardware-accelerated 3D transforms
+                            gsap.to(cards, {
+                                y: 0,
+                                duration: returnDuration,
+                                ease: 'power2.out',
+                                overwrite: 'auto',
+                                force3d: true
+                            });
+                        }
+                    }
+                });
+
+                activeDietTriggers.push(st);
+            });
+        }
+
+        // Initialize diet section triggers ONLY for the initially active section (default: All Specials)
+        const initialActiveSection = document.querySelector('#page3 .menu-category-section.active') || document.getElementById('section-all-specials');
+        setupDietSectionTriggers(initialActiveSection, true);
+
+        // 3. View All Banner at bottom of menu: Direction-reactive entrance and retreat
         const banner = document.querySelector('.menu-view-all-banner');
         if (banner) {
-            gsap.fromTo(banner,
-                { y: 75 },
+            const bannerTl = gsap.timeline({
+                paused: true,
+                defaults: { ease: 'power4.out', force3d: true }
+            });
+            bannerTl.fromTo(banner,
+                { y: 75, force3d: true },
                 {
                     y: 0,
                     duration: 0.95,
                     ease: 'power4.out',
-                    scrollTrigger: {
-                        trigger: banner,
-                        start: 'top 88%',
-                        toggleActions: 'play none none none'
-                    }
+                    force3d: true
                 }
             );
+
+            ScrollTrigger.create({
+                trigger: banner,
+                start: 'top 88%',
+                onEnter: () => bannerTl.play(),
+                onLeaveBack: () => bannerTl.reverse(),
+                onUpdate: (self) => {
+                    if (self.direction === -1) {
+                        bannerTl.reverse();
+                    } else if (self.direction === 1) {
+                        bannerTl.play();
+                    }
+                }
+            });
         }
 
-        // Recalibrate trigger dimensions after pin spacer is injected
+        // Recalibrate trigger dimensions immediately and when all assets settle
         ScrollTrigger.refresh();
+        window.addEventListener('load', () => {
+            ScrollTrigger.refresh();
+        });
     }
 
     // Smooth Navigation to Menu from Buttons (Fast-scrub glide past pinned track)
@@ -367,46 +600,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Landing page In-Place Category Pill Tab Switcher
+    // Landing page Category Activation (Handles both Mobile Section 0 Cards and Desktop Nav Pills)
     const categoryPills = document.querySelectorAll('.menu-categories-nav .category-pill');
     const landingCategorySections = document.querySelectorAll('#page3 .menu-category-section');
+    const section0CategoryCards = document.querySelectorAll('#section-0 .section-0-card[data-target]');
 
-    categoryPills.forEach(pill => {
-        pill.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = pill.getAttribute('data-target') || (pill.getAttribute('href') ? pill.getAttribute('href').replace('#', '') : null);
-            if (!targetId) return;
+    function activateMenuCategory(targetId, shouldScrollToDishes = false) {
+        if (!targetId) return;
 
-            // 1. Update active tab pill state
-            categoryPills.forEach(p => {
+        // 1. Update active tab pill state for desktop nav
+        categoryPills.forEach(p => {
+            const pTarget = p.getAttribute('data-target') || (p.getAttribute('href') ? p.getAttribute('href').replace('#', '') : null);
+            if (pTarget === targetId) {
+                p.classList.add('active');
+                p.setAttribute('aria-selected', 'true');
+                p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
                 p.classList.remove('active');
                 p.setAttribute('aria-selected', 'false');
-            });
-            pill.classList.add('active');
-            pill.setAttribute('aria-selected', 'true');
+            }
+        });
 
-            // 2. Center active pill in mobile horizontal scrollbar
-            pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        // 1b. Synchronize active state on Section 0 mobile category cards
+        const mobileCategoryCards = document.querySelectorAll('#section-0 .section-0-grid .section-0-card[data-target]');
+        mobileCategoryCards.forEach(c => {
+            if (c.getAttribute('data-target') === targetId) {
+                c.classList.add('active');
+            } else {
+                c.classList.remove('active');
+            }
+        });
 
-            // 3. Replace visible category section in menu container with smooth cross-fade
-            landingCategorySections.forEach(section => {
-                if (section.id === targetId) {
-                    section.classList.add('active');
-                    if (typeof gsap !== 'undefined') {
-                        gsap.fromTo(section,
-                            { opacity: 0, y: 14 },
-                            { opacity: 1, y: 0, duration: 0.32, ease: 'power2.out', overwrite: 'auto' }
-                        );
-                    }
-                } else {
-                    section.classList.remove('active');
-                    if (typeof gsap !== 'undefined') {
-                        gsap.set(section, { opacity: 0, y: 0 });
-                    }
+        // 2. Replace visible category section in menu container with smooth cross-fade
+        let targetSection = null;
+        landingCategorySections.forEach(section => {
+            if (section.id === targetId) {
+                targetSection = section;
+                section.classList.add('active');
+                if (typeof gsap !== 'undefined') {
+                    gsap.fromTo(section,
+                        { opacity: 0, y: 14 },
+                        { opacity: 1, y: 0, duration: 0.32, ease: 'power2.out', overwrite: 'auto' }
+                    );
+                    const activeCards = section.querySelectorAll('.menu-item-card');
+                    const activeHeaders = section.querySelectorAll('.diet-header');
+                    if (activeCards.length > 0) gsap.set(activeCards, { y: 0, force3d: true });
+                    if (activeHeaders.length > 0) gsap.set(activeHeaders, { opacity: 1, y: 0 });
                 }
-            });
+                if (typeof setupDietSectionTriggers === 'function') {
+                    setupDietSectionTriggers(targetSection, false);
+                }
+            } else {
+                section.classList.remove('active');
+                if (typeof gsap !== 'undefined') {
+                    gsap.set(section, { opacity: 0, y: 0 });
+                }
+            }
+        });
 
-            // 4. Gently ensure menu container top is in comfortable view
+        // 3. Scroll position adjustment
+        if (shouldScrollToDishes && targetSection) {
+            // On mobile Section 0 card tap: smoothly auto-scroll down to the top of the category dishes
+            const yOffset = -24;
+            const targetPos = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({
+                top: targetPos,
+                behavior: 'smooth'
+            });
+        } else {
+            // On desktop tab tap: gently ensure menu container top is in comfortable view if scrolled far
             const menuSection = document.getElementById('page3');
             if (menuSection) {
                 const rect = menuSection.getBoundingClientRect();
@@ -416,6 +678,41 @@ document.addEventListener('DOMContentLoaded', () => {
                         behavior: 'smooth'
                     });
                 }
+            }
+        }
+
+        // 4. Recalibrate ScrollTrigger positions for newly active category
+        if (typeof ScrollTrigger !== 'undefined') {
+            setTimeout(() => ScrollTrigger.refresh(), 300);
+        }
+    }
+
+    // Attach click events for Section 0 Mobile Category Cards (with scroll to dishes)
+    const mobileSection0Cards = document.querySelectorAll('#section-0 .section-0-grid .section-0-card[data-target]');
+    mobileSection0Cards.forEach(card => {
+        const handleCardSelect = (e) => {
+            e.preventDefault();
+            const targetId = card.getAttribute('data-target');
+            if (targetId) {
+                activateMenuCategory(targetId, true);
+            }
+        };
+
+        card.addEventListener('click', handleCardSelect);
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                handleCardSelect(e);
+            }
+        });
+    });
+
+    // Attach click events for Desktop Category Nav Pills
+    categoryPills.forEach(pill => {
+        pill.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = pill.getAttribute('data-target') || (pill.getAttribute('href') ? pill.getAttribute('href').replace('#', '') : null);
+            if (targetId) {
+                activateMenuCategory(targetId, false);
             }
         });
     });

@@ -284,7 +284,7 @@ body {
   z-index: 10;
   width: 100%;
   max-width: 860px;
-  margin: 0;
+  margin: 0 0 5vh 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -499,19 +499,321 @@ body {
 }
 
 /* ==========================================================================
-   Page 2: Banner / Promo Section (50% Web View, 30% Mobile View)
+   Page 2: Google Reviews Continuous Infinite Marquee Section
    ========================================================================== */
-#page2 {
+#page2.reviews-section {
   width: 100%;
   height: 50vh;
   height: 50dvh;
+  min-height: 430px;
   position: relative;
+  background: radial-gradient(ellipse at 50% 30%, #151722 0%, #0C0D12 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 24px 0;
+  box-sizing: border-box;
+  z-index: 5;
 }
 
 #page2:empty {
   display: none;
   height: 0;
   min-height: 0;
+}
+
+.reviews-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  padding: 0 20px;
+  margin-bottom: 6px;
+}
+
+.reviews-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 15px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.reviews-badge-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.reviews-stars-score {
+  color: #FBBC04;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.reviews-title {
+  font-family: var(--font-primary);
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.reviews-marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+.reviews-marquee-track {
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+  width: max-content;
+  will-change: transform;
+  cursor: grab;
+}
+
+.reviews-marquee-track:active {
+  cursor: grabbing;
+}
+
+.review-card {
+  flex-shrink: 0;
+  width: clamp(290px, 24vw, 360px);
+  height: 210px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  user-select: none;
+}
+
+.review-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(194, 235, 18, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(194, 235, 18, 0.15);
+}
+
+.review-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.review-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.review-user-name {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.review-meta {
+  font-family: var(--font-secondary);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.review-google-icon {
+  margin-left: auto;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+}
+
+.review-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.review-stars {
+  display: flex;
+  gap: 2px;
+  color: #FBBC04;
+  font-size: 0.95rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 5px rgba(251, 188, 4, 0.45));
+}
+
+.review-date {
+  font-family: var(--font-secondary);
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.review-comment {
+  font-family: var(--font-secondary);
+  font-size: 0.88rem;
+  line-height: 1.48;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 6px 0 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   Section 0: Visual Category Navigation (Desktop GSAP Marquee + Mobile Grid)
+   ========================================================================== */
+.section-0-container {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* Desktop Category Marquee */
+.section-0-marquee-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.section-0-marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 6px 0 10px;
+  mask-image: linear-gradient(90deg, transparent 0%, black 3%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 3%, black 97%, transparent 100%);
+}
+
+.section-0-marquee-track {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  width: max-content;
+  will-change: transform;
+  cursor: default;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Individual Category Card in Desktop Marquee (Non-Selectable Ambient Visual) */
+.section-0-marquee-track .section-0-card {
+  flex-shrink: 0;
+  width: clamp(155px, 11.5vw, 190px);
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 19, 26, 0.08);
+  border-radius: 18px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(18, 19, 26, 0.04);
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
+.section-0-placeholder-img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(18, 19, 26, 0.03) 0%, rgba(18, 19, 26, 0.07) 100%);
+  border: 1.5px dashed rgba(18, 19, 26, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #12131A;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.section-0-card:hover .section-0-placeholder-img {
+  background: linear-gradient(135deg, rgba(162, 89, 255, 0.09) 0%, rgba(162, 89, 255, 0.2) 100%);
+  border-color: rgba(162, 89, 255, 0.4);
+  color: var(--accent-primary);
+}
+
+.section-0-card-title {
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #12131A;
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  width: 100%;
+}
+
+/* View All Card special accent */
+.section-0-card.view-all-card .view-all-img {
+  background: linear-gradient(135deg, rgba(194, 235, 18, 0.18) 0%, rgba(194, 235, 18, 0.36) 100%);
+  border: 1.5px dashed rgba(18, 19, 26, 0.22);
+  color: #12131A;
+}
+
+.section-0-card.view-all-card:hover .view-all-img {
+  background: var(--accent-pop, #C2EB12);
+  border-color: #12131A;
+  color: #12131A;
+}
+
+.section-0-card.view-all-card .view-all-title {
+  color: #12131A;
+  font-weight: 800;
+}
+
+/* Mobile grid is hidden by default on desktop */
+.section-0-grid {
+  display: none;
 }
 
 /* ==========================================================================
@@ -693,15 +995,17 @@ body {
   box-shadow: 0 4px 16px rgba(18, 19, 26, 0.03);
   padding: 14px;
   gap: 14px;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  /* Removed 'transform' from CSS transition to prevent fighting GSAP frame-by-frame updates */
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
-  will-change: transform, opacity;
+  will-change: transform;
+  transform: translateZ(0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .menu-item-card:hover {
   border-color: var(--accent-primary);
-  transform: translateY(-4px);
   box-shadow: 0 12px 28px rgba(162, 89, 255, 0.14);
 }
 
@@ -713,6 +1017,9 @@ body {
   border-radius: 14px;
   overflow: hidden;
   background-color: rgba(18, 19, 26, 0.04);
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  isolation: isolate;
 }
 
 .item-food-img {
@@ -721,11 +1028,14 @@ body {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .menu-item-card:hover .item-food-img {
-  transform: scale(1.06);
+  transform: scale(1.06) translateZ(0);
 }
 
 /* Floating Portion / Special Tag */
@@ -733,9 +1043,14 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(18, 19, 26, 0.78);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  left: auto;
+  width: auto;
+  max-width: fit-content;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 19, 26, 0.88);
   color: #FFFFFF;
   font-family: var(--font-primary);
   font-size: 0.75rem;
@@ -1020,6 +1335,10 @@ body {
     text-align: left;
   }
 
+  .hero-content {
+    margin-bottom: 0;
+  }
+
   .hero-badge {
     padding: 6px 14px;
     margin-bottom: 16px;
@@ -1057,74 +1376,240 @@ body {
     display: none;
   }
 
-  #page2 {
-    height: 30vh;
-    height: 30dvh;
+  #page2.reviews-section {
+    height: auto;
+    min-height: 380px;
+    padding: 32px 0;
+  }
+
+  .review-card {
+    width: clamp(270px, 82vw, 320px);
+    height: 200px;
+    padding: 16px;
   }
 
   .menu-container {
     padding: 0 16px;
   }
 
-  .menu-categories-nav {
-    padding: 12px 16px;
-    margin-left: -16px;
-    margin-right: -16px;
-    margin-bottom: 24px;
-    gap: 10px;
-    scroll-padding-left: 16px;
+  /* Section 0 on Mobile: Hide desktop marquee, show 2-column mobile grid */
+  .section-0-marquee-wrapper {
+    display: none !important;
   }
 
-  .category-pill {
-    width: auto;
-    min-width: fit-content;
-    height: 38px;
-    padding: 0 16px;
-    font-size: 0.82rem;
+  .section-0-container {
+    display: block;
+    width: 100%;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .section-0-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+
+  .section-0-card {
+    background: #FFFFFF;
+    border: 1.5px solid rgba(18, 19, 26, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(18, 19, 26, 0.04);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transition: box-shadow 0.16s ease;
+  }
+
+  .section-0-card:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 6px rgba(18, 19, 26, 0.08);
+    transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease;
+  }
+
+  .section-0-placeholder-img {
+    width: 100%;
+    aspect-ratio: 1 / 0.88;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(18, 19, 26, 0.04) 0%, rgba(18, 19, 26, 0.08) 100%);
+    border: 1px dashed rgba(18, 19, 26, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-0-card-title {
+    font-family: var(--font-primary);
+    font-size: clamp(0.72rem, 2.9vw, 0.82rem);
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #12131A;
+    text-align: center;
+    margin: 2px 0 2px 0;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 8th Card: View All Menu Card */
+  .section-0-card.view-all-card .view-all-img {
+    background: linear-gradient(135deg, rgba(194, 235, 18, 0.14) 0%, rgba(194, 235, 18, 0.28) 100%);
+    border: 1px dashed rgba(18, 19, 26, 0.2);
+    color: #12131A;
+  }
+
+  .section-0-card.view-all-card .view-all-img svg {
+    stroke: #12131A;
+    transition: transform 0.2s ease;
+  }
+
+  .section-0-card.view-all-card:active .view-all-img svg {
+    transform: translateX(4px);
+  }
+
+  .section-0-card.view-all-card .view-all-title {
+    color: #12131A;
+    font-size: clamp(0.66rem, 2.6vw, 0.76rem);
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    display: block;
+    text-align: center;
+    line-height: 1.25;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .section-0-card.view-all-card .view-all-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    margin-left: 2px;
+  }
+
+  .section-0-card.view-all-card:active .view-all-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Hide category horizontal pills nav on mobile (replaced by Section 0 category cards) */
+  .menu-categories-nav {
+    display: none !important;
   }
 
   .menu-sections-wrapper {
-    gap: 40px;
+    gap: 32px;
+  }
+
+  .category-diet-block {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .diet-header {
+    padding-bottom: 6px;
+    gap: 8px;
+  }
+
+  .diet-title {
+    font-size: 1.05rem;
+  }
+
+  .diet-badge {
+    font-size: 0.68rem;
+    padding: 3px 9px;
   }
 
   .menu-items-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .menu-item-card {
-    padding: 12px;
-    gap: 10px;
-    border-radius: 16px;
+    padding: 8px 8px 10px;
+    gap: 8px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(18, 19, 26, 0.04);
   }
 
   .item-img-box {
     aspect-ratio: 4 / 3;
-    border-radius: 12px;
+    border-radius: 10px;
+  }
+
+  .item-portion-tag {
+    top: 6px;
+    left: 6px;
+    right: auto;
+    width: auto;
+    max-width: fit-content;
+    white-space: nowrap;
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .item-content-box {
+    gap: 4px;
+  }
+
+  .item-header-row {
+    align-items: flex-start;
   }
 
   .item-title {
-    font-size: 0.96rem;
+    font-size: clamp(0.76rem, 2.7vw, 0.86rem);
+    line-height: 1.22;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .item-price {
-    font-size: 1rem;
+    font-size: clamp(0.82rem, 2.9vw, 0.92rem);
+    font-weight: 800;
   }
 
   .item-description {
-    display: none; /* Keep 2-column mobile cards clean & compact */
+    display: none !important; /* Keep 2-column mobile cards clean & compact */
   }
 
   .item-ingredient-hint {
-    font-size: 0.68rem;
+    display: none !important; /* Hide on mobile so at least 4 cards fit comfortably in viewport */
+  }
+
+  .item-footer-row {
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .item-order-btn {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    border-radius: 10px;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  .item-order-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
   .menu-view-all-banner {
@@ -1204,37 +1689,61 @@ body {
   }
 
   .menu-items-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
   .menu-item-card {
-    padding: 14px;
-    gap: 12px;
-    border-radius: 18px;
+    padding: 7px 7px 9px;
+    gap: 6px;
+    border-radius: 12px;
   }
 
   .item-img-box {
     aspect-ratio: 4 / 3;
-    border-radius: 12px;
+    border-radius: 8px;
+  }
+
+  .item-portion-tag {
+    top: 5px;
+    left: 5px;
+    right: auto;
+    width: auto;
+    max-width: fit-content;
+    white-space: nowrap;
+    padding: 2px 5px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    line-height: 1.1;
   }
 
   .item-title {
-    font-size: 1.05rem;
+    font-size: clamp(0.72rem, 2.6vw, 0.82rem);
+    line-height: 1.2;
   }
 
   .item-price {
-    font-size: 1.1rem;
+    font-size: clamp(0.8rem, 2.8vw, 0.88rem);
   }
 
   .item-description {
-    display: -webkit-box;
-    font-size: 0.84rem;
-    line-height: 1.42;
+    display: none !important;
   }
 
   .item-ingredient-hint {
-    font-size: 0.72rem;
+    display: none !important;
+  }
+
+  .item-order-btn {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 7px;
+  }
+
+  .item-order-btn svg {
+    width: 13px;
+    height: 13px;
   }
 
   .menu-view-all-banner {
