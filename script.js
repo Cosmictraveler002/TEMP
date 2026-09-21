@@ -753,5 +753,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Policy Modal Dialog Handlers
+    const policyBtn = document.getElementById('footer-policy-trigger');
+    const policyModal = document.getElementById('policy-modal');
+    const policyClose = document.querySelector('.policy-modal-close');
+    const policyBackdrop = document.querySelector('.policy-modal-backdrop');
+
+    const openPolicy = (e) => {
+        if (e) e.preventDefault();
+        if (policyModal) {
+            policyModal.classList.add('active');
+            policyModal.setAttribute('aria-hidden', 'false');
+        }
+    };
+
+    const closePolicy = () => {
+        if (policyModal) {
+            policyModal.classList.remove('active');
+            policyModal.setAttribute('aria-hidden', 'true');
+        }
+    };
+
+    if (policyBtn) policyBtn.addEventListener('click', openPolicy);
+    if (policyClose) policyClose.addEventListener('click', closePolicy);
+    if (policyBackdrop) policyBackdrop.addEventListener('click', closePolicy);
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && policyModal && policyModal.classList.contains('active')) {
+            closePolicy();
+        }
+    });
 });
 

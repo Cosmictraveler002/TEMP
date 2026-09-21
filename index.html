@@ -1392,50 +1392,103 @@
     </main>
 
     <!-- ====================================================================
-         Page 5: Branded Footer
+    <!-- ====================================================================
+         Page 5: Editorial Branded Footer (Inspired by Minimalist Luxury Layout)
          ==================================================================== -->
     <footer id="page5" class="site-footer">
         <div class="footer-container">
-            <div class="footer-main-row">
-                <div class="footer-brand-col">
-                    <a href="#" class="footer-logo">Meet Me</a>
-                    <p class="footer-tagline">Where Flavors Meet Good Times</p>
-                    <p class="footer-location-sub">Kalyani, Nadia District, West Bengal 741235</p>
-                </div>
-                <div class="footer-links-col">
-                    <h4 class="footer-col-title">Navigation</h4>
+            <!-- Top Section: 3-Column Editorial Grid -->
+            <div class="footer-columns-grid">
+                <!-- Column 1: Pages -->
+                <div class="footer-col footer-pages-col">
+                    <span class="footer-col-header">Pages</span>
                     <ul class="footer-nav-list">
-                        <li><a href="#page1">Home</a></li>
-                        <li><a href="#page3">Menu Specials</a></li>
-                        <li><a href="menu.html">Full 100+ Menu Catalog</a></li>
-                        <li><a href="#page2">Google Reviews</a></li>
-                        <li><a href="#page4">Find Us & Location</a></li>
+                        <li><a href="#page1">HOME</a></li>
+                        <li><a href="#page3">MENU</a></li>
+                        <li><a href="menu.html">FULL MENU CATALOG</a></li>
+                        <li><a href="#page2">REVIEWS</a></li>
+                        <li><a href="#page4">FIND US</a></li>
                     </ul>
                 </div>
-                <div class="footer-contact-col">
-                    <h4 class="footer-col-title">Visit & Connect</h4>
-                    <div class="footer-contact-item">
-                        <span class="footer-contact-icon">🕒</span>
-                        <span>Everyday: 9:00 AM – 11:00 PM</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <span class="footer-contact-icon">📞</span>
-                        <a href="tel:08350002031">08350002031</a>
-                    </div>
-                    <div class="footer-contact-item">
-                        <span class="footer-contact-icon">📍</span>
-                        <span>Meet Me Cafe And Restaurant, Kalyani</span>
+
+                <!-- Column 2: Connect / Reservation -->
+                <div class="footer-col footer-connect-col">
+                    <span class="footer-col-header">Connect</span>
+                    <ul class="footer-nav-list">
+                        <li><a href="tel:08350002031">08350002031</a></li>
+                        <li><a href="https://wa.me/918350002031" target="_blank" rel="noopener noreferrer">WHATSAPP</a></li>
+                        <li><a href="#page4">KALYANI, WB</a></li>
+                        <li><a href="tel:08350002031">RESERVATIONS</a></li>
+                        <li><a href="https://maps.google.com/?q=Meet+Me+Cafe+And+Restaurant+Kalyani" target="_blank" rel="noopener noreferrer">DIRECTIONS</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Opening hours with clean horizontal borders -->
+                <div class="footer-col footer-hours-col">
+                    <span class="footer-col-header">Opening hours</span>
+                    <div class="footer-hours-table">
+                        <div class="footer-hours-row">
+                            <span class="hours-day">MONDAY — THURSDAY</span>
+                            <span class="hours-time">9 AM – 11 PM</span>
+                        </div>
+                        <div class="footer-hours-row">
+                            <span class="hours-day">FRIDAY — SATURDAY</span>
+                            <span class="hours-time">9 AM – 11 PM</span>
+                        </div>
+                        <div class="footer-hours-row">
+                            <span class="hours-day">SUNDAY</span>
+                            <span class="hours-time">9 AM – 11 PM</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom-bar">
-                <p class="footer-copyright">© 2026 Meet Me Cafe & Restaurant. All rights reserved.</p>
-                <div class="footer-bottom-badges">
-                    <span class="footer-mini-badge">Youthful Gen-Z Pop Experience</span>
+
+            <!-- Full Width Divider Line -->
+            <div class="footer-divider-line"></div>
+
+            <!-- Middle Meta Bar: Copyright, Policy & Maker Credit -->
+            <div class="footer-meta-bar">
+                <div class="footer-copyright-text">
+                    © 2026 Meet Me Cafe & Restaurant. All rights reserved.
                 </div>
+                <div class="footer-policy-wrap">
+                    <a href="#policy" class="footer-policy-link" id="footer-policy-trigger">Policy</a>
+                </div>
+                <div class="footer-maker-wrap">
+                    <span>Made by <a href="https://kalakritico.in" target="_blank" rel="noopener noreferrer" class="footer-maker-link">kalakritico.in</a></span>
+                </div>
+            </div>
+
+            <!-- Bottom: Giant Typography Display -->
+            <div class="footer-giant-display">
+                <div class="footer-giant-venture">A VENTURE OF BANGALIR SOKHER RANNAGHOR</div>
+                <h2 class="footer-giant-brand">MEET ME</h2>
             </div>
         </div>
     </footer>
+
+    <!-- Policy Modal Dialog -->
+    <div id="policy-modal" class="policy-modal" aria-hidden="true">
+        <div class="policy-modal-backdrop"></div>
+        <div class="policy-modal-card">
+            <div class="policy-modal-header">
+                <h3 class="policy-modal-title">Cafe Policy & Terms</h3>
+                <button type="button" class="policy-modal-close" aria-label="Close Policy Modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="policy-modal-body">
+                <h4>Dine-in & Table Reservations</h4>
+                <p>Tables are held for up to 15 minutes past scheduled reservation time. Walk-ins are seated on a first-come, first-served basis.</p>
+                <h4>Fresh Orders & Preparation</h4>
+                <p>All recipes (Indo-Chinese, Momos, Burgers, and artisanal beverages) are prepared fresh upon ordering. Standard prep time is 12–20 minutes.</p>
+                <h4>Hygiene & Quality Standards</h4>
+                <p>We strictly adhere to food safety guidelines and use genuine, high-quality ingredients. Please inform our staff of any food allergies.</p>
+                <h4>A Venture of Bangalir Sokher Rannaghor</h4>
+                <p>Meet Me Cafe & Restaurant proudly operates under Bangalir Sokher Rannaghor in Kalyani, West Bengal. Direct telephone inquiries: 08350002031.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- GSAP & ScrollTrigger Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
