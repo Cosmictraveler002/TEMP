@@ -67,13 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
             isSequenceActive = true;
             hasScrolledPastHero = false;
 
-            // 1. Lock page scroll strictly on the hero section for 1 second
+            // 1. Lock page scroll strictly on the hero section for 1.5 seconds
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
 
             // 2. Play the video at 4.8x speed to complete the 5s clip in 1s
             heroVideo.currentTime = 0;
-            heroVideo.playbackRate = 4.8;
+            heroVideo.playbackRate = 3.8;
             heroVideo.play().catch(() => {});
 
             // 3. Float headline and CTA buttons upward gracefully
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // 4. Hold on hero for 1 second, then unlock and smoothly transition to menu
+            // 4. Hold on hero for 1.5 seconds, then unlock and smoothly transition to menu
             setTimeout(() => {
                 document.documentElement.style.overflow = '';
                 document.body.style.overflow = '';
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ScrollTrigger.refresh();
                     }
                 }, 500);
-            }, 1000);
+            }, 1500);
         };
 
         // Trigger on mouse wheel scroll downward when at hero
