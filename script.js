@@ -338,48 +338,61 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
 
-        // 2. Separate Direction-Reactive Triggers for EACH Diet Section (Scoped to Active Category Section)
+        // 2. Separate Viewport Triggers for EACH Diet Section (Scoped to Active Category Section)
         let activeDietTriggers = [];
 
-        function setupDietSectionTriggers(sectionElement, isTabSwitch = false) {
-            // Clean up any previous diet ScrollTriggers to eliminate ghost triggers
+        setupDietSectionTriggers = function(sectionElement, isTabSwitch = false) {
+            // Clean up any previous diet ScrollTriggers to eliminate duplicate/ghost triggers
             activeDietTriggers.forEach(st => {
                 if (st && st.kill) st.kill();
             });
             activeDietTriggers = [];
 
             if (!sectionElement) return;
+
+            // Ensure all cards have pointer-events restored
+            const allCards = sectionElement.querySelectorAll('.menu-item-card');
+            allCards.forEach(c => c.style.pointerEvents = '');
+
+            // Ensure ScrollTrigger measures offsets accurately for the active section
+            ScrollTrigger.refresh();
+
             const dietBlocks = sectionElement.querySelectorAll('.category-diet-block');
 
             dietBlocks.forEach((block, blockIndex) => {
                 const header = block.querySelector('.diet-header');
-                const cards = block.querySelectorAll('.menu-item-card');
+                const cards = Array.from(block.querySelectorAll('.menu-item-card'));
 
                 const isMobile = window.innerWidth <= 768;
                 const headerEntranceY = isMobile ? 28 : 45;
-                const cardEntranceY = isMobile ? 60 : 95;
+                const cardEntranceY = isMobile ? 60 : 90;
                 const entranceDuration = isMobile ? 0.8 : 0.95;
                 const staggerDuration = isMobile ? 0.05 : 0.08;
 
-                let hasCompletedEntrance = false;
-                let lastScrollDirection = 0;
+                // Calibrated trigger positions:
+                // Block 1 (Section 1): triggers at 78% viewport (mobile: 75%)
+                // Block 2 (Section 2): triggers at 60% viewport on desktop (mobile: 75%)
+                // This guarantees Block 2 does NOT fire prematurely while the user is still looking at Block 1 on desktop & large screens
+                const triggerStart = isMobile ? 'top 75%' : (blockIndex === 0 ? 'top 78%' : 'top 60%');
 
                 const tl = gsap.timeline({
-                    paused: true,
+                    scrollTrigger: {
+                        trigger: block,
+                        start: triggerStart,
+                        toggleActions: 'play none none reverse'
+                    },
                     defaults: {
                         ease: 'power4.out',
                         force3D: true
                     },
                     onStart: () => {
-                        // Disable pointer events during entrance so hover CSS transitions do not fire
                         cards.forEach(c => c.style.pointerEvents = 'none');
                     },
                     onComplete: () => {
-                        hasCompletedEntrance = true;
                         cards.forEach(c => c.style.pointerEvents = '');
                     },
                     onReverseComplete: () => {
-                        hasCompletedEntrance = false;
+                        cards.forEach(c => c.style.pointerEvents = '');
                     }
                 });
 
@@ -390,8 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         0
                     );
                 }
-                if (cards && cards.length > 0) {
-                    // Pure GPU Y-axis uprise transform with force3D: true (retaining opacity at 1 per user request)
+                if (cards.length > 0) {
+                    // Pure GPU Y-axis uprise transform with force3D: true (strictly preserving 100% opacity at all times per user requirement)
                     tl.fromTo(cards,
                         { y: cardEntranceY },
                         { y: 0, duration: entranceDuration, stagger: staggerDuration, ease: 'power4.out', force3D: true },
@@ -399,101 +412,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
                 }
 
-                // Calibrated trigger positions: Block 1 triggers at 75% viewport (25% above bottom), Block 2 triggers at 65% viewport (35% above bottom)
-                // This guarantees Block 2 does not fire prematurely or collide with Block 1 on desktop & large screens
-                const triggerStart = isMobile ? 'top 72%' : (blockIndex === 0 ? 'top 75%' : 'top 65%');
+                if (tl.scrollTrigger) {
+                    activeDietTriggers.push(tl.scrollTrigger);
+                }
 
-                const st = ScrollTrigger.create({
-                    trigger: block,
-                    start: triggerStart,
-                    onEnter: () => {
-                        tl.play();
-                    },
-                    onLeaveBack: () => {
-                        // Reverse smoothly on scrolling back up above the block so it can re-trigger
-                        tl.reverse();
-                    },
-                    onUpdate: (self) => {
-                        // Strict guard: NEVER run micro-nudge if entrance timeline is active
-                        if (!hasCompletedEntrance) return;
-
-                        // Only trigger tween when scroll direction actually flips to eliminate tween thrashing/flicker
-                        if (self.direction === lastScrollDirection) return;
-                        lastScrollDirection = self.direction;
-
-                        const mobile = window.innerWidth <= 768;
-                        const cardNudgeY = mobile ? 12 : 24;
-                        const nudgeDuration = mobile ? 0.32 : 0.35;
-                        const returnDuration = mobile ? 0.38 : 0.42;
-
-                        if (self.direction === -1) {
-                            // Repellent micro-nudge for cards only with hardware-accelerated 3D transforms
-                            gsap.to(cards, {
-                                y: cardNudgeY,
-                                duration: nudgeDuration,
-                                ease: 'power3.out',
-                                overwrite: 'auto',
-                                force3D: true
-                            });
-                        } else if (self.direction === 1) {
-                            // Return cards smoothly to baseline position with hardware-accelerated 3D transforms
-                            gsap.to(cards, {
-                                y: 0,
-                                duration: returnDuration,
-                                ease: 'power3.out',
-                                overwrite: 'auto',
-                                force3D: true
-                            });
-                        }
-                    }
-                });
-
-                activeDietTriggers.push(st);
-
-                // If tab switch occurred, trigger entrance immediately on currently visible blocks
+                // If tab switch occurred, immediately trigger the entrance animation on blocks that are already in view
                 if (isTabSwitch) {
                     const rect = block.getBoundingClientRect();
-                    if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
-                        tl.play();
+                    if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
+                        tl.restart();
                     }
                 }
             });
-        }
+        };
 
         // Initialize diet section triggers ONLY for the initially active section (default: All Specials)
         const initialActiveSection = document.querySelector('#page3 .menu-category-section.active') || document.getElementById('section-all-specials');
         setupDietSectionTriggers(initialActiveSection, false);
 
-        // 3. View All Banner at bottom of menu: Direction-reactive entrance and retreat
+        // 3. View All Banner at bottom of menu: Direction-reactive entrance and reverse
         const banner = document.querySelector('.menu-view-all-banner');
         if (banner) {
-            const bannerTl = gsap.timeline({
-                paused: true,
-                defaults: { ease: 'power4.out', force3D: true }
-            });
-            bannerTl.fromTo(banner,
-                { y: 75, force3D: true },
+            gsap.fromTo(banner,
+                { y: 75 },
                 {
                     y: 0,
                     duration: 0.95,
                     ease: 'power4.out',
-                    force3D: true
-                }
-            );
-
-            ScrollTrigger.create({
-                trigger: banner,
-                start: 'top 88%',
-                onEnter: () => bannerTl.play(),
-                onLeaveBack: () => bannerTl.reverse(),
-                onUpdate: (self) => {
-                    if (self.direction === -1) {
-                        bannerTl.reverse();
-                    } else if (self.direction === 1) {
-                        bannerTl.play();
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: banner,
+                        start: 'top 88%',
+                        toggleActions: 'play none none reverse'
                     }
                 }
-            });
+            );
         }
 
         // Recalibrate trigger dimensions immediately and when all assets settle
@@ -653,9 +606,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         { opacity: 1, y: 0, duration: 0.32, ease: 'power2.out', overwrite: 'auto' }
                     );
                 }
-                if (typeof setupDietSectionTriggers === 'function') {
-                    setupDietSectionTriggers(targetSection, true);
-                }
             } else {
                 section.classList.remove('active');
                 if (typeof gsap !== 'undefined') {
@@ -663,6 +613,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+
+        if (targetSection && typeof setupDietSectionTriggers === 'function') {
+            setupDietSectionTriggers(targetSection, true);
+        }
 
         // 3. Scroll position adjustment
         if (shouldScrollToDishes && targetSection) {
