@@ -263,8 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rightCard = row.right;
 
                 // Hardware-accelerated off-axis offsets (-75px left, +75px right) and 0 opacity
-                if (leftCard) gsap.set(leftCard, { x: -75, opacity: 0, force3d: true });
-                if (rightCard) gsap.set(rightCard, { x: 75, opacity: 0, force3d: true });
+                if (leftCard) gsap.set(leftCard, { x: -75, opacity: 0, force3D: true });
+                if (rightCard) gsap.set(rightCard, { x: 75, opacity: 0, force3D: true });
 
                 // Individual row trigger: each row animates crisply when entering the screen view (18% above bottom)
                 const rowTl = gsap.timeline({
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     defaults: {
                         duration: 0.85,
                         ease: 'power4.out',
-                        force3d: true
+                        force3D: true
                     }
                 });
 
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         paused: true,
                         defaults: {
                             ease: 'power3.out',
-                            force3d: true
+                            force3D: true
                         },
                         onStart: () => {
                             // Disable pointer events during entrance so hover CSS transitions do not fire
@@ -385,22 +385,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (header) {
                         tl.fromTo(header,
                             { y: headerEntranceY, opacity: 0 },
-                            { y: 0, opacity: 1, duration: isMobile ? 0.7 : 0.8, force3d: true },
+                            { y: 0, opacity: 1, duration: isMobile ? 0.7 : 0.8, force3D: true },
                             0
                         );
                     }
                     if (cards && cards.length > 0) {
-                        // Pure GPU Y-axis transform with force3d: true (eliminates image re-rasterization and flickering)
+                        // Pure GPU Y-axis transform with force3D: true (eliminates image re-rasterization and flickering)
                         tl.fromTo(cards,
                             { y: cardEntranceY },
-                            { y: 0, duration: entranceDuration, stagger: staggerDuration, force3d: true },
+                            { y: 0, duration: entranceDuration, stagger: staggerDuration, force3D: true },
                             '-=0.5'
                         );
                     }
                 } else {
                     hasCompletedEntrance = true;
                     if (cards.length > 0) {
-                        gsap.set(cards, { y: 0, force3d: true });
+                        gsap.set(cards, { y: 0, force3D: true });
                         cards.forEach(c => c.style.pointerEvents = '');
                     }
                 }
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 duration: nudgeDuration,
                                 ease: 'power3.out',
                                 overwrite: 'auto',
-                                force3d: true
+                                force3D: true
                             });
                         } else if (self.direction === 1) {
                             // Return cards smoothly to baseline position with hardware-accelerated 3D transforms
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 duration: returnDuration,
                                 ease: 'power2.out',
                                 overwrite: 'auto',
-                                force3d: true
+                                force3D: true
                             });
                         }
                     }
@@ -459,15 +459,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (banner) {
             const bannerTl = gsap.timeline({
                 paused: true,
-                defaults: { ease: 'power4.out', force3d: true }
+                defaults: { ease: 'power4.out', force3D: true }
             });
             bannerTl.fromTo(banner,
-                { y: 75, force3d: true },
+                { y: 75, force3D: true },
                 {
                     y: 0,
                     duration: 0.95,
                     ease: 'power4.out',
-                    force3d: true
+                    force3D: true
                 }
             );
 
@@ -644,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
                     const activeCards = section.querySelectorAll('.menu-item-card');
                     const activeHeaders = section.querySelectorAll('.diet-header');
-                    if (activeCards.length > 0) gsap.set(activeCards, { y: 0, force3d: true });
+                    if (activeCards.length > 0) gsap.set(activeCards, { y: 0, force3D: true });
                     if (activeHeaders.length > 0) gsap.set(activeHeaders, { opacity: 1, y: 0 });
                 }
                 if (typeof setupDietSectionTriggers === 'function') {
@@ -717,3 +717,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
