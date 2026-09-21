@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         toggleActions: 'play none none reverse'
                     },
                     defaults: {
-                        ease: 'power4.out',
+                        ease: 'power3.out',
                         force3D: true
                     },
                     onStart: () => {
@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     y: 0,
                     duration: 0.95,
-                    ease: 'power4.out',
+                    ease: 'power3.out',
                     force3D: true,
                     scrollTrigger: {
                         trigger: banner,
