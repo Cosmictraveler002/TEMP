@@ -449,6 +449,66 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         }
 
+        // 4. Page 4: Find Us & Map Showcase Entrance
+        const findUsSection = document.querySelector('#page4');
+        if (findUsSection) {
+            const findUsHeader = findUsSection.querySelector('.find-us-header');
+            const findUsMap = findUsSection.querySelector('.find-us-map-card');
+            const findUsCards = findUsSection.querySelectorAll('.find-us-info-card');
+
+            if (findUsHeader) {
+                gsap.fromTo(findUsHeader,
+                    { y: 45, force3D: true },
+                    {
+                        y: 0,
+                        duration: 0.85,
+                        ease: 'power3.out',
+                        force3D: true,
+                        scrollTrigger: {
+                            trigger: findUsHeader,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            }
+
+            if (findUsMap) {
+                gsap.fromTo(findUsMap,
+                    { y: 55, force3D: true },
+                    {
+                        y: 0,
+                        duration: 0.9,
+                        ease: 'power3.out',
+                        force3D: true,
+                        scrollTrigger: {
+                            trigger: findUsMap,
+                            start: 'top 82%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            }
+
+            if (findUsCards.length > 0) {
+                gsap.fromTo(findUsCards,
+                    { y: 55, force3D: true },
+                    {
+                        y: 0,
+                        duration: 0.85,
+                        stagger: 0.1,
+                        ease: 'power3.out',
+                        force3D: true,
+                        scrollTrigger: {
+                            trigger: findUsCards[0],
+                            start: 'top 82%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            }
+        }
+
         // Recalibrate trigger dimensions immediately and when all assets settle
         ScrollTrigger.refresh();
         window.addEventListener('load', () => {
@@ -481,6 +541,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el) {
             el.addEventListener('click', handleExploreClick);
         }
+    });
+
+    // Smooth scroll for other in-page nav links (#page1, #page2, #page4, #page5)
+    const otherNavLinks = document.querySelectorAll('a[href^="#"]:not([href="#page3"]):not([href="#"])');
+    otherNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const targetId = link.getAttribute('href').slice(1);
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                const targetY = targetEl.getBoundingClientRect().top + window.scrollY - 70;
+                window.scrollTo({
+                    top: targetY,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
 
     // =========================================================================
