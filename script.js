@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ScrollTrigger.refresh();
                     }
                 }, 500);
-            }, 1500);
+            }, 1200);
         };
 
         // Trigger on mouse wheel scroll downward when at hero
