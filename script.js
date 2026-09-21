@@ -640,10 +640,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Landing page Category Activation (Handles both Mobile Section 0 Cards and Desktop Nav Pills)
-    const categoryPills = document.querySelectorAll('.menu-categories-nav .category-pill');
+    // Landing page Category Activation for #page3 Desktop Nav Pills
+    const categoryPills = document.querySelectorAll('#page3 .menu-categories-nav .category-pill');
     const landingCategorySections = document.querySelectorAll('#page3 .menu-category-section');
-    const section0CategoryCards = document.querySelectorAll('#section-0 .section-0-card[data-target]');
 
     function activateMenuCategory(targetId, shouldScrollToDishes = false) {
         if (!targetId) return;
@@ -658,16 +657,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 p.classList.remove('active');
                 p.setAttribute('aria-selected', 'false');
-            }
-        });
-
-        // 1b. Synchronize active state on Section 0 mobile category cards
-        const mobileCategoryCards = document.querySelectorAll('#section-0 .section-0-grid .section-0-card[data-target]');
-        mobileCategoryCards.forEach(c => {
-            if (c.getAttribute('data-target') === targetId) {
-                c.classList.add('active');
-            } else {
-                c.classList.remove('active');
             }
         });
 
@@ -695,26 +684,15 @@ document.addEventListener('DOMContentLoaded', () => {
             setupDietSectionTriggers(targetSection, true);
         }
 
-        // 3. Scroll position adjustment
-        if (shouldScrollToDishes && targetSection) {
-            // On mobile Section 0 card tap: smoothly auto-scroll down to the top of the category dishes
-            const yOffset = -24;
-            const targetPos = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({
-                top: targetPos,
-                behavior: 'smooth'
-            });
-        } else {
-            // On desktop tab tap: gently ensure menu container top is in comfortable view if scrolled far
-            const menuSection = document.getElementById('page3');
-            if (menuSection) {
-                const rect = menuSection.getBoundingClientRect();
-                if (rect.top < -50) {
-                    window.scrollTo({
-                        top: window.scrollY + rect.top - 80,
-                        behavior: 'smooth'
-                    });
-                }
+        // 3. Scroll position adjustment for desktop tab tap
+        const menuSection = document.getElementById('page3');
+        if (menuSection) {
+            const rect = menuSection.getBoundingClientRect();
+            if (rect.top < -50) {
+                window.scrollTo({
+                    top: window.scrollY + rect.top - 80,
+                    behavior: 'smooth'
+                });
             }
         }
 
@@ -724,26 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Attach click events for Section 0 Mobile Category Cards (with scroll to dishes)
-    const mobileSection0Cards = document.querySelectorAll('#section-0 .section-0-grid .section-0-card[data-target]');
-    mobileSection0Cards.forEach(card => {
-        const handleCardSelect = (e) => {
-            e.preventDefault();
-            const targetId = card.getAttribute('data-target');
-            if (targetId) {
-                activateMenuCategory(targetId, true);
-            }
-        };
-
-        card.addEventListener('click', handleCardSelect);
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                handleCardSelect(e);
-            }
-        });
-    });
-
-    // Attach click events for Desktop Category Nav Pills
+    // Attach click events for Landing Page Category Nav Pills
     categoryPills.forEach(pill => {
         pill.addEventListener('click', (e) => {
             e.preventDefault();

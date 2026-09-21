@@ -288,6 +288,41 @@
                 gap: 32px;
                 margin-bottom: 40px;
             }
+
+            .menu-page-main .menu-categories-nav {
+                display: flex !important;
+                position: sticky;
+                top: var(--nav-height, 64px);
+                z-index: 40;
+                background-color: rgba(247, 247, 245, 0.95);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                padding: 10px 0;
+                margin-bottom: 20px;
+                gap: 8px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-bottom: 1px solid rgba(18, 19, 26, 0.08);
+            }
+        }
+
+        /* Scroll margin top offset so sticky navbars never obscure category headers */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .category-group-block,
+        #cat-all,
+        #menu-items-catalog {
+            scroll-margin-top: 135px;
+        }
+
+        @media (max-width: 768px) {
+            .category-group-block,
+            #cat-all,
+            #menu-items-catalog {
+                scroll-margin-top: 118px;
+            }
         }
     </style>
 </head>
@@ -318,14 +353,14 @@
             </div>
 
             <!-- Sticky Category Filter Tabs Bar -->
-            <div class="menu-categories-nav">
-                <button class="category-pill active" data-cat="all">All Items</button>
-                <a href="#cat-appetizers" class="category-pill">Appetizers</a>
-                <a href="#cat-continental" class="category-pill">Continental</a>
-                <a href="#cat-beverages" class="category-pill">Beverages</a>
-                <a href="#cat-shakes" class="category-pill">Shakes</a>
-                <a href="#cat-desserts" class="category-pill">Desserts</a>
-                <a href="#cat-combos" class="category-pill">Combos</a>
+            <div class="menu-categories-nav" aria-label="Menu Category Tabs">
+                <a href="#cat-all" class="category-pill active" data-cat="all">All Specials</a>
+                <a href="#cat-appetizers" class="category-pill" data-cat="appetizers">Appetizers</a>
+                <a href="#cat-continental" class="category-pill" data-cat="continental">Continental</a>
+                <a href="#cat-beverages" class="category-pill" data-cat="beverages">Beverages</a>
+                <a href="#cat-shakes" class="category-pill" data-cat="shakes">Shakes</a>
+                <a href="#cat-desserts" class="category-pill" data-cat="desserts">Desserts</a>
+                <a href="#cat-combos" class="category-pill" data-cat="combos">Combos</a>
             </div>
 
             <!-- Search & Filter Toolbar -->
@@ -343,6 +378,7 @@
 
             <!-- Menu Content Wrapper -->
             <div class="menu-sections-wrapper" id="menu-items-catalog">
+                <div id="cat-all"></div>
 
                 <!-- ========================================================
                      1. APPETIZERS CATEGORY
@@ -799,20 +835,20 @@
                 </div>
 
                 <!-- ========================================================
-                     4. SHAKES & DESSERTS CATEGORY
+                     4. SHAKES CATEGORY
                      ======================================================== -->
                 <div class="category-group-block" id="cat-shakes">
                     <div class="category-super-header">
-                        <h2 class="category-super-title">Shakes & Sweet Indulgence</h2>
-                        <span class="category-super-count">Desserts & Thick Shakes</span>
+                        <h2 class="category-super-title">Artisan Thick Milkshakes</h2>
+                        <span class="category-super-count">Creamy Ice Cream Shakes</span>
                     </div>
 
-                    <!-- Veg Shakes & Desserts -->
+                    <!-- Veg Shakes -->
                     <div class="menu-category-section" data-diet="veg">
                         <div class="category-header">
                             <span class="category-section-tag veg-tag">Veg Specials</span>
-                            <h3 class="category-title">Belgian Waffles, Oreo Shake & Molten Lava</h3>
-                            <p class="category-subtitle">Warm fresh waffles, chocolate explosion & thick ice cream milkshakes.</p>
+                            <h3 class="category-title">Artisan Thick Milkshakes</h3>
+                            <p class="category-subtitle">Rich, creamy artisan milkshakes crowned with velvety vanilla ice cream.</p>
                         </div>
                         <div class="menu-items-grid">
                             <!-- Oreo Shake -->
@@ -837,6 +873,70 @@
                                 </div>
                             </div>
 
+                            <!-- Belgian Chocolate Shake -->
+                            <div class="menu-item-card" data-name="Belgian Chocolate Shake" data-type="veg" data-keywords="belgian chocolate shake milkshake dark cocoa curls fudge">
+                                <div class="item-img-box">
+                                    <img src="images/belgian_chocolate_shake.jpg" alt="Belgian Chocolate Shake" class="item-food-img" loading="lazy">
+                                    <span class="item-portion-tag">Glass</span>
+                                </div>
+                                <div class="item-content-box">
+                                    <span class="subcategory-tag">Shakes</span>
+                                    <div class="item-header-row">
+                                        <h4 class="item-title">Belgian Chocolate Shake</h4>
+                                        <span class="item-price">₹160</span>
+                                    </div>
+                                    <p class="item-description">Ultra-rich Belgian chocolate milkshake blended with dark cocoa fudge and creamy ice cream.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-ingredient-hint">Belgian Cocoa • Choco Curls</span>
+                                        <button class="item-order-btn" aria-label="Add Chocolate Shake" data-dish="Belgian Chocolate Shake" data-price="160">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- KitKat Thick Shake -->
+                            <div class="menu-item-card" data-name="KitKat Thick Shake" data-type="veg" data-keywords="kitkat thick shake milkshake chocolate wafer cream">
+                                <div class="item-img-box">
+                                    <img src="images/kitkat_shake.jpg" alt="KitKat Thick Shake" class="item-food-img" loading="lazy">
+                                    <span class="item-portion-tag">Thick Jar</span>
+                                </div>
+                                <div class="item-content-box">
+                                    <span class="subcategory-tag">Shakes</span>
+                                    <div class="item-header-row">
+                                        <h4 class="item-title">KitKat Thick Shake</h4>
+                                        <span class="item-price">₹160</span>
+                                    </div>
+                                    <p class="item-description">Crunchy wafer KitKat bars blended into a decadent chocolate shake with whipped topping.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-ingredient-hint">KitKat Crunch • Whipped Cream</span>
+                                        <button class="item-order-btn" aria-label="Add KitKat Shake" data-dish="KitKat Thick Shake" data-price="160">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================================
+                     5. DESSERTS CATEGORY
+                     ======================================================== -->
+                <div class="category-group-block" id="cat-desserts">
+                    <div class="category-super-header">
+                        <h2 class="category-super-title">Desserts & Sweet Treats</h2>
+                        <span class="category-super-count">Warm Waffles & Molten Cakes</span>
+                    </div>
+
+                    <!-- Veg Desserts -->
+                    <div class="menu-category-section" data-diet="veg">
+                        <div class="category-header">
+                            <span class="category-section-tag veg-tag">Sweet Treats</span>
+                            <h3 class="category-title">Belgian Waffles & Molten Cakes</h3>
+                            <p class="category-subtitle">Warm fresh waffles, rich hazelnut spread & molten chocolate eruption.</p>
+                        </div>
+                        <div class="menu-items-grid">
                             <!-- Nutella Belgian Waffle -->
                             <div class="menu-item-card" data-name="Nutella Belgian Waffle with Ice Cream" data-type="veg" data-keywords="nutella belgian waffle ice cream chocolate">
                                 <div class="item-img-box">
@@ -980,7 +1080,7 @@
         <span id="toast-message">Item added to your order!</span>
     </div>
 
-    <!-- Script for Live Search, Filters, and Interactive Feedback -->
+    <!-- Script for Live Search, Filters, Category Navigation, and Order Feedback -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('menu-search-input');
@@ -993,10 +1093,11 @@
             let currentFilter = 'all';
             let searchQuery = '';
 
+            // 1. Live Menu Filtering
             function filterMenu() {
                 cards.forEach(card => {
                     const type = card.getAttribute('data-type');
-                    const name = card.getAttribute('data-name').toLowerCase();
+                    const name = card.getAttribute('data-name') ? card.getAttribute('data-name').toLowerCase() : '';
                     const keywords = card.getAttribute('data-keywords') ? card.getAttribute('data-keywords').toLowerCase() : '';
 
                     const matchesType = (currentFilter === 'all') || (type === currentFilter);
@@ -1025,7 +1126,125 @@
                     filterMenu();
                 });
             });
+
+            // 2. Order Button Toast Trigger
+            const orderBtns = document.querySelectorAll('.item-order-btn');
+            orderBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const dish = btn.getAttribute('data-dish') || 'Item';
+                    if (toast && toastMessage) {
+                        toastMessage.textContent = dish + ' added to your order!';
+                        toast.classList.add('show');
+                        clearTimeout(toastTimer);
+                        toastTimer = setTimeout(() => {
+                            toast.classList.remove('show');
+                        }, 2500);
+                    }
+                });
             });
+
+            // 3. Category Navigation & Accurate Scroll Offset Handling
+            const categoryPills = document.querySelectorAll('.menu-categories-nav .category-pill');
+            const categoryBlocks = document.querySelectorAll('.category-group-block');
+
+            function getNavbarOffset() {
+                const nav = document.getElementById('nav');
+                const catNav = document.querySelector('.menu-categories-nav');
+                const navH = nav ? nav.offsetHeight : 64;
+                const catNavH = catNav ? catNav.offsetHeight : 48;
+                return navH + catNavH + 10;
+            }
+
+            function setActiveCategoryPill(targetHash) {
+                if (!targetHash) return;
+                const clean = targetHash.replace('#', '').toLowerCase();
+                categoryPills.forEach(pill => {
+                    const href = pill.getAttribute('href');
+                    const dataCat = pill.getAttribute('data-cat');
+                    const isMatch = (href && href.replace('#', '').toLowerCase() === clean) ||
+                                    (dataCat && (dataCat.toLowerCase() === clean || 'cat-' + dataCat.toLowerCase() === clean));
+                    if (isMatch) {
+                        pill.classList.add('active');
+                        pill.setAttribute('aria-selected', 'true');
+                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    } else {
+                        pill.classList.remove('active');
+                        pill.setAttribute('aria-selected', 'false');
+                    }
+                });
+            }
+
+            function scrollToCategorySection(targetHash, isSmooth = true) {
+                if (!targetHash) return;
+                let targetEl = null;
+                if (targetHash === '#cat-all' || targetHash === '#all') {
+                    targetEl = document.getElementById('menu-items-catalog') || document.querySelector('.menu-sections-wrapper');
+                } else {
+                    targetEl = document.querySelector(targetHash);
+                }
+
+                if (!targetEl) return;
+
+                const offset = getNavbarOffset();
+                const elementTop = targetEl.getBoundingClientRect().top + window.pageYOffset;
+                const finalY = Math.max(0, elementTop - offset);
+
+                window.scrollTo({
+                    top: finalY,
+                    behavior: isSmooth ? 'smooth' : 'auto'
+                });
+
+                setActiveCategoryPill(targetHash);
+            }
+
+            // Click listener for sticky category pills
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', (e) => {
+                    const href = pill.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        if (history.replaceState) {
+                            history.replaceState(null, null, href);
+                        }
+                        scrollToCategorySection(href, true);
+                    }
+                });
+            });
+
+            // Handle incoming hash on load (e.g. from Section 0 mobile taps)
+            const initialHash = window.location.hash;
+            if (initialHash) {
+                setActiveCategoryPill(initialHash);
+                // Initial jump
+                setTimeout(() => {
+                    scrollToCategorySection(initialHash, false);
+                }, 100);
+                // Secondary check once all images/fonts layout is stabilized
+                setTimeout(() => {
+                    scrollToCategorySection(initialHash, true);
+                }, 350);
+            }
+
+            // Scrollspy with IntersectionObserver to highlight category in view
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    // Find the intersecting entry closest to top
+                    const visibleEntries = entries.filter(e => e.isIntersecting);
+                    if (visibleEntries.length > 0) {
+                        const topEntry = visibleEntries[0];
+                        const id = topEntry.target.getAttribute('id');
+                        if (id) {
+                            setActiveCategoryPill('#' + id);
+                        }
+                    }
+                }, {
+                    rootMargin: '-25% 0px -60% 0px',
+                    threshold: 0
+                });
+
+                categoryBlocks.forEach(block => observer.observe(block));
+            }
         });
     </script>
     <!-- GSAP Library -->

@@ -2279,8 +2279,8 @@ body {
     transform: translateX(3px);
   }
 
-  /* Hide category horizontal pills nav on mobile (replaced by Section 0 category cards) */
-  .menu-categories-nav {
+  /* Hide category horizontal pills nav on landing page mobile (replaced by Section 0 category cards) */
+  #page3 .menu-categories-nav {
     display: none !important;
   }
 
