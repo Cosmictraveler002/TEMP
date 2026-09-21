@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Separate Direction-Reactive Triggers for EACH Diet Section (Scoped to Active Category Section)
         let activeDietTriggers = [];
 
-        function setupDietSectionTriggers(sectionElement, isInitialEntrance = true) {
+        function setupDietSectionTriggers(sectionElement, isTabSwitch = false) {
             // Clean up any previous diet ScrollTriggers to eliminate ghost triggers
             activeDietTriggers.forEach(st => {
                 if (st && st.kill) st.kill();
@@ -351,68 +351,70 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!sectionElement) return;
             const dietBlocks = sectionElement.querySelectorAll('.category-diet-block');
 
-            dietBlocks.forEach((block) => {
+            dietBlocks.forEach((block, blockIndex) => {
                 const header = block.querySelector('.diet-header');
                 const cards = block.querySelectorAll('.menu-item-card');
 
                 const isMobile = window.innerWidth <= 768;
-                const headerEntranceY = isMobile ? 32 : 55;
-                const cardEntranceY = isMobile ? 80 : 150;
-                const entranceDuration = isMobile ? 0.9 : 1.1;
-                const staggerDuration = isMobile ? 0.06 : 0.08;
+                const headerEntranceY = isMobile ? 28 : 45;
+                const cardEntranceY = isMobile ? 60 : 95;
+                const entranceDuration = isMobile ? 0.8 : 0.95;
+                const staggerDuration = isMobile ? 0.05 : 0.08;
 
-                let hasCompletedEntrance = !isInitialEntrance;
+                let hasCompletedEntrance = false;
                 let lastScrollDirection = 0;
 
-                let tl = null;
-                if (isInitialEntrance) {
-                    tl = gsap.timeline({
-                        paused: true,
-                        defaults: {
-                            ease: 'power3.out',
-                            force3D: true
-                        },
-                        onStart: () => {
-                            // Disable pointer events during entrance so hover CSS transitions do not fire
-                            cards.forEach(c => c.style.pointerEvents = 'none');
-                        },
-                        onComplete: () => {
-                            hasCompletedEntrance = true;
-                            cards.forEach(c => c.style.pointerEvents = '');
-                        }
-                    });
-
-                    if (header) {
-                        tl.fromTo(header,
-                            { y: headerEntranceY, opacity: 0 },
-                            { y: 0, opacity: 1, duration: isMobile ? 0.7 : 0.8, force3D: true },
-                            0
-                        );
-                    }
-                    if (cards && cards.length > 0) {
-                        // Pure GPU Y-axis transform with force3D: true (eliminates image re-rasterization and flickering)
-                        tl.fromTo(cards,
-                            { y: cardEntranceY },
-                            { y: 0, duration: entranceDuration, stagger: staggerDuration, force3D: true },
-                            '-=0.5'
-                        );
-                    }
-                } else {
-                    hasCompletedEntrance = true;
-                    if (cards.length > 0) {
-                        gsap.set(cards, { y: 0, force3D: true });
+                const tl = gsap.timeline({
+                    paused: true,
+                    defaults: {
+                        ease: 'power4.out',
+                        force3D: true
+                    },
+                    onStart: () => {
+                        // Disable pointer events during entrance so hover CSS transitions do not fire
+                        cards.forEach(c => c.style.pointerEvents = 'none');
+                    },
+                    onComplete: () => {
+                        hasCompletedEntrance = true;
                         cards.forEach(c => c.style.pointerEvents = '');
+                    },
+                    onReverseComplete: () => {
+                        hasCompletedEntrance = false;
                     }
+                });
+
+                if (header) {
+                    tl.fromTo(header,
+                        { y: headerEntranceY, opacity: 0 },
+                        { y: 0, opacity: 1, duration: isMobile ? 0.6 : 0.75, ease: 'power3.out', force3D: true },
+                        0
+                    );
                 }
+                if (cards && cards.length > 0) {
+                    // Pure GPU Y-axis uprise transform with force3D: true (retaining opacity at 1 per user request)
+                    tl.fromTo(cards,
+                        { y: cardEntranceY },
+                        { y: 0, duration: entranceDuration, stagger: staggerDuration, ease: 'power4.out', force3D: true },
+                        header ? 0.08 : 0
+                    );
+                }
+
+                // Calibrated trigger positions: Block 1 triggers at 75% viewport (25% above bottom), Block 2 triggers at 65% viewport (35% above bottom)
+                // This guarantees Block 2 does not fire prematurely or collide with Block 1 on desktop & large screens
+                const triggerStart = isMobile ? 'top 72%' : (blockIndex === 0 ? 'top 75%' : 'top 65%');
 
                 const st = ScrollTrigger.create({
                     trigger: block,
-                    start: 'top 70%',
+                    start: triggerStart,
                     onEnter: () => {
-                        if (tl && !hasCompletedEntrance) tl.play();
+                        tl.play();
+                    },
+                    onLeaveBack: () => {
+                        // Reverse smoothly on scrolling back up above the block so it can re-trigger
+                        tl.reverse();
                     },
                     onUpdate: (self) => {
-                        // Strict guard: NEVER run nudge if entrance is not yet completed
+                        // Strict guard: NEVER run micro-nudge if entrance timeline is active
                         if (!hasCompletedEntrance) return;
 
                         // Only trigger tween when scroll direction actually flips to eliminate tween thrashing/flicker
@@ -420,9 +422,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         lastScrollDirection = self.direction;
 
                         const mobile = window.innerWidth <= 768;
-                        const cardNudgeY = mobile ? 14 : 32;
-                        const nudgeDuration = mobile ? 0.35 : 0.38;
-                        const returnDuration = mobile ? 0.4 : 0.45;
+                        const cardNudgeY = mobile ? 12 : 24;
+                        const nudgeDuration = mobile ? 0.32 : 0.35;
+                        const returnDuration = mobile ? 0.38 : 0.42;
 
                         if (self.direction === -1) {
                             // Repellent micro-nudge for cards only with hardware-accelerated 3D transforms
@@ -438,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             gsap.to(cards, {
                                 y: 0,
                                 duration: returnDuration,
-                                ease: 'power2.out',
+                                ease: 'power3.out',
                                 overwrite: 'auto',
                                 force3D: true
                             });
@@ -447,12 +449,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 activeDietTriggers.push(st);
+
+                // If tab switch occurred, trigger entrance immediately on currently visible blocks
+                if (isTabSwitch) {
+                    const rect = block.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
+                        tl.play();
+                    }
+                }
             });
         }
 
         // Initialize diet section triggers ONLY for the initially active section (default: All Specials)
         const initialActiveSection = document.querySelector('#page3 .menu-category-section.active') || document.getElementById('section-all-specials');
-        setupDietSectionTriggers(initialActiveSection, true);
+        setupDietSectionTriggers(initialActiveSection, false);
 
         // 3. View All Banner at bottom of menu: Direction-reactive entrance and retreat
         const banner = document.querySelector('.menu-view-all-banner');
@@ -642,13 +652,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         { opacity: 0, y: 14 },
                         { opacity: 1, y: 0, duration: 0.32, ease: 'power2.out', overwrite: 'auto' }
                     );
-                    const activeCards = section.querySelectorAll('.menu-item-card');
-                    const activeHeaders = section.querySelectorAll('.diet-header');
-                    if (activeCards.length > 0) gsap.set(activeCards, { y: 0, force3D: true });
-                    if (activeHeaders.length > 0) gsap.set(activeHeaders, { opacity: 1, y: 0 });
                 }
                 if (typeof setupDietSectionTriggers === 'function') {
-                    setupDietSectionTriggers(targetSection, false);
+                    setupDietSectionTriggers(targetSection, true);
                 }
             } else {
                 section.classList.remove('active');
