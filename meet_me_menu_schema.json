@@ -1,0 +1,1127 @@
+{
+  "restaurant": "Meet Me",
+  "menu_title": "Meet Me Special Menu",
+  "currency": "INR",
+  "contact": {
+    "email": "connect.meetme@gmail.com",
+    "address": "B-1/430, near Picnic Garden Bus Stand, B1, Block B, Kalyani, West Bengal 741235"
+  },
+  "sections": [
+    {
+      "page": 1,
+      "section": "Appetizers",
+      "subsections": [
+        {
+          "name": "Fried Heavenly",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "Chicken Strips",
+              "detail": "4 piece",
+              "price": 140
+            },
+            {
+              "name": "Fried Wings",
+              "detail": "2 piece, tossed",
+              "price": 160
+            },
+            {
+              "name": "Chicken Fried Leg",
+              "detail": "2 piece, tossed",
+              "price": 180
+            },
+            {
+              "name": "Chicken Chatpata",
+              "detail": "6 piece",
+              "price": 180
+            },
+            {
+              "name": "Faltu Chicken",
+              "detail": "12 piece",
+              "price": 180
+            },
+            {
+              "name": "Pepper Chicken",
+              "price": 190
+            },
+            {
+              "name": "Dry Chili Fish",
+              "detail": "6 piece",
+              "price": 200
+            },
+            {
+              "name": "Fish and Chips",
+              "price": 250
+            },
+            {
+              "name": "Fish Fry",
+              "variants": [
+                {
+                  "label": "Basa",
+                  "price": 100
+                },
+                {
+                  "label": "Vetki",
+                  "price": 130
+                }
+              ]
+            },
+            {
+              "name": "Fish Finger",
+              "detail": "4 piece",
+              "variants": [
+                {
+                  "label": "Basa",
+                  "price": 150
+                },
+                {
+                  "label": "Vetki",
+                  "price": 180
+                }
+              ]
+            },
+            {
+              "name": "Chicken Cutlet",
+              "price": 80
+            },
+            {
+              "name": "Nuggets",
+              "detail": "6 piece",
+              "price": 100
+            },
+            {
+              "name": "Chicken Cheese Balls",
+              "detail": "6 piece",
+              "price": 100
+            },
+            {
+              "name": "Chicken Pakoda",
+              "detail": "4 piece",
+              "price": 100
+            },
+            {
+              "name": "Chicken Popcorn",
+              "detail": "12 piece",
+              "price": 120
+            },
+            {
+              "name": "Chicken Lolipop",
+              "detail": "4 piece",
+              "price": 120
+            },
+            {
+              "name": "Drums of Hell",
+              "detail": "4 piece",
+              "price": 150
+            },
+            {
+              "name": "Crispy Chicken",
+              "price": 150
+            },
+            {
+              "name": "Dry Chili Chicken",
+              "detail": "6 piece",
+              "price": 160
+            },
+            {
+              "name": "Chicken Manchurian Dry",
+              "detail": "6 piece",
+              "price": 180
+            }
+          ]
+        },
+        {
+          "name": "Fried Heavenly",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "Classic French Fry",
+              "price": 70
+            },
+            {
+              "name": "Peri Peri French Fry",
+              "price": 90
+            },
+            {
+              "name": "Potato Chili Balls",
+              "detail": "16 piece",
+              "price": 100
+            },
+            {
+              "name": "Potato Cheese Balls",
+              "detail": "10 piece",
+              "price": 120
+            },
+            {
+              "name": "Honey Chilli Potatoes",
+              "price": 150
+            },
+            {
+              "name": "Crispy Chili Babycorn",
+              "price": 200
+            },
+            {
+              "name": "Zigzag French Fry",
+              "price": 130
+            },
+            {
+              "name": "Paneer Ball",
+              "detail": "12 piece",
+              "price": 140
+            },
+            {
+              "name": "Paneer Pakora",
+              "detail": "4 piece",
+              "price": 170
+            },
+            {
+              "name": "Dry Chili Baby Corn",
+              "price": 200
+            },
+            {
+              "name": "Dry Chili Mushroom",
+              "price": 200
+            },
+            {
+              "name": "Faltu Paneer Masala",
+              "price": 200
+            },
+            {
+              "name": "Crispy Bamboo Sticks",
+              "price": 200
+            }
+          ]
+        },
+        {
+          "name": "Maggi",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "Chicken Maggi",
+              "price": 80
+            },
+            {
+              "name": "Meet Me Special",
+              "detail": "made with egg, chicken, cheese",
+              "price": 100
+            }
+          ]
+        },
+        {
+          "name": "Maggi",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "Veg Maggi",
+              "price": 50
+            },
+            {
+              "name": "Cheese Maggi",
+              "price": 60
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "section": "Continental",
+      "subsections": [
+        {
+          "name": "Burger",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "Chicken Burger",
+              "price": 100
+            },
+            {
+              "name": "Cheese Chicken Burger",
+              "price": 120
+            },
+            {
+              "name": "Jumbo Chicken Burger",
+              "price": 180
+            },
+            {
+              "name": "Chicken Jalapeño Burger",
+              "price": 180
+            },
+            {
+              "name": "Chicken Maxicano Burger",
+              "price": 190
+            }
+          ]
+        },
+        {
+          "name": "Burger",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "Veg Burger",
+              "price": 80
+            },
+            {
+              "name": "Cheese Burger",
+              "price": 100
+            },
+            {
+              "name": "Jumbo Burger",
+              "price": 150
+            },
+            {
+              "name": "Paneer Jalapeño Burger",
+              "price": 180
+            },
+            {
+              "name": "Cheese Corn Burger",
+              "price": 160
+            }
+          ]
+        },
+        {
+          "name": "Sandwich",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "Chicken Peri Peri Sandwich",
+              "price": 100
+            },
+            {
+              "name": "Chicken Spanish Sandwich",
+              "price": 110
+            },
+            {
+              "name": "Chicken Cottage Sandwich",
+              "price": 120
+            }
+          ]
+        },
+        {
+          "name": "Sandwich",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "Veg Peri Peri Sandwich",
+              "price": 80
+            },
+            {
+              "name": "Veg Spanish Sandwich",
+              "price": 90
+            },
+            {
+              "name": "Veg Cottage Sandwich",
+              "price": 100
+            }
+          ]
+        },
+        {
+          "name": "Pasta",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "Chicken Akhri Pasta",
+              "price": 130
+            },
+            {
+              "name": "Chicken Nini Pasta",
+              "price": 140
+            },
+            {
+              "name": "Chicken Mix Pasta",
+              "price": 160
+            }
+          ]
+        },
+        {
+          "name": "Pasta",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "Akhri Pasta (Veg)",
+              "price": 110
+            },
+            {
+              "name": "Veg Nini Pasta",
+              "price": 120
+            },
+            {
+              "name": "Veg Mixed Pasta",
+              "price": 140
+            }
+          ]
+        },
+        {
+          "name": "Momo",
+          "diet": "non-veg",
+          "note": "6 piece per serving",
+          "items": [
+            {
+              "name": "Chicken Steam Momo",
+              "price": 80
+            },
+            {
+              "name": "Chicken Fried Momo",
+              "price": 90
+            },
+            {
+              "name": "Chicken Kurkure Momo",
+              "price": 100
+            },
+            {
+              "name": "Chicken Pan Fried Momo",
+              "price": 120
+            }
+          ]
+        },
+        {
+          "name": "Momo",
+          "diet": "veg",
+          "note": "6 piece per serving",
+          "items": [
+            {
+              "name": "Steamed Veg Momo",
+              "price": 70
+            },
+            {
+              "name": "Kurkure Veg Momo",
+              "price": 110
+            },
+            {
+              "name": "Paneer Momo",
+              "price": 90
+            },
+            {
+              "name": "Pan Fried Veg Momo",
+              "price": 110
+            }
+          ]
+        },
+        {
+          "name": "Salad",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "Chicken Peri Peri",
+              "price": 150
+            },
+            {
+              "name": "Chicken Exotica",
+              "price": 170
+            }
+          ]
+        },
+        {
+          "name": "Salad",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "Peri Peri",
+              "price": 130
+            },
+            {
+              "name": "Exotica",
+              "price": 150
+            }
+          ]
+        },
+        {
+          "name": "Wraps",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "Egg Wrap",
+              "price": 140
+            },
+            {
+              "name": "Chicken Wrap",
+              "price": 150
+            },
+            {
+              "name": "Chicken Exotica Wrap",
+              "price": 190
+            }
+          ]
+        },
+        {
+          "name": "Wraps",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "Potato Cheese Wrap",
+              "price": 130
+            },
+            {
+              "name": "Paneer Wrap",
+              "price": 160
+            },
+            {
+              "name": "Paneer Exotica Wrap",
+              "price": 190
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "section": "Beverages & Mocktails",
+      "subsections": [
+        {
+          "name": "Coffee",
+          "items": [
+            {
+              "name": "Milk Coffee",
+              "price": 40
+            },
+            {
+              "name": "Black Coffee",
+              "price": 40
+            },
+            {
+              "name": "Cold Coffee",
+              "price": 100
+            },
+            {
+              "name": "Cold Coffee with Ice Cream",
+              "price": 120
+            },
+            {
+              "name": "Espresso",
+              "price": 100
+            },
+            {
+              "name": "Iced Latte",
+              "price": 110
+            },
+            {
+              "name": "Capachino Coffee",
+              "price": 120
+            },
+            {
+              "name": "Caramel Coffee",
+              "price": 120
+            },
+            {
+              "name": "Vanilla Coffee",
+              "price": 120
+            },
+            {
+              "name": "Butter Scotch Coffee",
+              "price": 130
+            },
+            {
+              "name": "Hazel nut Coffee",
+              "price": 140
+            }
+          ]
+        },
+        {
+          "name": "Tea",
+          "items": [
+            {
+              "name": "Liquor Tea",
+              "price": 15
+            },
+            {
+              "name": "Milk Tea",
+              "price": 20
+            },
+            {
+              "name": "Ginger Milk Tea",
+              "price": 20
+            },
+            {
+              "name": "Malai Milk Tea",
+              "price": 30
+            },
+            {
+              "name": "Lemon Tea",
+              "price": 20
+            },
+            {
+              "name": "Mint Tea",
+              "price": 20
+            },
+            {
+              "name": "Ice Tea",
+              "price": 25
+            }
+          ]
+        },
+        {
+          "name": "Mocktails",
+          "items": [
+            {
+              "name": "Meet Me Spacial Mocktail",
+              "price": 80
+            },
+            {
+              "name": "Green Apple Mocktail",
+              "price": 70
+            },
+            {
+              "name": "Virgin Mojito Mocktail",
+              "price": 70
+            },
+            {
+              "name": "Passion Fruit Mocktail",
+              "price": 70
+            },
+            {
+              "name": "Mango Mocktail",
+              "price": 70
+            },
+            {
+              "name": "Strawberry Mocktail",
+              "price": 70
+            },
+            {
+              "name": "Pineapple Mocktail",
+              "price": 70
+            },
+            {
+              "name": "Butterscotch Mocktail",
+              "price": 70
+            }
+          ]
+        },
+        {
+          "name": "Matcha (Hot)",
+          "items": [
+            {
+              "name": "Classic Matcha Latte",
+              "price": 120
+            },
+            {
+              "name": "Mint Lemonade Matcha",
+              "price": 130
+            },
+            {
+              "name": "Vanilla Matcha Latte",
+              "price": 140
+            },
+            {
+              "name": "Strawberry Matcha Latte",
+              "price": 140
+            }
+          ]
+        },
+        {
+          "name": "Matcha (Cold)",
+          "items": [
+            {
+              "name": "Iced Matcha Latte",
+              "price": 120
+            },
+            {
+              "name": "Iced Coconut Matcha",
+              "price": 130
+            },
+            {
+              "name": "Iced Matcha Lemonade",
+              "price": 140
+            },
+            {
+              "name": "Strawberry Matcha Swirl",
+              "price": 140
+            },
+            {
+              "name": "Mango Matcha Iced Latte",
+              "price": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "section": "Beverages",
+      "subsections": [
+        {
+          "name": "Bubble Tea",
+          "items": [
+            {
+              "name": "Classic Matcha Bubble Tea",
+              "price": 150
+            },
+            {
+              "name": "Strawberry Popping Boba",
+              "price": 160
+            },
+            {
+              "name": "Taro Base Bubble Tea",
+              "price": 170
+            },
+            {
+              "name": "Coffee Mocha Bubble Tea",
+              "price": 180
+            }
+          ]
+        },
+        {
+          "name": "Fresh Juice",
+          "items": [
+            {
+              "name": "Lime Juice",
+              "price": 40
+            },
+            {
+              "name": "Mint Lime Juice",
+              "price": 30
+            },
+            {
+              "name": "Pineapple Lime Juice",
+              "price": 50
+            },
+            {
+              "name": "Mosambi Juice",
+              "price": 60
+            },
+            {
+              "name": "Orange Juice",
+              "price": 60
+            },
+            {
+              "name": "Frooti Juice",
+              "price": 60
+            },
+            {
+              "name": "Watermelon Juice",
+              "price": 60
+            },
+            {
+              "name": "Pineapple Juice",
+              "price": 90
+            },
+            {
+              "name": "Anar Juice",
+              "price": 90
+            },
+            {
+              "name": "Mango Juice",
+              "price": 90
+            }
+          ]
+        },
+        {
+          "name": "Signature Blends",
+          "items": [
+            {
+              "name": "Matcha Banana Smoothie",
+              "price": 150
+            },
+            {
+              "name": "Vanilla Almond Matcha",
+              "price": 160
+            },
+            {
+              "name": "Pineapple Matcha Cooler",
+              "price": 160
+            },
+            {
+              "name": "Blubery Matcha Shake",
+              "price": 170
+            }
+          ]
+        },
+        {
+          "name": "Lassi",
+          "items": [
+            {
+              "name": "Plain Lassi",
+              "price": 60
+            },
+            {
+              "name": "Mango Lassi",
+              "price": 70
+            },
+            {
+              "name": "Strawberry Lassi",
+              "price": 80
+            },
+            {
+              "name": "Kesar Pista Lassi",
+              "price": 80
+            }
+          ]
+        },
+        {
+          "name": "Soft Drink",
+          "items": [
+            {
+              "name": "Coke",
+              "price": 40
+            },
+            {
+              "name": "Sprite",
+              "price": 40
+            },
+            {
+              "name": "Masala Drink",
+              "price": 60
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "section": "Shakes",
+      "subsections": [
+        {
+          "name": "Shakes",
+          "note": "with ice cream",
+          "items": [
+            {
+              "name": "Banana Milk Shake",
+              "price": 150
+            },
+            {
+              "name": "Mango Shake",
+              "price": 150
+            },
+            {
+              "name": "Apple Shake",
+              "price": 150
+            },
+            {
+              "name": "Anar Shake",
+              "price": 150
+            },
+            {
+              "name": "Papaya Shake",
+              "price": 150
+            },
+            {
+              "name": "Strawberry Shake",
+              "price": 150
+            },
+            {
+              "name": "Avocado Shake",
+              "price": 150
+            },
+            {
+              "name": "Kiwi Shake",
+              "price": 150
+            },
+            {
+              "name": "Dragon Fruit Shake",
+              "price": 150
+            },
+            {
+              "name": "Oreo Shake",
+              "price": 150
+            },
+            {
+              "name": "Vanilla Shake",
+              "price": 150
+            },
+            {
+              "name": "Kitkat Shake",
+              "price": 150
+            },
+            {
+              "name": "Choco Lust Shake",
+              "price": 150
+            },
+            {
+              "name": "One Sided Shake",
+              "detail": "two in one",
+              "price": 150
+            },
+            {
+              "name": "Butterscotch Shake",
+              "price": 150
+            }
+          ]
+        },
+        {
+          "name": "Dry Fruit",
+          "items": [
+            {
+              "name": "Dates Shake",
+              "price": 170
+            },
+            {
+              "name": "Pista Shake",
+              "price": 170
+            },
+            {
+              "name": "Cashew Shake",
+              "price": 170
+            },
+            {
+              "name": "Almond Shake",
+              "price": 170
+            },
+            {
+              "name": "Dry Fruit Mix Shake",
+              "price": 170
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 6,
+      "section": "Desserts",
+      "subsections": [
+        {
+          "name": "Belgian Waffles",
+          "items": [
+            {
+              "name": "Chocolate",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 150
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 190
+                }
+              ]
+            },
+            {
+              "name": "Honey Butter",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 150
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 190
+                }
+              ]
+            },
+            {
+              "name": "Strawberry",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 150
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 190
+                }
+              ]
+            },
+            {
+              "name": "Nutella",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 170
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 210
+                }
+              ]
+            },
+            {
+              "name": "Oreo",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 200
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 230
+                }
+              ]
+            },
+            {
+              "name": "Kitkat",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 200
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 230
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Faluda",
+          "items": [
+            {
+              "name": "Vanilla / Strawberry / Dry-Fruit",
+              "price": 120
+            },
+            {
+              "name": "Meet Me Special",
+              "price": 150
+            }
+          ]
+        },
+        {
+          "name": "Ice Cream",
+          "note": "3 scoops serving",
+          "items": [
+            {
+              "name": "Vanilla Ice Cream",
+              "price": 100
+            },
+            {
+              "name": "Strawberry Ice Cream",
+              "price": 100
+            },
+            {
+              "name": "Chocolate Ice Cream",
+              "price": 110
+            },
+            {
+              "name": "Mango Ice Cream",
+              "price": 120
+            }
+          ]
+        },
+        {
+          "name": "Cake",
+          "items": [
+            {
+              "name": "Brownie",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 80
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 100
+                }
+              ]
+            },
+            {
+              "name": "Choco Lava",
+              "variants": [
+                {
+                  "label": "Without Ice Cream",
+                  "price": 90
+                },
+                {
+                  "label": "With Ice Cream",
+                  "price": 110
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 7,
+      "section": "Combo",
+      "subsections": [
+        {
+          "name": "Veg Combo",
+          "diet": "veg",
+          "items": [
+            {
+              "name": "2 Coke, 1 Veg Steam Momo, 1 Pan Fry Momo",
+              "price": 260
+            },
+            {
+              "name": "2 Coke, 1 French Fries, 1 Sandwich",
+              "price": 240
+            },
+            {
+              "name": "2 Mocktail, 1 Veg Burger, 1 Veg Pasta",
+              "price": 320
+            }
+          ]
+        },
+        {
+          "name": "Non-Veg Combo",
+          "diet": "non-veg",
+          "items": [
+            {
+              "name": "2 Coke, 1 Chicken Steam Momo, 1 Chicken Fry Momo",
+              "price": 240
+            },
+            {
+              "name": "2 Coke, 1 Chicken Popcorn, 1 Chicken Peri Peri Sandwich",
+              "price": 290
+            },
+            {
+              "name": "2 Mocktail, 1 Chicken Burger, 1 Chicken Cheese Pasta",
+              "price": 400
+            }
+          ]
+        },
+        {
+          "name": "Combos for 2 Person",
+          "items": [
+            {
+              "name": "2 Coke, 1 Veg Burger, 1 Dry Chili Babycorn",
+              "price": 350
+            },
+            {
+              "name": "2 Coke, 1 Egg Burger, 1 Chicken Chatpata",
+              "price": 340
+            },
+            {
+              "name": "2 Coke, Chicken Burger, Chicken Strips, Chicken Pakora",
+              "price": 410
+            },
+            {
+              "name": "2 Coke, Wing Fry (2 piece), Faltu Chicken",
+              "price": 410
+            },
+            {
+              "name": "2 Coke, Paneer Ball (12 pieces), Dry Chili Mushroom",
+              "price": 410
+            },
+            {
+              "name": "2 Coke, Paneer Pakora (4 piece), Potato Cheese Wrap, Paneer Cheese Wrap",
+              "price": 550
+            },
+            {
+              "name": "2 Coke, Chicken Wrap, Chicken Exotica Wrap",
+              "price": 410
+            }
+          ]
+        },
+        {
+          "name": "Combos for 4 Person",
+          "items": [
+            {
+              "name": "4 Coke, Paneer Ball (12 pieces), Paneer Pakora (4 pieces), Paneer Jalapeno Burger, Paneer Wrap",
+              "price": 800
+            },
+            {
+              "name": "4 Coke, Dry Chili Mushroom, Zigzag French Fry, Cheese Corn Burger, Potato Cheese Wrap",
+              "price": 770
+            },
+            {
+              "name": "4 Coke, Chicken Ball (12 pieces), Chicken Pakora (4 pieces), Chicken Jalapeno Burger, Chicken Wrap",
+              "price": 680
+            },
+            {
+              "name": "4 Coke, Dry Chili Fish, Paper Chicken, Chicken Exotica Wrap, Chicken Mexicano",
+              "price": 920
+            }
+          ]
+        },
+        {
+          "name": "Occasional \"Meet Me\" Special (For 6 Persons)",
+          "items": [
+            {
+              "name": "6 Coke, 1 Paneer Ball, 1 Chicken Ball, 1 Dry Chili Baby Corn, 1 Chicken Cotpita, 1 Paneer Jalepino Burger, 1 Chicken Jalepino Burger, 1 Paneer Exotica Wrap, 1 Chicken Exotica Wrap, Ice Cream (6 piece)",
+              "price": 2200
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
