@@ -743,5 +743,354 @@ document.addEventListener('DOMContentLoaded', () => {
             closePolicy();
         }
     });
+
+    // =========================================================================
+    // Diagonal Marquee Text Page Transition to Menu
+    // =========================================================================
+    const transitionOverlay = document.getElementById('page-transition-overlay');
+
+    if (transitionOverlay) {
+        let isTransitioning = false;
+
+        const categoryTransitionMap = {
+            'cat-all': {
+                primary: 'ALL SPECIALS',
+                subs: ['CHEF PICKS', 'SIGNATURE FLAVORS', 'CRAFTED FRESH', 'MEET ME SPECIALS']
+            },
+            'cat-appetizers': {
+                primary: 'APPETIZERS',
+                subs: ['CRISPY MOMOS', 'INDO CHINESE', 'DRY CHILI CHICKEN', 'HOT STARTERS']
+            },
+            'cat-continental': {
+                primary: 'CONTINENTAL',
+                subs: ['GOURMET BURGERS', 'LOADED WRAPS', 'CRISPY FRIES', 'CHEF CREATIONS']
+            },
+            'cat-beverages': {
+                primary: 'BEVERAGES',
+                subs: ['MATCHA LATTE', 'ARTISANAL BREWS', 'CHILLED MOJITOS', 'REFRESHERS']
+            },
+            'cat-shakes': {
+                primary: 'SHAKES',
+                subs: ['OREO THICK SHAKE', 'RICH CHOCOLATE', 'CREAMY BLENDS', 'ICE COLD']
+            },
+            'cat-desserts': {
+                primary: 'DESSERTS',
+                subs: ['BELGIAN WAFFLES', 'SWEET INDULGENCE', 'WARM BROWNIES', 'FRESH TOPPINGS']
+            },
+            'cat-combos': {
+                primary: 'COMBOS',
+                subs: ['GRAND FEASTS', 'COMBO MEALS', 'VALUE PLATTERS', 'FEAST TOGETHER']
+            }
+        };
+
+        const defaultTaglineRows = [
+            'WHERE FLAVORS MEET GOOD TIMES',
+            'EXPLORE THE FULL MENU',
+            'MEET ME CAFE AND RESTAURANT',
+            '100+ DISHES CRAFTED FRESH',
+            'WHERE FLAVORS MEET GOOD TIMES',
+            'INDO CHINESE CONTINENTAL SHAKES',
+            'EXPLORE THE FULL MENU',
+            'GOOD FOOD GOOD MOOD',
+            'MEET ME CAFE AND RESTAURANT'
+        ];
+
+        function buildCategoryRows(primary, subs) {
+            return [
+                primary,
+                subs[0],
+                primary,
+                subs[1],
+                primary,
+                subs[2],
+                primary,
+                subs[3],
+                primary
+            ];
+        }
+
+        function getPhrasesForLink(anchor) {
+            const href = anchor.getAttribute('href') || '';
+            let catKey = null;
+
+            if (href.includes('#')) {
+                catKey = href.split('#')[1];
+            } else if (anchor.dataset.category) {
+                catKey = anchor.dataset.category;
+            }
+
+            if (catKey && categoryTransitionMap[catKey]) {
+                const info = categoryTransitionMap[catKey];
+                return buildCategoryRows(info.primary, info.subs);
+            }
+
+            const titleEl = anchor.querySelector('.section-0-card-title');
+            if (titleEl) {
+                const txt = titleEl.textContent.trim().toUpperCase();
+                if (txt.includes('APPETIZERS')) return buildCategoryRows('APPETIZERS', ['CRISPY MOMOS', 'INDO CHINESE', 'DRY CHILI CHICKEN', 'HOT STARTERS']);
+                if (txt.includes('CONTINENTAL')) return buildCategoryRows('CONTINENTAL', ['GOURMET BURGERS', 'LOADED WRAPS', 'CRISPY FRIES', 'CHEF CREATIONS']);
+                if (txt.includes('BEVERAGES')) return buildCategoryRows('BEVERAGES', ['MATCHA LATTE', 'ARTISANAL BREWS', 'CHILLED MOJITOS', 'REFRESHERS']);
+                if (txt.includes('SHAKES')) return buildCategoryRows('SHAKES', ['OREO THICK SHAKE', 'RICH CHOCOLATE', 'CREAMY BLENDS', 'ICE COLD']);
+                if (txt.includes('DESSERTS')) return buildCategoryRows('DESSERTS', ['BELGIAN WAFFLES', 'SWEET INDULGENCE', 'WARM BROWNIES', 'FRESH TOPPINGS']);
+                if (txt.includes('COMBOS')) return buildCategoryRows('COMBOS', ['GRAND FEASTS', 'COMBO MEALS', 'VALUE PLATTERS', 'FEAST TOGETHER']);
+                if (txt.includes('SPECIALS')) return buildCategoryRows('ALL SPECIALS', ['CHEF PICKS', 'SIGNATURE FLAVORS', 'CRAFTED FRESH', 'MEET ME SPECIALS']);
+            }
+
+            return defaultTaglineRows;
+        }
+
+        function populateTracks(phrases) {
+            const tracks = transitionOverlay.querySelectorAll('.transition-stream-track');
+            tracks.forEach((track, index) => {
+                const phrase = phrases[index % phrases.length];
+                // Continuous text with spaces only - NO separators
+                const singleChunk = phrase + ' \u00A0 \u00A0 \u00A0 ';
+                const repeatedText = singleChunk.repeat(20);
+                track.innerHTML = `
+                    <div class="stream-inner">
+                        <span>${repeatedText}</span>
+                        <span>${repeatedText}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function resetTransitionOverlay() {
+            isTransitioning = false;
+            transitionOverlay.setAttribute('aria-hidden', 'true');
+            transitionOverlay.style.pointerEvents = 'none';
+            transitionOverlay.style.visibility = 'hidden';
+            transitionOverlay.style.opacity = '0';
+            transitionOverlay.style.clipPath = 'circle(0% at 50% 50%)';
+            transitionOverlay.style.webkitClipPath = 'circle(0% at 50% 50%)';
+        }
+
+        // Initialize default tagline text so DOM is primed
+        populateTracks(defaultTaglineRows);
+
+        // =====================================================================
+        // Image Preloader for menu.html during transition period
+        // =====================================================================
+        const preloadedImageUrls = new Set();
+        let isDocPrefetched = false;
+
+        const categoryImageMap = {
+            'cat-all': [
+                'images/chicken_strips.jpg',
+                'images/dish_fried_wings.jpg',
+                'images/dish_chicken_fried_leg.jpg',
+                'images/chicken_kurkure_momo.jpg',
+                'images/dry_chili_chicken.jpg',
+                'images/chicken_burger.jpg',
+                'images/fish_and_chips.jpg',
+                'images/kolkata_fish_fry.jpg',
+                'images/matcha_latte.jpg',
+                'images/oreo_shake.jpg',
+                'images/belgian_waffle.jpg',
+                'images/combo_feast.jpg'
+            ],
+            'cat-appetizers': [
+                'images/chicken_strips.jpg',
+                'images/dish_fried_wings.jpg',
+                'images/dish_chicken_fried_leg.jpg',
+                'images/dish_chicken_chatpata.jpg',
+                'images/dish_dry_chili_fish.jpg',
+                'images/fish_and_chips.jpg',
+                'images/kolkata_fish_fry.jpg',
+                'images/dish_chicken_cutlet.jpg',
+                'images/dish_nuggets.jpg',
+                'images/chicken_kurkure_momo.jpg',
+                'images/dry_chili_chicken.jpg'
+            ],
+            'cat-continental': [
+                'images/chicken_burger.jpg',
+                'images/dish_cheese_chicken_burger.jpg',
+                'images/dish_jumbo_chicken_burger.jpg',
+                'images/club_sandwich.jpg',
+                'images/creamy_pasta.jpg',
+                'images/dish_classic_french_fry.jpg',
+                'images/peri_peri_fries.jpg',
+                'images/dish_chicken_wrap.jpg'
+            ],
+            'cat-beverages': [
+                'images/hot_coffee.jpg',
+                'images/matcha_latte.jpg',
+                'images/cold_coffee.jpg',
+                'images/bubble_tea.jpg',
+                'images/blue_mocktail.jpg',
+                'images/virgin_mojito.jpg',
+                'images/masala_chai.jpg',
+                'images/fresh_juice.jpg'
+            ],
+            'cat-shakes': [
+                'images/oreo_shake.jpg',
+                'images/belgian_chocolate_shake.jpg',
+                'images/kitkat_shake.jpg',
+                'images/fruit_smoothie.jpg',
+                'images/mango_lassi.jpg'
+            ],
+            'cat-desserts': [
+                'images/belgian_waffle.jpg',
+                'images/choco_lava.jpg',
+                'images/belgian_chocolate_shake.jpg'
+            ],
+            'cat-combos': [
+                'images/combo_feast.jpg',
+                'images/chicken_steam_momo.jpg',
+                'images/chicken_burger.jpg',
+                'images/soft_drink.jpg'
+            ]
+        };
+
+        const globalMenuAssets = [
+            'meet me .png',
+            'images/chicken_strips.jpg',
+            'images/dry_chili_chicken.jpg',
+            'images/chicken_burger.jpg',
+            'images/matcha_latte.jpg'
+        ];
+
+        function preloadTargetImages(targetUrl) {
+            if (!targetUrl) return;
+
+            // 1. Prefetch menu.html document
+            if (!isDocPrefetched) {
+                isDocPrefetched = true;
+                try {
+                    const prefetch = document.createElement('link');
+                    prefetch.rel = 'prefetch';
+                    prefetch.href = 'menu.html';
+                    document.head.appendChild(prefetch);
+                } catch (_) {}
+            }
+
+            // 2. Identify category from url hash
+            let catKey = null;
+            if (targetUrl.includes('#')) {
+                catKey = targetUrl.split('#')[1];
+            }
+
+            const imagesToLoad = [];
+            if (catKey && categoryImageMap[catKey]) {
+                imagesToLoad.push(...categoryImageMap[catKey]);
+            } else {
+                imagesToLoad.push(...categoryImageMap['cat-all']);
+            }
+            imagesToLoad.push(...globalMenuAssets);
+
+            // 3. Preload all selected images into browser cache
+            imagesToLoad.forEach(src => {
+                if (!src || preloadedImageUrls.has(src)) return;
+                preloadedImageUrls.add(src);
+
+                const img = new Image();
+                img.decoding = 'async';
+                img.src = src;
+
+                try {
+                    const link = document.createElement('link');
+                    link.rel = 'prefetch';
+                    link.as = 'image';
+                    link.href = src;
+                    document.head.appendChild(link);
+                } catch (_) {}
+            });
+        }
+
+        function triggerTransition(targetUrl, phrases, clickX, clickY) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            // Immediately start preloading menu.html images during the transition window
+            preloadTargetImages(targetUrl);
+
+            populateTracks(phrases);
+
+            const originX = typeof clickX === 'number' ? clickX : (window.innerWidth / 2);
+            const originY = typeof clickY === 'number' ? clickY : (window.innerHeight / 2);
+
+            transitionOverlay.setAttribute('aria-hidden', 'false');
+            transitionOverlay.style.pointerEvents = 'all';
+
+            const startClip = `circle(0% at ${originX}px ${originY}px)`;
+            const endClip = `circle(160% at ${originX}px ${originY}px)`;
+
+            if (typeof gsap !== 'undefined') {
+                gsap.set(transitionOverlay, {
+                    visibility: 'visible',
+                    opacity: 1,
+                    clipPath: startClip,
+                    webkitClipPath: startClip
+                });
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        window.location.href = targetUrl;
+                    }
+                });
+
+                tl.to(transitionOverlay, {
+                    clipPath: endClip,
+                    webkitClipPath: endClip,
+                    duration: 0.65,
+                    ease: 'power3.inOut'
+                }, 0);
+
+                tl.fromTo('.transition-rotator', 
+                    { scale: 1.08 },
+                    { scale: 1, duration: 1.2, ease: 'power2.out' },
+                    0
+                );
+
+                const tracks = transitionOverlay.querySelectorAll('.transition-stream-track');
+                tl.fromTo(tracks,
+                    { x: (i) => (i % 2 === 0 ? 120 : -120) },
+                    { x: (i) => (i % 2 === 0 ? -260 : 260), duration: 1.2, ease: 'power2.out' },
+                    0
+                );
+
+                // Fallback timeout to guarantee navigation
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 1200);
+            } else {
+                transitionOverlay.style.visibility = 'visible';
+                transitionOverlay.style.opacity = '1';
+                transitionOverlay.style.clipPath = endClip;
+                transitionOverlay.style.webkitClipPath = endClip;
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 600);
+            }
+        }
+
+        // Intercept all links targeting menu.html and attach hover/touch preload
+        const menuLinks = document.querySelectorAll('a[href*="menu.html"]');
+        menuLinks.forEach(link => {
+            const targetUrl = link.getAttribute('href');
+
+            // Preload early on hover or touchstart before user clicks
+            link.addEventListener('mouseenter', () => preloadTargetImages(targetUrl), { passive: true });
+            link.addEventListener('touchstart', () => preloadTargetImages(targetUrl), { passive: true });
+
+            link.addEventListener('click', (e) => {
+                // Respect open in new tab / modifier keys
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+
+                if (!targetUrl) return;
+
+                e.preventDefault();
+                const phrases = getPhrasesForLink(link);
+                triggerTransition(targetUrl, phrases, e.clientX, e.clientY);
+            });
+        });
+
+        // Reset if restored from bfcache
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                resetTransitionOverlay();
+            }
+        });
+    }
 });
 
