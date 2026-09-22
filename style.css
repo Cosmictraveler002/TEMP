@@ -243,12 +243,11 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: contrast(112%) saturate(120%) brightness(88%);
+  filter: contrast(106%) saturate(118%) brightness(112%);
   pointer-events: none;
 }
 
-/* Halftone Dotted Micro-Texture Mask
-   Transforms low-resolution / compressed video into a crisp, high-definition screen-print aesthetic */
+/* Halftone Micro-Texture Mask (Subtle anti-banding texture without darkening the video) */
 .hero-halftone-overlay {
   position: absolute;
   inset: 0;
@@ -256,16 +255,17 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 2;
+  opacity: 0.25;
   background-image: 
-    radial-gradient(circle at 1.25px 1.25px, rgba(18, 19, 26, 0.82) 1.1px, transparent 1.15px),
-    radial-gradient(circle at 3.75px 3.75px, rgba(18, 19, 26, 0.82) 1.1px, transparent 1.15px);
+    radial-gradient(circle at 1.25px 1.25px, rgba(18, 19, 26, 0.5) 1.1px, transparent 1.15px),
+    radial-gradient(circle at 3.75px 3.75px, rgba(18, 19, 26, 0.5) 1.1px, transparent 1.15px);
   background-size: 5px 5px;
   background-repeat: repeat;
-  backdrop-filter: contrast(118%) brightness(96%);
-  -webkit-backdrop-filter: contrast(118%) brightness(96%);
+  backdrop-filter: contrast(105%) brightness(102%);
+  -webkit-backdrop-filter: contrast(105%) brightness(102%);
 }
 
-/* Dark Cinematic Gradient & Vignette Overlay (Crystal-clear video with subtle dark vignette) */
+/* Soft Cinematic Gradient & Vignette Overlay (Clear, bright video presentation) */
 .hero-gradient-overlay {
   position: absolute;
   inset: 0;
@@ -276,17 +276,17 @@ body {
   background: 
     linear-gradient(
       90deg,
-      rgba(18, 19, 26, 0.72) 0%,
-      rgba(18, 19, 26, 0.35) 45%,
-      transparent 80%
+      rgba(18, 19, 26, 0.45) 0%,
+      rgba(18, 19, 26, 0.15) 42%,
+      transparent 75%
     ),
-    radial-gradient(ellipse at 50% 50%, rgba(18, 19, 26, 0.1) 0%, rgba(18, 19, 26, 0.45) 100%),
+    radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(18, 19, 26, 0.22) 100%),
     linear-gradient(
       180deg,
-      rgba(18, 19, 26, 0.7) 0%,
-      rgba(18, 19, 26, 0.1) 25%,
-      rgba(18, 19, 26, 0.25) 60%,
-      rgba(18, 19, 26, 0.75) 100%
+      rgba(18, 19, 26, 0.38) 0%,
+      transparent 25%,
+      transparent 70%,
+      rgba(18, 19, 26, 0.45) 100%
     );
 }
 
@@ -2106,16 +2106,17 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: clamp(8px, 1.5vw, 16px);
+  /* align-items: center; */
+  /* gap: clamp(8px, 1.5vw, 16px); */
   padding-top: clamp(10px, 2vw, 24px);
   user-select: none;
 }
 
 .footer-giant-venture {
   font-family: var(--font-primary);
-  font-size: clamp(0.95rem, 2.4vw, 2rem);
-  font-weight: 800;
+  /* font-size: clamp(1.3rem, 2.8vw, 4rem); */
+  font-size: 2vw;
+  font-weight: 900;
   letter-spacing: clamp(2px, 0.6vw, 6px);
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.42);
