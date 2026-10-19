@@ -15,9 +15,24 @@
             </a>
             <div class="nav-links">
                 <a href="#page3" class="nav-link">Menu</a>
-                <a href="#page4" class="nav-link">Bookings</a>
+                <a href="#bookings" id="nav-bookings-link" class="nav-link">Bookings</a>
                 <a href="https://bangalirsokherrannaghor.in" class="nav-link">Fine Dining</a>
                 <a href="#page5" class="nav-link">Contact Us</a>
+
+                <!-- Desktop SVG Boilerplate (Replaces cart on desktop navbar) -->
+                <div class="nav-link nav-boilerplate" aria-label="SVG Boilerplate" title="SVG Boilerplate">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-boilerplate-svg" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+
+                <button id="nav-cart-btn" class="nav-cart-btn" aria-label="View Order Cart" title="View Cart">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span class="cart-btn-label">Cart</span>
+                    <span id="nav-cart-badge" class="cart-badge-count hidden">0</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -1402,9 +1417,13 @@
                             <p class="info-card-desc">Call ahead for table bookings, takeaway pick-ups, birthday parties, or menu questions.</p>
                             
                             <div class="contact-cta-buttons">
+                                <button id="find-us-booking-trigger" class="btn-book-action" type="button">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                    <span>Book Table</span>
+                                </button>
                                 <a href="tel:08350002031" class="btn-call-action">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                                    <span>Call Now</span>
+                                    <span>Call</span>
                                 </a>
                                 <a href="https://wa.me/918350002031?text=Hi%20Meet%20Me%20Cafe%2C%20I%20would%20like%20to%20reserve%20a%20table%20%2F%20order" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-action">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -1545,6 +1564,163 @@
                 <h4>A Venture of Bangalir Sokher Rannaghor</h4>
                 <p>Meet Me Cafe & Restaurant proudly operates under Bangalir Sokher Rannaghor in Kalyani, West Bengal. Direct telephone inquiries: 08350002031.</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart Launcher Button -->
+    <button id="floating-cart-btn" class="floating-cart-btn" aria-label="Open Order Cart" title="Open Order Cart">
+        <div class="floating-cart-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span id="floating-cart-badge" class="cart-badge-count hidden">0</span>
+        </div>
+        <span class="floating-cart-label">Cart (<span id="floating-cart-total">₹0</span>)</span>
+    </button>
+
+    <!-- Slide-In Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer-backdrop" aria-hidden="true">
+        <div class="cart-drawer-panel" role="dialog" aria-modal="true" aria-label="Order Cart">
+            <div class="cart-drawer-header">
+                <div class="cart-header-title-wrap">
+                    <div class="cart-header-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    </div>
+                    <h3>Your Order Cart</h3>
+                    <span id="drawer-item-count-pill" class="drawer-count-pill">0 items</span>
+                </div>
+                <button id="close-cart-drawer-btn" class="cart-drawer-close" aria-label="Close cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <div id="cart-drawer-items" class="cart-drawer-items">
+                <div id="cart-drawer-empty" class="cart-drawer-empty">
+                    <div class="empty-cart-illustration">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    </div>
+                    <h4>Your cart is empty</h4>
+                    <p>Browse our 100+ fresh recipes and add your favorites!</p>
+                    <a href="menu.html" class="drawer-browse-menu-btn">Browse Full Menu</a>
+                </div>
+            </div>
+
+            <div class="cart-drawer-footer">
+                <div class="cart-bill-summary">
+                    <div class="bill-row">
+                        <span>Items Subtotal</span>
+                        <span id="drawer-subtotal">₹0</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Estimated GST (5%)</span>
+                        <span id="drawer-tax">₹0</span>
+                    </div>
+                    <div class="bill-row total-row">
+                        <span>Estimated Total</span>
+                        <span id="drawer-total" class="drawer-highlight-total">₹0</span>
+                    </div>
+                </div>
+                <div class="cart-drawer-actions">
+                    <button id="drawer-clear-btn" class="drawer-btn-secondary" type="button">Clear</button>
+                    <a href="checkout.html" id="drawer-checkout-btn" class="drawer-btn-primary">
+                        <span>Checkout</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table & Event Reservation Modal -->
+    <div id="reservation-modal" class="reservation-modal-backdrop" aria-hidden="true">
+        <div class="reservation-modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-booking-title">
+            <button id="close-reservation-modal-btn" class="modal-close-btn" aria-label="Close modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <div class="reservation-modal-header">
+                <span class="booking-badge-pill">Table & Event Booking</span>
+                <h3 id="modal-booking-title" class="reservation-modal-title">Reserve Your Table at Meet Me</h3>
+                <p class="reservation-modal-subtitle">Fresh artisanal recipes, vibrant ambiance, and memorable vibes in Kalyani.</p>
+            </div>
+
+            <form id="table-reservation-form" class="reservation-form">
+                <div class="booking-form-group">
+                    <label class="booking-form-label">Booking Category</label>
+                    <div class="booking-category-toggle">
+                        <label class="category-radio-card active">
+                            <input type="radio" name="res_category" value="Table Booking" checked>
+                            <span class="category-icon">🍽️</span>
+                            <span class="category-name">Table Dining</span>
+                        </label>
+                        <label class="category-radio-card">
+                            <input type="radio" name="res_category" value="Private Event">
+                            <span class="category-icon">🎉</span>
+                            <span class="category-name">Party / Event</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-name">Full Name *</label>
+                        <input type="text" id="res-name" class="booking-form-input" required placeholder="e.g. Sourav Mukherjee">
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-phone">Phone Number *</label>
+                        <input type="tel" id="res-phone" class="booking-form-input" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-date">Reservation Date *</label>
+                        <input type="date" id="res-date" class="booking-form-input" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-time">Time Slot *</label>
+                        <select id="res-time" class="booking-form-select" required>
+                            <option value="12:30 PM (Lunch)">12:30 PM (Lunch)</option>
+                            <option value="02:00 PM (Lunch)">02:00 PM (Lunch)</option>
+                            <option value="04:30 PM (Evening Snacks)">04:30 PM (Evening Snacks)</option>
+                            <option value="07:00 PM (Dinner)" selected>07:00 PM (Dinner)</option>
+                            <option value="08:30 PM (Dinner)">08:30 PM (Dinner)</option>
+                            <option value="09:45 PM (Late Dinner)">09:45 PM (Late Dinner)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-guests">Number of Guests *</label>
+                        <select id="res-guests" class="booking-form-select" required>
+                            <option value="2">2 Guests (Couple / Duo)</option>
+                            <option value="4" selected>4 Guests (Friends / Family)</option>
+                            <option value="6">6 Guests (Group Table)</option>
+                            <option value="8">8 Guests (Large Group)</option>
+                            <option value="10">10+ Guests (Party Feast)</option>
+                            <option value="20">20+ Guests (Banquet / Hall)</option>
+                        </select>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-area">Preferred Seating Area</label>
+                        <select id="res-area" class="booking-form-select">
+                            <option value="Main Cafe Hall" selected>Main Cafe Hall (Vibrant Vibe)</option>
+                            <option value="Cozy Corner Booth">Cozy Corner Booth</option>
+                            <option value="Window High Table">Window High Table</option>
+                            <option value="Private Celebration Area">Private Celebration Area</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="booking-form-group">
+                    <label class="booking-form-label" for="res-notes">Special Requests / Occasion</label>
+                    <input type="text" id="res-notes" class="booking-form-input" placeholder="e.g. Birthday setup, anniversary, dietary allergies">
+                </div>
+
+                <button type="submit" id="res-submit-btn" class="booking-submit-btn">
+                    <span>Confirm Reservation</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </form>
         </div>
     </div>
 

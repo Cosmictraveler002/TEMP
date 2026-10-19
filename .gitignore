@@ -8,5 +8,14 @@ desktop.ini
 .vscode/
 .idea/
 
-# Temporary / Log files
+# Dependencies & Build
+node_modules/
+dist/
+.cache/
+
+# Temporary & Log files
 *.log
+*.tmp
+
+# Markdown documentation (do not track any .md files per instruction)
+*.md

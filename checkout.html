@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Checkout & Order | Meet Me Cafe & Restaurant • Kalyani</title>
+    <meta name="description" content="Review your cart and complete your order with Meet Me Cafe & Restaurant in Kalyani. Home delivery, dine-in table ordering, and takeaway.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Dedicated Checkout Page Specific Styles */
+        .checkout-page-main {
+            padding-top: calc(var(--nav-height) + 24px);
+            padding-bottom: 90px;
+            min-height: 100vh;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .checkout-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .checkout-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(162, 89, 255, 0.12);
+            color: var(--color-accent-electric-lavender, #A259FF);
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+        }
+
+        .checkout-page-title {
+            font-family: var(--font-primary);
+            font-size: clamp(2rem, 3.8vw, 2.8rem);
+            font-weight: 900;
+            color: var(--color-text-midnight-black, #12131A);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        .checkout-page-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .checkout-card-box {
+            background: #FFFFFF;
+            border-radius: 20px;
+            border: 1.5px solid rgba(18, 19, 26, 0.08);
+            box-shadow: 0 8px 24px rgba(18, 19, 26, 0.04);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .checkout-card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-primary);
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--color-text-midnight-black, #12131A);
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 1.5px solid rgba(18, 19, 26, 0.06);
+        }
+
+        .checkout-card-title svg {
+            color: var(--color-accent-electric-lavender, #A259FF);
+        }
+
+        /* Cart Items in Checkout */
+        .page-cart-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .page-cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed rgba(18, 19, 26, 0.1);
+        }
+
+        .page-cart-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .page-cart-item-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-cart-item-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(18, 19, 26, 0.08);
+        }
+
+        .page-cart-item-title {
+            font-family: var(--font-primary);
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--color-text-midnight-black, #12131A);
+            margin: 0 0 4px 0;
+        }
+
+        .page-cart-item-price {
+            font-size: 0.85rem;
+            color: rgba(18, 19, 26, 0.6);
+            font-weight: 600;
+        }
+
+        .page-cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Order Type Radio Selector */
+        .order-type-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .order-type-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 16px 12px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(18, 19, 26, 0.1);
+            background: #FAFAFB;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .order-type-card input {
+            display: none;
+        }
+
+        .order-type-card svg {
+            color: rgba(18, 19, 26, 0.5);
+            margin-bottom: 6px;
+            transition: color 0.2s ease;
+        }
+
+        .order-type-card span {
+            font-family: var(--font-primary);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: rgba(18, 19, 26, 0.7);
+        }
+
+        .order-type-card.active,
+        .order-type-card:has(input:checked) {
+            border-color: var(--color-accent-electric-lavender, #A259FF);
+            background: rgba(162, 89, 255, 0.08);
+        }
+
+        .order-type-card.active svg,
+        .order-type-card:has(input:checked) svg {
+            color: var(--color-accent-electric-lavender, #A259FF);
+        }
+
+        .order-type-card.active span,
+        .order-type-card:has(input:checked) span {
+            color: var(--color-accent-electric-lavender, #A259FF);
+        }
+
+        /* Form Controls */
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-primary);
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: var(--color-text-midnight-black, #12131A);
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(18, 19, 26, 0.12);
+            background: #FFFFFF;
+            font-family: var(--font-secondary);
+            font-size: 0.92rem;
+            color: var(--color-text-midnight-black, #12131A);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--color-accent-electric-lavender, #A259FF);
+            box-shadow: 0 0 0 3px rgba(162, 89, 255, 0.15);
+        }
+
+        /* Payment Methods */
+        .payment-options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .payment-method-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(18, 19, 26, 0.1);
+            background: #FAFAFB;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .payment-method-card input {
+            accent-color: var(--color-accent-electric-lavender, #A259FF);
+            width: 18px;
+            height: 18px;
+        }
+
+        .payment-method-card:has(input:checked) {
+            border-color: var(--color-accent-electric-lavender, #A259FF);
+            background: rgba(162, 89, 255, 0.06);
+        }
+
+        .payment-method-info strong {
+            display: block;
+            font-family: var(--font-primary);
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--color-text-midnight-black, #12131A);
+        }
+
+        .payment-method-info span {
+            font-size: 0.78rem;
+            color: rgba(18, 19, 26, 0.6);
+        }
+
+        /* Right Summary Column */
+        .checkout-summary-box {
+            background: #FFFFFF;
+            border-radius: 20px;
+            border: 1.5px solid rgba(18, 19, 26, 0.08);
+            box-shadow: 0 8px 24px rgba(18, 19, 26, 0.04);
+            padding: 24px;
+            position: sticky;
+            top: calc(var(--nav-height) + 20px);
+        }
+
+        .coupon-input-wrap {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .coupon-input-wrap input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1.5px solid rgba(18, 19, 26, 0.12);
+            font-family: var(--font-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.88rem;
+            outline: none;
+        }
+
+        .coupon-apply-btn {
+            padding: 10px 16px;
+            background: var(--color-text-midnight-black, #12131A);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .coupon-apply-btn:hover {
+            opacity: 0.9;
+        }
+
+        .coupon-feedback {
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-top: -12px;
+            margin-bottom: 16px;
+        }
+
+        .coupon-feedback.success { color: #16a34a; }
+        .coupon-feedback.error { color: #dc2626; }
+
+        /* Place Order Button */
+        .place-order-submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--color-accent-electric-lavender, #A259FF);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 14px;
+            font-family: var(--font-primary);
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+            box-shadow: 0 8px 20px rgba(162, 89, 255, 0.25);
+            margin-top: 24px;
+        }
+
+        .place-order-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(162, 89, 255, 0.35);
+        }
+
+        .place-order-submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Digital Receipt Card */
+        .receipt-container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 24px;
+            border: 1.5px solid rgba(18, 19, 26, 0.08);
+            box-shadow: 0 14px 40px rgba(18, 19, 26, 0.06);
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .receipt-success-badge {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(22, 163, 74, 0.12);
+            color: #16a34a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .order-tracker-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 32px 0;
+        }
+
+        .order-tracker-bar::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: rgba(18, 19, 26, 0.1);
+            z-index: 1;
+        }
+
+        .tracker-step {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: rgba(18, 19, 26, 0.5);
+        }
+
+        .tracker-step.completed, .tracker-step.active {
+            color: var(--color-text-midnight-black, #12131A);
+        }
+
+        .tracker-step-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 3px solid rgba(18, 19, 26, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tracker-step.completed .tracker-step-dot {
+            background: #16a34a;
+            border-color: #16a34a;
+            color: #FFFFFF;
+        }
+
+        .tracker-step.active .tracker-step-dot {
+            background: var(--color-accent-electric-lavender, #A259FF);
+            border-color: var(--color-accent-electric-lavender, #A259FF);
+            color: #FFFFFF;
+        }
+
+        .whatsapp-order-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: #25D366;
+            color: #FFFFFF;
+            border-radius: 12px;
+            font-family: var(--font-primary);
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            box-shadow: 0 6px 18px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-order-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hidden { display: none !important; }
+
+        .checkout-error-alert {
+            background: rgba(220, 38, 38, 0.08);
+            border: 1.5px solid #dc2626;
+            color: #b91c1c;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #FFFFFF;
+            animation: submitSpin 0.8s linear infinite;
+        }
+
+        @keyframes submitSpin {
+            to { transform: rotate(360deg); }
+        }
+
+            .checkout-page-grid {
+                grid-template-columns: 1fr;
+            }
+            .checkout-summary-box {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .order-type-selector {
+                grid-template-columns: 1fr;
+            }
+            .form-row-2 {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .receipt-container {
+                padding: 28px 18px;
+            }
+        }
+    </style>
+</head>
+<body class="checkout-body">
+    <!-- Navigation Bar -->
+    <nav id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="Meet Me Cafe Home">
+                <img src="meet me .png" alt="Meet Me" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">← Home</a>
+                <a href="menu.html" class="nav-link">Full Menu</a>
+                <a href="#past-orders" class="nav-link">Past Orders</a>
+                <a href="#bookings" id="nav-bookings-link" class="nav-link">Bookings</a>
+
+                <!-- Desktop SVG Boilerplate (Replaces cart on desktop navbar) -->
+                <div class="nav-link nav-boilerplate" aria-label="SVG Boilerplate" title="SVG Boilerplate">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-boilerplate-svg" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="checkout-page-main">
+        <div class="checkout-container">
+            <!-- Header Bar -->
+            <div class="checkout-header-bar">
+                <div>
+                    <span class="checkout-header-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        Express Checkout
+                    </span>
+                    <h1 class="checkout-page-title">Review & Complete Order</h1>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button id="page-clear-cart-btn" class="drawer-btn-secondary" style="padding: 10px 18px; font-size: 0.88rem;">
+                        Clear Cart
+                    </button>
+                    <a href="menu.html" class="drawer-btn-primary" style="padding: 10px 18px; font-size: 0.88rem; text-decoration: none;">
+                        + Add More Dishes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Active Checkout Grid -->
+            <div id="checkout-main-view" class="checkout-page-grid">
+                <!-- Left Column -->
+                <div class="checkout-left-col">
+                    <!-- Cart Items Card -->
+                    <div class="checkout-card-box">
+                        <h3 class="checkout-card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            <span>Selected Items (<span id="cart-item-count">0</span>)</span>
+                        </h3>
+                        <div id="page-cart-items" class="page-cart-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Customer & Dining Options Card -->
+                    <div class="checkout-card-box">
+                        <h3 class="checkout-card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <span>Delivery & Customer Details</span>
+                        </h3>
+
+                        <form id="page-checkout-form">
+                            <div class="form-group">
+                                <label class="form-label">Order Type *</label>
+                                <div class="order-type-selector">
+                                    <label class="order-type-card active">
+                                        <input type="radio" name="p-order-type" value="Delivery" checked>
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                        <span>Home Delivery</span>
+                                    </label>
+                                    <label class="order-type-card">
+                                        <input type="radio" name="p-order-type" value="Dine-In">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2v20M6 2v20M2 7h20M2 17h20"></path></svg>
+                                        <span>Dine-In Table</span>
+                                    </label>
+                                    <label class="order-type-card">
+                                        <input type="radio" name="p-order-type" value="Takeaway">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                        <span>Takeaway</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="p-name">Full Name *</label>
+                                    <input type="text" id="p-name" required minlength="2" maxlength="100" placeholder="e.g. Ankan Nath" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="p-phone">Phone Number *</label>
+                                    <input type="tel" id="p-phone" required placeholder="10-digit mobile (e.g. 9876543210)" pattern="^\+?[0-9\s\-]{5,20}$" class="form-input">
+                                </div>
+                            </div>
+
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="p-email">Email Address (Optional)</label>
+                                    <input type="email" id="p-email" placeholder="name@example.com" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="p-outlet-id">Cafe Branch</label>
+                                    <select id="p-outlet-id" class="form-select" disabled>
+                                        <option value="MM01" selected>📍 Meet Me Cafe - Kalyani Branch (MM01)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Conditional Field: Delivery Address -->
+                            <div class="form-group" id="delivery-address-group">
+                                <label class="form-label" id="p-delivery-address-label" for="p-delivery-address">Delivery Address in Kalyani *</label>
+                                <input type="text" id="p-delivery-address" required placeholder="Enter full doorstep address in Kalyani (e.g. Flat 3B, Sunshine Enclave)" maxlength="300" class="form-input">
+                                <span style="font-size: 0.75rem; color: rgba(18,19,26,0.5); margin-top: 4px; display: block;">Maximum 300 characters. Hand-delivered fresh from our cafe kitchen.</span>
+                            </div>
+
+                            <!-- Conditional Field: Table Number (Dine-In) -->
+                            <div class="form-group hidden" id="table-number-group">
+                                <label class="form-label" for="p-table-number">Table Number / Dining Area *</label>
+                                <input type="text" id="p-table-number" placeholder="e.g. Table 04, T-02, Booth A" maxlength="50" class="form-input">
+                                <span style="font-size: 0.75rem; color: rgba(18,19,26,0.5); margin-top: 4px; display: block;">Find your table number on the cafe table QR stand.</span>
+                            </div>
+
+                            <!-- Conditional Field: Takeaway Info -->
+                            <div class="form-group hidden" id="takeaway-info-group">
+                                <div style="background: rgba(162, 89, 255, 0.08); border: 1.5px dashed var(--color-accent-electric-lavender, #A259FF); border-radius: 14px; padding: 14px 18px; font-size: 0.88rem; color: var(--color-text-midnight-black, #12131A);">
+                                    <strong style="display: flex; align-items: center; gap: 8px;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                        Express Counter Pickup — Meet Me Kalyani (MM01)
+                                    </strong>
+                                    <p style="margin: 6px 0 0; font-size: 0.82rem; color: rgba(18, 19, 26, 0.75); line-height: 1.4;">
+                                        Your order will be prepared fresh and packed for quick counter pickup. Please present your digital order receipt at the cafe counter.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="p-notes">Special Kitchen / Cooking Notes (Optional)</label>
+                                <input type="text" id="p-notes" placeholder="e.g. Extra spicy, less ice, dairy allergy" class="form-input">
+                            </div>
+
+                            <div class="form-group" style="margin-top: 24px;">
+                                <label class="form-label">Payment Option *</label>
+                                <div class="payment-options-grid">
+                                    <label class="payment-method-card">
+                                        <input type="radio" name="p-payment-method" value="UPI / QR Code" checked>
+                                        <div class="payment-method-info">
+                                            <strong>UPI / QR Code (PhonePe, GPay, Paytm)</strong>
+                                            <span>Instant contactless payment via any UPI app</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-method-card">
+                                        <input type="radio" name="p-payment-method" value="Credit / Debit Card">
+                                        <div class="payment-method-info">
+                                            <strong>Credit / Debit Card</strong>
+                                            <span>Visa, MasterCard, RuPay, Maestro</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-method-card">
+                                        <input type="radio" name="p-payment-method" value="Cash on Delivery / Counter">
+                                        <div class="payment-method-info">
+                                            <strong>Cash on Delivery / Pay at Counter</strong>
+                                            <span>Pay cash directly when order arrives</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Error Message Banner -->
+                            <div id="checkout-error-alert" class="checkout-error-alert hidden" role="alert">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <span id="checkout-error-text">Please review your order details.</span>
+                            </div>
+
+                            <button type="submit" id="page-place-order-btn" class="place-order-submit-btn">
+                                <svg id="place-order-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <span id="place-order-text">Place Order & Confirm</span>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Order Summary -->
+                <div class="checkout-right-col">
+                    <div class="checkout-summary-box">
+                        <h3 class="checkout-card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <span>Order Calculation</span>
+                        </h3>
+
+                        <!-- Promo Coupon Form -->
+                        <div class="coupon-input-wrap">
+                            <input type="text" id="coupon-code-input" placeholder="Promo code (e.g. MEETME10)">
+                            <button id="apply-coupon-btn" class="coupon-apply-btn" type="button">Apply</button>
+                        </div>
+                        <div id="coupon-feedback" class="coupon-feedback hidden"></div>
+
+                        <!-- Bill Breakdown -->
+                        <div class="bill-breakdown-list">
+                            <div class="bill-row">
+                                <span>Items Subtotal</span>
+                                <span id="p-subtotal">₹0</span>
+                            </div>
+                            <div class="bill-row">
+                                <span>Taxes & GST (5%)</span>
+                                <span id="p-tax">₹0</span>
+                            </div>
+                            <div class="bill-row">
+                                <span>Packaging & Delivery</span>
+                                <span id="p-delivery">₹40</span>
+                            </div>
+                            <div class="bill-row discount-row hidden" id="p-discount-container">
+                                <span>Promo Discount</span>
+                                <span id="p-discount" style="color: #16a34a; font-weight: 800;">-₹0</span>
+                            </div>
+                            <hr style="border: none; border-top: 1.5px solid rgba(18, 19, 26, 0.08); margin: 16px 0;">
+                            <div class="bill-row total-row">
+                                <strong style="font-size: 1.05rem;">Grand Total</strong>
+                                <strong id="p-final-total" style="color: var(--color-accent-electric-lavender, #A259FF); font-size: 1.5rem;">₹0</strong>
+                            </div>
+                        </div>
+
+                        <!-- Trust Assurances -->
+                        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(18, 19, 26, 0.08); display: flex; flex-direction: column; gap: 8px; font-size: 0.78rem; color: rgba(18, 19, 26, 0.6);">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <span>256-Bit SSL Encrypted Safe Checkout</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-electric-lavender, #A259FF)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                                <span>Fresh 12–20 min Preparation Guarantee</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receipt & Order Confirmation View (Shown when order succeeds) -->
+            <div id="checkout-receipt-view" class="receipt-container hidden">
+                <div class="receipt-success-badge">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span class="checkout-header-badge" style="background: rgba(22, 163, 74, 0.12); color: #16a34a;">Order Confirmed</span>
+                <h2 style="font-family: var(--font-primary); font-size: 2.2rem; font-weight: 900; margin: 10px 0 6px; color: var(--color-text-midnight-black, #12131A);">
+                    Order Placed Successfully!
+                </h2>
+                <p style="color: rgba(18, 19, 26, 0.65); font-size: 0.95rem; margin: 0 auto; max-width: 520px;">
+                    Thank you for ordering with Meet Me Cafe & Restaurant. Our chefs have received your request and started fresh preparation.
+                </p>
+
+                <!-- Order Status Tracker -->
+                <div class="order-tracker-bar">
+                    <div class="tracker-step completed">
+                        <div class="tracker-step-dot">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <span>Order Received</span>
+                    </div>
+                    <div class="tracker-step active">
+                        <div class="tracker-step-dot">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                        </div>
+                        <span>Kitchen Prep</span>
+                    </div>
+                    <div class="tracker-step">
+                        <div class="tracker-step-dot">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon></svg>
+                        </div>
+                        <span>Served / Dispatched</span>
+                    </div>
+                </div>
+
+                <!-- Digital Invoice Card -->
+                <div id="p-receipt-content" style="text-align: left; margin: 24px 0;">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px;">
+                    <a id="p-whatsapp-order-btn" href="#" target="_blank" rel="noopener noreferrer" class="whatsapp-order-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        <span>Send Order to WhatsApp</span>
+                    </a>
+                    <button id="p-print-receipt-btn" class="drawer-btn-secondary" style="padding: 14px 20px;" type="button">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                        <span>Print Invoice</span>
+                    </button>
+                    <a href="menu.html" class="drawer-btn-primary" style="padding: 14px 20px; text-decoration: none;">
+                        <span>Order More Dishes</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Past Orders Section -->
+            <section id="past-orders" style="margin-top: 72px; padding-top: 36px; border-top: 1.5px solid rgba(18, 19, 26, 0.08);">
+                <div style="margin-bottom: 24px;">
+                    <span class="checkout-header-badge">Order History</span>
+                    <h2 style="font-family: var(--font-primary); font-size: 1.8rem; font-weight: 800; color: var(--color-text-midnight-black, #12131A); margin: 6px 0 0;">
+                        My Past Orders
+                    </h2>
+                </div>
+                <div id="page-history-list" class="history-orders-list">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="page5" class="site-footer">
+        <div class="footer-container">
+            <div class="footer-meta-bar">
+                <div class="footer-copyright">
+                    <p>&copy; 2026 Meet Me Cafe & Restaurant. A Venture of Bangalir Sokher Rannaghor. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Table & Event Reservation Modal Dialog -->
+    <div id="reservation-modal" class="reservation-modal-backdrop" aria-hidden="true">
+        <div class="reservation-modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-booking-title">
+            <button id="close-reservation-modal-btn" class="modal-close-btn" aria-label="Close modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <div class="reservation-modal-header">
+                <span class="booking-badge-pill">Table & Event Booking</span>
+                <h3 id="modal-booking-title" class="reservation-modal-title">Reserve Your Table at Meet Me</h3>
+                <p class="reservation-modal-subtitle">Fresh artisanal recipes, vibrant ambiance, and memorable vibes in Kalyani.</p>
+            </div>
+
+            <form id="table-reservation-form" class="reservation-form">
+                <div class="booking-form-group">
+                    <label class="booking-form-label">Booking Category</label>
+                    <div class="booking-category-toggle">
+                        <label class="category-radio-card active">
+                            <input type="radio" name="res_category" value="Table Booking" checked>
+                            <span class="category-icon">🍽️</span>
+                            <span class="category-name">Table Dining</span>
+                        </label>
+                        <label class="category-radio-card">
+                            <input type="radio" name="res_category" value="Private Event">
+                            <span class="category-icon">🎉</span>
+                            <span class="category-name">Party / Event</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-name">Full Name *</label>
+                        <input type="text" id="res-name" class="booking-form-input" required placeholder="e.g. Sourav Mukherjee">
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-phone">Phone Number *</label>
+                        <input type="tel" id="res-phone" class="booking-form-input" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-date">Reservation Date *</label>
+                        <input type="date" id="res-date" class="booking-form-input" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-time">Time Slot *</label>
+                        <select id="res-time" class="booking-form-select" required>
+                            <option value="12:30 PM (Lunch)">12:30 PM (Lunch)</option>
+                            <option value="02:00 PM (Lunch)">02:00 PM (Lunch)</option>
+                            <option value="04:30 PM (Evening Snacks)">04:30 PM (Evening Snacks)</option>
+                            <option value="07:00 PM (Dinner)" selected>07:00 PM (Dinner)</option>
+                            <option value="08:30 PM (Dinner)">08:30 PM (Dinner)</option>
+                            <option value="09:45 PM (Late Dinner)">09:45 PM (Late Dinner)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-guests">Number of Guests *</label>
+                        <select id="res-guests" class="booking-form-select" required>
+                            <option value="2">2 Guests (Couple / Duo)</option>
+                            <option value="4" selected>4 Guests (Friends / Family)</option>
+                            <option value="6">6 Guests (Group Table)</option>
+                            <option value="8">8 Guests (Large Group)</option>
+                            <option value="10">10+ Guests (Party Feast)</option>
+                            <option value="20">20+ Guests (Banquet / Hall)</option>
+                        </select>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-area">Preferred Seating Area</label>
+                        <select id="res-area" class="booking-form-select">
+                            <option value="Main Cafe Hall" selected>Main Cafe Hall (Vibrant Vibe)</option>
+                            <option value="Cozy Corner Booth">Cozy Corner Booth</option>
+                            <option value="Window High Table">Window High Table</option>
+                            <option value="Private Celebration Area">Private Celebration Area</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="booking-form-group">
+                    <label class="booking-form-label" for="res-notes">Special Requests / Occasion</label>
+                    <input type="text" id="res-notes" class="booking-form-input" placeholder="e.g. Birthday setup, anniversary, dietary allergies">
+                </div>
+
+                <button type="submit" id="res-submit-btn" class="booking-submit-btn">
+                    <span>Confirm Reservation</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pure Vanilla JS File -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

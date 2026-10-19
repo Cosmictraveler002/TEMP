@@ -336,8 +336,23 @@
             <div class="nav-links">
                 <a href="index.html" class="nav-link">← Home</a>
                 <a href="menu.html" class="nav-link active">Full Menu</a>
-                <a href="index.html#page4" class="nav-link">Find Us</a>
-                <a href="index.html#page5" class="nav-link">Contact</a>
+                <a href="#bookings" id="nav-bookings-link" class="nav-link">Bookings</a>
+                <a href="checkout.html" class="nav-link">Checkout</a>
+
+                <!-- Desktop SVG Boilerplate (Replaces cart on desktop navbar) -->
+                <div class="nav-link nav-boilerplate" aria-label="SVG Boilerplate" title="SVG Boilerplate">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-boilerplate-svg" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+
+                <button id="nav-cart-btn" class="nav-cart-btn" aria-label="View Order Cart" title="View Cart">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span class="cart-btn-label">Cart</span>
+                    <span id="nav-cart-badge" class="cart-badge-count hidden">0</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -885,7 +900,7 @@
                             <!-- Meet Me Special -->
                             <div class="menu-item-card" data-name="Meet Me Special" data-type="non-veg" data-keywords="meet me special maggi non veg">
                                 <div class="item-img-box">
-                                    <img src="images/maggi_noodles.jpg" alt="Meet Me Special" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_meet_me_special.jpg" alt="Meet Me Special" class="item-food-img" loading="lazy">
                                     <span class="item-portion-tag">made with egg, chicken, cheese</span>
                                 </div>
                                 <div class="item-content-box">
@@ -959,7 +974,7 @@
                             <!-- Potato Chili Balls -->
                             <div class="menu-item-card" data-name="Potato Chili Balls" data-type="veg" data-keywords="potato chili balls fried heavenly veg">
                                 <div class="item-img-box">
-                                    <img src="images/honey_chilli_potatoes.jpg" alt="Potato Chili Balls" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_potato_chili_balls.jpg" alt="Potato Chili Balls" class="item-food-img" loading="lazy">
                                     <span class="item-portion-tag">16 piece</span>
                                 </div>
                                 <div class="item-content-box">
@@ -980,7 +995,7 @@
                             <!-- Potato Cheese Balls -->
                             <div class="menu-item-card" data-name="Potato Cheese Balls" data-type="veg" data-keywords="potato cheese balls fried heavenly veg">
                                 <div class="item-img-box">
-                                    <img src="images/honey_chilli_potatoes.jpg" alt="Potato Cheese Balls" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_potato_cheese_balls.jpg" alt="Potato Cheese Balls" class="item-food-img" loading="lazy">
                                     <span class="item-portion-tag">10 piece</span>
                                 </div>
                                 <div class="item-content-box">
@@ -1064,7 +1079,7 @@
                             <!-- Paneer Ball -->
                             <div class="menu-item-card" data-name="Paneer Ball" data-type="veg" data-keywords="paneer ball fried heavenly veg">
                                 <div class="item-img-box">
-                                    <img src="images/crispy_chili_babycorn.jpg" alt="Paneer Ball" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_paneer_ball.jpg" alt="Paneer Ball" class="item-food-img" loading="lazy">
                                     <span class="item-portion-tag">12 piece</span>
                                 </div>
                                 <div class="item-content-box">
@@ -1085,7 +1100,7 @@
                             <!-- Paneer Pakora -->
                             <div class="menu-item-card" data-name="Paneer Pakora" data-type="veg" data-keywords="paneer pakora fried heavenly veg">
                                 <div class="item-img-box">
-                                    <img src="images/crispy_chili_babycorn.jpg" alt="Paneer Pakora" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_paneer_pakora.jpg" alt="Paneer Pakora" class="item-food-img" loading="lazy">
                                     <span class="item-portion-tag">4 piece</span>
                                 </div>
                                 <div class="item-content-box">
@@ -1106,7 +1121,7 @@
                             <!-- Dry Chili Baby Corn -->
                             <div class="menu-item-card" data-name="Dry Chili Baby Corn" data-type="veg" data-keywords="dry chili baby corn fried heavenly veg">
                                 <div class="item-img-box">
-                                    <img src="images/combo_feast.jpg" alt="Dry Chili Baby Corn" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_dry_chili_baby_corn.jpg" alt="Dry Chili Baby Corn" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -1148,7 +1163,7 @@
                             <!-- Faltu Paneer Masala -->
                             <div class="menu-item-card" data-name="Faltu Paneer Masala" data-type="veg" data-keywords="faltu paneer masala fried heavenly veg">
                                 <div class="item-img-box">
-                                    <img src="images/crispy_chili_babycorn.jpg" alt="Faltu Paneer Masala" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_faltu_paneer_masala.jpg" alt="Faltu Paneer Masala" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -1169,7 +1184,7 @@
                             <!-- Crispy Bamboo Sticks -->
                             <div class="menu-item-card" data-name="Crispy Bamboo Sticks" data-type="veg" data-keywords="crispy bamboo sticks fried heavenly veg">
                                 <div class="item-img-box">
-                                    <img src="images/combo_feast.jpg" alt="Crispy Bamboo Sticks" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_crispy_bamboo_sticks.jpg" alt="Crispy Bamboo Sticks" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -1190,7 +1205,7 @@
                             <!-- Veg Maggi -->
                             <div class="menu-item-card" data-name="Veg Maggi" data-type="veg" data-keywords="veg maggi maggi veg">
                                 <div class="item-img-box">
-                                    <img src="images/maggi_noodles.jpg" alt="Veg Maggi" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_veg_maggi.jpg" alt="Veg Maggi" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -1211,7 +1226,7 @@
                             <!-- Cheese Maggi -->
                             <div class="menu-item-card" data-name="Cheese Maggi" data-type="veg" data-keywords="cheese maggi maggi veg">
                                 <div class="item-img-box">
-                                    <img src="images/maggi_noodles.jpg" alt="Cheese Maggi" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_cheese_maggi.jpg" alt="Cheese Maggi" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -1589,7 +1604,7 @@
                             <!-- Chicken Exotica -->
                             <div class="menu-item-card" data-name="Chicken Exotica" data-type="non-veg" data-keywords="chicken exotica salad non veg">
                                 <div class="item-img-box">
-                                    <img src="images/fresh_salad.jpg" alt="Chicken Exotica" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_chicken_exotica.jpg" alt="Chicken Exotica" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -1999,7 +2014,7 @@
                             <!-- Peri Peri -->
                             <div class="menu-item-card" data-name="Peri Peri" data-type="veg" data-keywords="peri peri salad veg">
                                 <div class="item-img-box">
-                                    <img src="images/fresh_salad.jpg" alt="Peri Peri" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_peri_peri.jpg" alt="Peri Peri" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2020,7 +2035,7 @@
                             <!-- Exotica -->
                             <div class="menu-item-card" data-name="Exotica" data-type="veg" data-keywords="exotica salad veg">
                                 <div class="item-img-box">
-                                    <img src="images/fresh_salad.jpg" alt="Exotica" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_exotica.jpg" alt="Exotica" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2146,7 +2161,7 @@
                             <!-- Black Coffee -->
                             <div class="menu-item-card" data-name="Black Coffee" data-type="veg" data-keywords="black coffee coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Black Coffee" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_black_coffee.jpg" alt="Black Coffee" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2188,7 +2203,7 @@
                             <!-- Cold Coffee with Ice Cream -->
                             <div class="menu-item-card" data-name="Cold Coffee with Ice Cream" data-type="veg" data-keywords="cold coffee with ice cream coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/belgian_waffle.jpg" alt="Cold Coffee with Ice Cream" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_cold_coffee_with_ice_cre.jpg" alt="Cold Coffee with Ice Cream" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2209,7 +2224,7 @@
                             <!-- Espresso -->
                             <div class="menu-item-card" data-name="Espresso" data-type="veg" data-keywords="espresso coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Espresso" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_espresso.jpg" alt="Espresso" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2230,7 +2245,7 @@
                             <!-- Iced Latte -->
                             <div class="menu-item-card" data-name="Iced Latte" data-type="veg" data-keywords="iced latte coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Iced Latte" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_iced_latte.jpg" alt="Iced Latte" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2251,7 +2266,7 @@
                             <!-- Capachino Coffee -->
                             <div class="menu-item-card" data-name="Capachino Coffee" data-type="veg" data-keywords="capachino coffee coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Capachino Coffee" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_capachino_coffee.jpg" alt="Capachino Coffee" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2272,7 +2287,7 @@
                             <!-- Caramel Coffee -->
                             <div class="menu-item-card" data-name="Caramel Coffee" data-type="veg" data-keywords="caramel coffee coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Caramel Coffee" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_caramel_coffee.jpg" alt="Caramel Coffee" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2293,7 +2308,7 @@
                             <!-- Vanilla Coffee -->
                             <div class="menu-item-card" data-name="Vanilla Coffee" data-type="veg" data-keywords="vanilla coffee coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Vanilla Coffee" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_vanilla_coffee.jpg" alt="Vanilla Coffee" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2314,7 +2329,7 @@
                             <!-- Butter Scotch Coffee -->
                             <div class="menu-item-card" data-name="Butter Scotch Coffee" data-type="veg" data-keywords="butter scotch coffee coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Butter Scotch Coffee" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_butter_scotch_coffee.jpg" alt="Butter Scotch Coffee" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2335,7 +2350,7 @@
                             <!-- Hazel nut Coffee -->
                             <div class="menu-item-card" data-name="Hazel nut Coffee" data-type="veg" data-keywords="hazel nut coffee coffee veg">
                                 <div class="item-img-box">
-                                    <img src="images/hot_coffee.jpg" alt="Hazel nut Coffee" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_hazel_nut_coffee.jpg" alt="Hazel nut Coffee" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2356,7 +2371,7 @@
                             <!-- Liquor Tea -->
                             <div class="menu-item-card" data-name="Liquor Tea" data-type="veg" data-keywords="liquor tea tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/masala_chai.jpg" alt="Liquor Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_liquor_tea.jpg" alt="Liquor Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2398,7 +2413,7 @@
                             <!-- Ginger Milk Tea -->
                             <div class="menu-item-card" data-name="Ginger Milk Tea" data-type="veg" data-keywords="ginger milk tea tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/masala_chai.jpg" alt="Ginger Milk Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_ginger_milk_tea.jpg" alt="Ginger Milk Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2419,7 +2434,7 @@
                             <!-- Malai Milk Tea -->
                             <div class="menu-item-card" data-name="Malai Milk Tea" data-type="veg" data-keywords="malai milk tea tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/masala_chai.jpg" alt="Malai Milk Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_malai_milk_tea.jpg" alt="Malai Milk Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2440,7 +2455,7 @@
                             <!-- Lemon Tea -->
                             <div class="menu-item-card" data-name="Lemon Tea" data-type="veg" data-keywords="lemon tea tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/masala_chai.jpg" alt="Lemon Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_lemon_tea.jpg" alt="Lemon Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2461,7 +2476,7 @@
                             <!-- Mint Tea -->
                             <div class="menu-item-card" data-name="Mint Tea" data-type="veg" data-keywords="mint tea tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/masala_chai.jpg" alt="Mint Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_mint_tea.jpg" alt="Mint Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2482,7 +2497,7 @@
                             <!-- Ice Tea -->
                             <div class="menu-item-card" data-name="Ice Tea" data-type="veg" data-keywords="ice tea tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/masala_chai.jpg" alt="Ice Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_ice_tea.jpg" alt="Ice Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2524,7 +2539,7 @@
                             <!-- Mint Lemonade Matcha -->
                             <div class="menu-item-card" data-name="Mint Lemonade Matcha" data-type="veg" data-keywords="mint lemonade matcha matcha hot veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Mint Lemonade Matcha" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_mint_lemonade_matcha.jpg" alt="Mint Lemonade Matcha" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2545,7 +2560,7 @@
                             <!-- Vanilla Matcha Latte -->
                             <div class="menu-item-card" data-name="Vanilla Matcha Latte" data-type="veg" data-keywords="vanilla matcha latte matcha hot veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Vanilla Matcha Latte" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_vanilla_matcha_latte.jpg" alt="Vanilla Matcha Latte" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2566,7 +2581,7 @@
                             <!-- Strawberry Matcha Latte -->
                             <div class="menu-item-card" data-name="Strawberry Matcha Latte" data-type="veg" data-keywords="strawberry matcha latte matcha hot veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Strawberry Matcha Latte" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_strawberry_matcha_latte.jpg" alt="Strawberry Matcha Latte" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2598,7 +2613,7 @@
                             <!-- Meet Me Spacial Mocktail -->
                             <div class="menu-item-card" data-name="Meet Me Spacial Mocktail" data-type="veg" data-keywords="meet me spacial mocktail mocktails veg">
                                 <div class="item-img-box">
-                                    <img src="images/virgin_mojito.jpg" alt="Meet Me Spacial Mocktail" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_meet_me_spacial_mocktail.jpg" alt="Meet Me Spacial Mocktail" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2619,7 +2634,7 @@
                             <!-- Green Apple Mocktail -->
                             <div class="menu-item-card" data-name="Green Apple Mocktail" data-type="veg" data-keywords="green apple mocktail mocktails veg">
                                 <div class="item-img-box">
-                                    <img src="images/virgin_mojito.jpg" alt="Green Apple Mocktail" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_green_apple_mocktail.jpg" alt="Green Apple Mocktail" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2661,7 +2676,7 @@
                             <!-- Passion Fruit Mocktail -->
                             <div class="menu-item-card" data-name="Passion Fruit Mocktail" data-type="veg" data-keywords="passion fruit mocktail mocktails veg">
                                 <div class="item-img-box">
-                                    <img src="images/virgin_mojito.jpg" alt="Passion Fruit Mocktail" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_passion_fruit_mocktail.jpg" alt="Passion Fruit Mocktail" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2682,7 +2697,7 @@
                             <!-- Mango Mocktail -->
                             <div class="menu-item-card" data-name="Mango Mocktail" data-type="veg" data-keywords="mango mocktail mocktails veg">
                                 <div class="item-img-box">
-                                    <img src="images/virgin_mojito.jpg" alt="Mango Mocktail" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_mango_mocktail.jpg" alt="Mango Mocktail" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2703,7 +2718,7 @@
                             <!-- Strawberry Mocktail -->
                             <div class="menu-item-card" data-name="Strawberry Mocktail" data-type="veg" data-keywords="strawberry mocktail mocktails veg">
                                 <div class="item-img-box">
-                                    <img src="images/virgin_mojito.jpg" alt="Strawberry Mocktail" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_strawberry_mocktail.jpg" alt="Strawberry Mocktail" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2724,7 +2739,7 @@
                             <!-- Pineapple Mocktail -->
                             <div class="menu-item-card" data-name="Pineapple Mocktail" data-type="veg" data-keywords="pineapple mocktail mocktails veg">
                                 <div class="item-img-box">
-                                    <img src="images/virgin_mojito.jpg" alt="Pineapple Mocktail" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_pineapple_mocktail.jpg" alt="Pineapple Mocktail" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2745,7 +2760,7 @@
                             <!-- Butterscotch Mocktail -->
                             <div class="menu-item-card" data-name="Butterscotch Mocktail" data-type="veg" data-keywords="butterscotch mocktail mocktails veg">
                                 <div class="item-img-box">
-                                    <img src="images/virgin_mojito.jpg" alt="Butterscotch Mocktail" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_butterscotch_mocktail.jpg" alt="Butterscotch Mocktail" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2766,7 +2781,7 @@
                             <!-- Iced Matcha Latte -->
                             <div class="menu-item-card" data-name="Iced Matcha Latte" data-type="veg" data-keywords="iced matcha latte matcha cold veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Iced Matcha Latte" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_iced_matcha_latte.jpg" alt="Iced Matcha Latte" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2787,7 +2802,7 @@
                             <!-- Iced Coconut Matcha -->
                             <div class="menu-item-card" data-name="Iced Coconut Matcha" data-type="veg" data-keywords="iced coconut matcha matcha cold veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Iced Coconut Matcha" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_iced_coconut_matcha.jpg" alt="Iced Coconut Matcha" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2808,7 +2823,7 @@
                             <!-- Iced Matcha Lemonade -->
                             <div class="menu-item-card" data-name="Iced Matcha Lemonade" data-type="veg" data-keywords="iced matcha lemonade matcha cold veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Iced Matcha Lemonade" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_iced_matcha_lemonade.jpg" alt="Iced Matcha Lemonade" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2829,7 +2844,7 @@
                             <!-- Strawberry Matcha Swirl -->
                             <div class="menu-item-card" data-name="Strawberry Matcha Swirl" data-type="veg" data-keywords="strawberry matcha swirl matcha cold veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Strawberry Matcha Swirl" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_strawberry_matcha_swirl.jpg" alt="Strawberry Matcha Swirl" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2850,7 +2865,7 @@
                             <!-- Mango Matcha Iced Latte -->
                             <div class="menu-item-card" data-name="Mango Matcha Iced Latte" data-type="veg" data-keywords="mango matcha iced latte matcha cold veg">
                                 <div class="item-img-box">
-                                    <img src="images/matcha_latte.jpg" alt="Mango Matcha Iced Latte" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_mango_matcha_iced_latte.jpg" alt="Mango Matcha Iced Latte" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2892,7 +2907,7 @@
                             <!-- Strawberry Popping Boba -->
                             <div class="menu-item-card" data-name="Strawberry Popping Boba" data-type="veg" data-keywords="strawberry popping boba bubble tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/bubble_tea.jpg" alt="Strawberry Popping Boba" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_strawberry_popping_boba.jpg" alt="Strawberry Popping Boba" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2913,7 +2928,7 @@
                             <!-- Taro Base Bubble Tea -->
                             <div class="menu-item-card" data-name="Taro Base Bubble Tea" data-type="veg" data-keywords="taro base bubble tea bubble tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/bubble_tea.jpg" alt="Taro Base Bubble Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_taro_base_bubble_tea.jpg" alt="Taro Base Bubble Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2934,7 +2949,7 @@
                             <!-- Coffee Mocha Bubble Tea -->
                             <div class="menu-item-card" data-name="Coffee Mocha Bubble Tea" data-type="veg" data-keywords="coffee mocha bubble tea bubble tea veg">
                                 <div class="item-img-box">
-                                    <img src="images/bubble_tea.jpg" alt="Coffee Mocha Bubble Tea" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_coffee_mocha_bubble_tea.jpg" alt="Coffee Mocha Bubble Tea" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2955,7 +2970,7 @@
                             <!-- Lime Juice -->
                             <div class="menu-item-card" data-name="Lime Juice" data-type="veg" data-keywords="lime juice fresh juice veg">
                                 <div class="item-img-box">
-                                    <img src="images/fresh_juice.jpg" alt="Lime Juice" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_lime_juice.jpg" alt="Lime Juice" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -2976,7 +2991,7 @@
                             <!-- Mint Lime Juice -->
                             <div class="menu-item-card" data-name="Mint Lime Juice" data-type="veg" data-keywords="mint lime juice fresh juice veg">
                                 <div class="item-img-box">
-                                    <img src="images/fresh_juice.jpg" alt="Mint Lime Juice" class="item-food-img" loading="lazy">
+                                    <img src="images/dish_mint_lime_juice.jpg" alt="Mint Lime Juice" class="item-food-img" loading="lazy">
                                     
                                 </div>
                                 <div class="item-content-box">
@@ -4783,22 +4798,6 @@
                 });
             });
 
-            // 2. Order Button Toast Trigger
-            const orderBtns = document.querySelectorAll('.item-order-btn');
-            orderBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const dish = btn.getAttribute('data-dish') || 'Item';
-                    if (toast && toastMessage) {
-                        toastMessage.textContent = dish + ' added to your order!';
-                        toast.classList.add('show');
-                        clearTimeout(toastTimer);
-                        toastTimer = setTimeout(() => {
-                            toast.classList.remove('show');
-                        }, 2500);
-                    }
-                });
-            });
 
             // 3. Category Navigation & Accurate Scroll Offset Handling
             const categoryPills = document.querySelectorAll('.menu-categories-nav .category-pill');
@@ -4903,6 +4902,162 @@
             }
         });
     </script>
+    <!-- Floating Cart Launcher Button -->
+    <button id="floating-cart-btn" class="floating-cart-btn" aria-label="Open Order Cart" title="Open Order Cart">
+        <div class="floating-cart-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span id="floating-cart-badge" class="cart-badge-count hidden">0</span>
+        </div>
+        <span class="floating-cart-label">Cart (<span id="floating-cart-total">₹0</span>)</span>
+    </button>
+
+    <!-- Slide-In Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer-backdrop" aria-hidden="true">
+        <div class="cart-drawer-panel" role="dialog" aria-modal="true" aria-label="Order Cart">
+            <div class="cart-drawer-header">
+                <div class="cart-header-title-wrap">
+                    <div class="cart-header-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    </div>
+                    <h3>Your Order Cart</h3>
+                    <span id="drawer-item-count-pill" class="drawer-count-pill">0 items</span>
+                </div>
+                <button id="close-cart-drawer-btn" class="cart-drawer-close" aria-label="Close cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <div id="cart-drawer-items" class="cart-drawer-items">
+                <div id="cart-drawer-empty" class="cart-drawer-empty">
+                    <div class="empty-cart-illustration">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    </div>
+                    <h4>Your cart is empty</h4>
+                    <p>Browse our 100+ fresh recipes and add your favorites!</p>
+                </div>
+            </div>
+
+            <div class="cart-drawer-footer">
+                <div class="cart-bill-summary">
+                    <div class="bill-row">
+                        <span>Items Subtotal</span>
+                        <span id="drawer-subtotal">₹0</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Estimated GST (5%)</span>
+                        <span id="drawer-tax">₹0</span>
+                    </div>
+                    <div class="bill-row total-row">
+                        <span>Estimated Total</span>
+                        <span id="drawer-total" class="drawer-highlight-total">₹0</span>
+                    </div>
+                </div>
+                <div class="cart-drawer-actions">
+                    <button id="drawer-clear-btn" class="drawer-btn-secondary" type="button">Clear</button>
+                    <a href="checkout.html" id="drawer-checkout-btn" class="drawer-btn-primary">
+                        <span>Checkout</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table & Event Reservation Modal Dialog -->
+    <div id="reservation-modal" class="reservation-modal-backdrop" aria-hidden="true">
+        <div class="reservation-modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-booking-title">
+            <button id="close-reservation-modal-btn" class="modal-close-btn" aria-label="Close modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <div class="reservation-modal-header">
+                <span class="booking-badge-pill">Table & Event Booking</span>
+                <h3 id="modal-booking-title" class="reservation-modal-title">Reserve Your Table at Meet Me</h3>
+                <p class="reservation-modal-subtitle">Fresh artisanal recipes, vibrant ambiance, and memorable vibes in Kalyani.</p>
+            </div>
+
+            <form id="table-reservation-form" class="reservation-form">
+                <div class="booking-form-group">
+                    <label class="booking-form-label">Booking Category</label>
+                    <div class="booking-category-toggle">
+                        <label class="category-radio-card active">
+                            <input type="radio" name="res_category" value="Table Booking" checked>
+                            <span class="category-icon">🍽️</span>
+                            <span class="category-name">Table Dining</span>
+                        </label>
+                        <label class="category-radio-card">
+                            <input type="radio" name="res_category" value="Private Event">
+                            <span class="category-icon">🎉</span>
+                            <span class="category-name">Party / Event</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-name">Full Name *</label>
+                        <input type="text" id="res-name" class="booking-form-input" required placeholder="e.g. Sourav Mukherjee">
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-phone">Phone Number *</label>
+                        <input type="tel" id="res-phone" class="booking-form-input" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-date">Reservation Date *</label>
+                        <input type="date" id="res-date" class="booking-form-input" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-time">Time Slot *</label>
+                        <select id="res-time" class="booking-form-select" required>
+                            <option value="12:30 PM (Lunch)">12:30 PM (Lunch)</option>
+                            <option value="02:00 PM (Lunch)">02:00 PM (Lunch)</option>
+                            <option value="04:30 PM (Evening Snacks)">04:30 PM (Evening Snacks)</option>
+                            <option value="07:00 PM (Dinner)" selected>07:00 PM (Dinner)</option>
+                            <option value="08:30 PM (Dinner)">08:30 PM (Dinner)</option>
+                            <option value="09:45 PM (Late Dinner)">09:45 PM (Late Dinner)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-guests">Number of Guests *</label>
+                        <select id="res-guests" class="booking-form-select" required>
+                            <option value="2">2 Guests (Couple / Duo)</option>
+                            <option value="4" selected>4 Guests (Friends / Family)</option>
+                            <option value="6">6 Guests (Group Table)</option>
+                            <option value="8">8 Guests (Large Group)</option>
+                            <option value="10">10+ Guests (Party Feast)</option>
+                            <option value="20">20+ Guests (Banquet / Hall)</option>
+                        </select>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="res-area">Preferred Seating Area</label>
+                        <select id="res-area" class="booking-form-select">
+                            <option value="Main Cafe Hall" selected>Main Cafe Hall (Vibrant Vibe)</option>
+                            <option value="Cozy Corner Booth">Cozy Corner Booth</option>
+                            <option value="Window High Table">Window High Table</option>
+                            <option value="Private Celebration Area">Private Celebration Area</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="booking-form-group">
+                    <label class="booking-form-label" for="res-notes">Special Requests / Occasion</label>
+                    <input type="text" id="res-notes" class="booking-form-input" placeholder="e.g. Birthday setup, anniversary, dietary allergies">
+                </div>
+
+                <button type="submit" id="res-submit-btn" class="booking-submit-btn">
+                    <span>Confirm Reservation</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- GSAP Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="script.js"></script>
