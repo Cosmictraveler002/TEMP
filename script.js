@@ -589,8 +589,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         getCart() {
             try {
-                const data = localStorage.getItem(this.KEYS.CART);
-                return data ? JSON.parse(data) : [];
+                let data = localStorage.getItem(this.KEYS.CART);
+                if (!data) {
+                    data = localStorage.getItem('cart') || localStorage.getItem('mm_cart') || localStorage.getItem('meet_me_cart');
+                }
+                if (!data) return [];
+                const parsed = JSON.parse(data);
+                return Array.isArray(parsed) ? parsed : [];
             } catch (e) {
                 console.error('meetMeDB: Error reading cart', e);
                 return [];
@@ -614,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cleanId = (item.id && String(item.id).startsWith('mm-')) ? String(item.id) : `mm-${slug}`;
             const cleanPrice = parseFloat(item.price) || 0;
             const cleanImage = item.image || item.img || 'meet me .png';
-            const cleanQty = parseInt(item.quantity || item.qty || 1, 10);
+            const cleanQty = parseInt(item.quantity || item.qty || 1, 10) || 1;
 
             const existingIndex = cart.findIndex(i => 
                 (i.id && i.id.toLowerCase() === cleanId.toLowerCase()) || 
@@ -622,7 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (existingIndex > -1) {
-                cart[existingIndex].qty += cleanQty;
+                cart[existingIndex].qty = (parseInt(cart[existingIndex].qty, 10) || 1) + cleanQty;
                 if (cleanPrice > 0) cart[existingIndex].price = cleanPrice;
                 if (!cart[existingIndex].id) cart[existingIndex].id = cleanId;
             } else {
@@ -670,8 +675,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         getCartTotals() {
             const cart = this.getCart();
-            const count = cart.reduce((sum, item) => sum + (Number(item.qty) || 1), 0);
-            const subtotal = cart.reduce((sum, item) => sum + ((Number(item.price) || 0) * (Number(item.qty) || 1)), 0);
+            const count = cart.reduce((sum, item) => sum + (parseInt(item.qty || item.quantity || 1, 10) || 1), 0);
+            const subtotal = cart.reduce((sum, item) => sum + ((parseFloat(item.price) || 0) * (parseInt(item.qty || item.quantity || 1, 10) || 1)), 0);
             const tax = Math.round(subtotal * 0.05); // 5% GST
             const total = subtotal + tax;
             return { count, subtotal, tax, total };
@@ -737,10 +742,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helper: Escapes text for safe DOM rendering
     function escapeHtml(str) {
-        if (!str) return '';
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
+        if (!str && str !== 0) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 
     // =========================================================================
@@ -1380,6 +1388,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const couponInput = document.getElementById('coupon-code-input');
         const applyCouponBtn = document.getElementById('apply-coupon-btn');
         const couponFeedback = document.getElementById('coupon-feedback');
+        let activeCoupon = null;
 
         const pSubtotal = document.getElementById('p-subtotal');
         const pTax = document.getElementById('p-tax');
@@ -1510,7 +1519,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function calculateCheckoutBill() {
             const totals = meetMeDB.getCartTotals();
             const orderType = getSelectedOrderType();
-            const deliveryFee = orderType === 'Delivery' ? 40 : 0;
+            const deliveryFee = (orderType === 'Delivery' && totals.count > 0) ? 40 : 0;
 
             let discountAmount = 0;
             if (activeCoupon && totals.subtotal > 0) {
@@ -1521,11 +1530,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            const grandTotal = Math.max(0, totals.subtotal + totals.tax + deliveryFee - discountAmount);
+            const grandTotal = totals.count > 0 
+                ? Math.max(0, totals.subtotal + totals.tax + deliveryFee - discountAmount)
+                : 0;
 
             if (pSubtotal) pSubtotal.textContent = `₹${totals.subtotal}`;
             if (pTax) pTax.textContent = `₹${totals.tax}`;
-            if (pDelivery) pDelivery.textContent = deliveryFee > 0 ? `₹${deliveryFee}` : 'FREE';
+            if (pDelivery) {
+                if (totals.count === 0) {
+                    pDelivery.textContent = '₹0';
+                } else {
+                    pDelivery.textContent = deliveryFee > 0 ? `₹${deliveryFee}` : 'FREE';
+                }
+            }
             if (cartItemCount) cartItemCount.textContent = totals.count;
 
             if (discountAmount > 0) {
@@ -1547,13 +1564,14 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        window.renderCheckoutPage = function() {
+        function renderCheckoutPage() {
             const cart = meetMeDB.getCart();
-            calculateCheckoutBill();
+            const bill = calculateCheckoutBill();
 
             if (!pageCartItems) return;
 
             if (cart.length === 0) {
+                if (cartItemCount) cartItemCount.textContent = '0';
                 pageCartItems.innerHTML = `
                     <div style="text-align: center; padding: 48px 20px;">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(18,19,26,0.3)" stroke-width="1.8" style="margin-bottom: 12px;"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
@@ -1574,8 +1592,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let itemsHtml = '';
                 cart.forEach(item => {
-                    const itemTotal = (item.price || 0) * (item.qty || 1);
-                    const safeImg = escapeHtml(item.image || 'meet me .png');
+                    const itemQty = parseInt(item.qty || item.quantity || 1, 10) || 1;
+                    const itemPrice = parseFloat(item.price) || 0;
+                    const itemTotal = itemPrice * itemQty;
+                    const safeImg = escapeHtml(item.image || item.img || 'meet me .png');
                     const safeName = escapeHtml(item.name || 'Dish');
                     const safeId = escapeHtml(item.id || '');
 
@@ -1585,13 +1605,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <img src="${safeImg}" alt="${safeName}" class="page-cart-item-img" onerror="this.src='meet me .png'">
                                 <div>
                                     <h4 class="page-cart-item-title">${safeName}</h4>
-                                    <span class="page-cart-item-price">₹${item.price} each</span>
+                                    <span class="page-cart-item-price">₹${itemPrice} each</span>
                                 </div>
                             </div>
                             <div class="page-cart-item-actions">
                                 <div class="qty-stepper">
                                     <button type="button" class="qty-btn page-qty-dec" data-id="${safeId}" aria-label="Decrease quantity">−</button>
-                                    <span class="qty-val">${item.qty}</span>
+                                    <span class="qty-val">${itemQty}</span>
                                     <button type="button" class="qty-btn page-qty-inc" data-id="${safeId}" aria-label="Increase quantity">+</button>
                                 </div>
                                 <span class="cart-item-total-price">₹${itemTotal}</span>
@@ -1604,7 +1624,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 pageCartItems.innerHTML = itemsHtml;
             }
-        };
+        }
+        window.renderCheckoutPage = renderCheckoutPage;
 
         // Steppers on checkout page
         if (pageCartItems) {
@@ -1631,11 +1652,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Multi-tab storage sync
+        // Multi-tab and back-forward navigation storage sync
         window.addEventListener('storage', (e) => {
-            if (e.key === meetMeDB.KEYS.CART) {
+            if (e.key === meetMeDB.KEYS.CART || e.key === 'cart') {
                 renderCheckoutPage();
             }
+        });
+        window.addEventListener('pageshow', () => {
+            renderCheckoutPage();
         });
 
         // Checkout form submission
