@@ -2,49 +2,57 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     // Hero Entrance: Synchronized GSAP Master Timeline (Apple-style power4.out)
     // =========================================================================
+    const hasHero = !!document.querySelector('.hero-title');
     let heroEntranceTL = null;
     if (typeof gsap !== 'undefined') {
-        heroEntranceTL = gsap.timeline({
-            defaults: {
-                ease: 'power4.out'
+        if (hasHero) {
+            heroEntranceTL = gsap.timeline({
+                defaults: {
+                    ease: 'power4.out'
+                }
+            });
+
+            // Set initial positions cleanly
+            gsap.set('.nav-logo', { y: -28, opacity: 0 });
+            gsap.set('.nav-link', { y: -20, opacity: 0 });
+            gsap.set('.hero-title', { y: 45, opacity: 0 });
+            gsap.set('.hero-cta-group', { y: 35, opacity: 0 });
+            gsap.set('.hero-scroll-indicator', { opacity: 0, y: 15 });
+
+            heroEntranceTL
+                .to('.nav-logo', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.95,
+                    delay: 0.2
+                })
+                .to('.nav-link', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.08
+                }, '-=0.65')
+                .to('.hero-title', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.15
+                }, '-=0.55')
+                .to('.hero-cta-group', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.05
+                }, '-=0.75')
+                .to('.hero-scroll-indicator', {
+                    y: 0,
+                    opacity: 0.85,
+                    duration: 0.85
+                }, '-=0.6');
+        } else {
+            // Smoothly display navbar on other pages (checkout, menu)
+            if (document.querySelector('.nav-logo')) {
+                gsap.fromTo('.nav-logo', { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' });
             }
-        });
-
-        // Set initial positions cleanly
-        gsap.set('.nav-logo', { y: -28, opacity: 0 });
-        gsap.set('.nav-link', { y: -20, opacity: 0 });
-        gsap.set('.hero-title', { y: 45, opacity: 0 });
-        gsap.set('.hero-cta-group', { y: 35, opacity: 0 });
-        gsap.set('.hero-scroll-indicator', { opacity: 0, y: 15 });
-
-        heroEntranceTL
-            .to('.nav-logo', {
-                y: 0,
-                opacity: 1,
-                duration: 0.95,
-                delay: 0.2
-            })
-            .to('.nav-link', {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.08
-            }, '-=0.65')
-            .to('.hero-title', {
-                y: 0,
-                opacity: 1,
-                duration: 1.15
-            }, '-=0.55')
-            .to('.hero-cta-group', {
-                y: 0,
-                opacity: 1,
-                duration: 1.05
-            }, '-=0.75')
-            .to('.hero-scroll-indicator', {
-                y: 0,
-                opacity: 0.85,
-                duration: 0.85
-            }, '-=0.6');
+        }
     }
 
     // =========================================================================
@@ -1157,7 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
             const resEndpoint = isLocal 
                 ? 'http://127.0.0.1:8000/api/reservations' 
-                : 'https://bangalirsokherrannaghor.in/api/reservations';
+                : 'https://www.bangalirsokherrannaghor.in/api/reservations';
 
             fetch(resEndpoint, {
                 method: 'POST',
@@ -1216,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Centralized Multi-Brand API Endpoints & Configuration (prompt.md)
     // =========================================================================
     const MEET_ME_CONFIG = {
-        PROD_API_BASE: 'https://bangalirsokherrannaghor.in',
+        PROD_API_BASE: 'https://www.bangalirsokherrannaghor.in',
         LOCAL_API_BASE: 'http://127.0.0.1:8000',
         BRAND_KEY: 'mm_live_cafe_2026',
         OUTLET_ID: 'MM01',
@@ -1230,7 +1238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Constructs and submits the Meet Me Cafe order payload to the backend API.
-     * Conforms to the unified multi-brand specification on bangalirsokherrannaghor.in.
+     * Conforms to the unified multi-brand specification on www.bangalirsokherrannaghor.in.
      * @param {Object} cartState - Cart state object containing customer inputs and items array.
      * @returns {Promise<Object>} Created order confirmation response from server.
      */
@@ -1278,14 +1286,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }))
         };
 
-        // 3. Resolve API Endpoint & Headers per prompt.md specification
+        // 3. Resolve API Endpoint & Headers per multi-brand specification
         const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
         const primaryEndpoint = isLocal 
             ? `${MEET_ME_CONFIG.LOCAL_API_BASE}/api/orders`
             : `${MEET_ME_CONFIG.PROD_API_BASE}/api/orders`;
         const fallbackEndpoint = isLocal 
             ? `${MEET_ME_CONFIG.PROD_API_BASE}/api/orders` 
-            : `${MEET_ME_CONFIG.LOCAL_API_BASE}/api/orders`;
+            : null;
 
         const requestHeaders = {
             'Content-Type': 'application/json',
@@ -1293,7 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'X-Brand-Key': MEET_ME_CONFIG.BRAND_KEY
         };
 
-        // 4. Dispatch HTTP POST Request with Automatic Network Fallback
+        // 4. Dispatch HTTP POST Request with Automatic Fallback for local testing
         let response;
         try {
             response = await fetch(primaryEndpoint, {
@@ -1302,14 +1310,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(payload)
             });
         } catch (fetchErr) {
-            console.warn(`Primary endpoint (${primaryEndpoint}) failed, trying fallback:`, fetchErr);
-            try {
-                response = await fetch(fallbackEndpoint, {
-                    method: 'POST',
-                    headers: requestHeaders,
-                    body: JSON.stringify(payload)
-                });
-            } catch (fallbackErr) {
+            if (fallbackEndpoint) {
+                console.warn(`Primary endpoint (${primaryEndpoint}) failed, trying fallback:`, fetchErr);
+                try {
+                    response = await fetch(fallbackEndpoint, {
+                        method: 'POST',
+                        headers: requestHeaders,
+                        body: JSON.stringify(payload)
+                    });
+                } catch (fallbackErr) {
+                    throw new Error('Unable to connect to order server. Please check your network connection.');
+                }
+            } else {
                 throw new Error('Unable to connect to order server. Please check your network connection.');
             }
         }
