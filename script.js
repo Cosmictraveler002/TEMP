@@ -2236,78 +2236,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const categoryImageMap = {
             'cat-all': [
-                'images/chicken_strips.jpg',
-                'images/dish_fried_wings.jpg',
-                'images/dish_chicken_fried_leg.jpg',
-                'images/chicken_kurkure_momo.jpg',
-                'images/dry_chili_chicken.jpg',
-                'images/chicken_burger.jpg',
-                'images/fish_and_chips.jpg',
-                'images/kolkata_fish_fry.jpg',
-                'images/matcha_latte.jpg',
-                'images/oreo_shake.jpg',
-                'images/belgian_waffle.jpg',
-                'images/combo_feast.jpg'
+                'images/chicken_strips.webp',
+                'images/dish_fried_wings.webp',
+                'images/dish_chicken_fried_leg.webp',
+                'images/chicken_kurkure_momo.webp',
+                'images/dry_chili_chicken.webp',
+                'images/chicken_burger.webp',
+                'images/fish_and_chips.webp',
+                'images/kolkata_fish_fry.webp',
+                'images/matcha_latte.webp',
+                'images/oreo_shake.webp',
+                'images/belgian_waffle.webp',
+                'images/combo_feast.webp'
             ],
             'cat-appetizers': [
-                'images/chicken_strips.jpg',
-                'images/dish_fried_wings.jpg',
-                'images/dish_chicken_fried_leg.jpg',
-                'images/dish_chicken_chatpata.jpg',
-                'images/dish_dry_chili_fish.jpg',
-                'images/fish_and_chips.jpg',
-                'images/kolkata_fish_fry.jpg',
-                'images/dish_chicken_cutlet.jpg',
-                'images/dish_nuggets.jpg',
-                'images/chicken_kurkure_momo.jpg',
-                'images/dry_chili_chicken.jpg'
+                'images/chicken_strips.webp',
+                'images/dish_fried_wings.webp',
+                'images/dish_chicken_fried_leg.webp',
+                'images/dish_chicken_chatpata.webp',
+                'images/dish_dry_chili_fish.webp',
+                'images/fish_and_chips.webp',
+                'images/kolkata_fish_fry.webp',
+                'images/dish_chicken_cutlet.webp',
+                'images/dish_nuggets.webp',
+                'images/chicken_kurkure_momo.webp',
+                'images/dry_chili_chicken.webp'
             ],
             'cat-continental': [
-                'images/chicken_burger.jpg',
-                'images/dish_cheese_chicken_burger.jpg',
-                'images/dish_jumbo_chicken_burger.jpg',
-                'images/club_sandwich.jpg',
-                'images/creamy_pasta.jpg',
-                'images/dish_classic_french_fry.jpg',
-                'images/peri_peri_fries.jpg',
-                'images/dish_chicken_wrap.jpg'
+                'images/chicken_burger.webp',
+                'images/dish_cheese_chicken_burger.webp',
+                'images/dish_jumbo_chicken_burger.webp',
+                'images/club_sandwich.webp',
+                'images/creamy_pasta.webp',
+                'images/dish_classic_french_fry.webp',
+                'images/peri_peri_fries.webp',
+                'images/dish_chicken_wrap.webp'
             ],
             'cat-beverages': [
-                'images/hot_coffee.jpg',
-                'images/matcha_latte.jpg',
-                'images/cold_coffee.jpg',
-                'images/bubble_tea.jpg',
-                'images/blue_mocktail.jpg',
-                'images/virgin_mojito.jpg',
-                'images/masala_chai.jpg',
-                'images/fresh_juice.jpg'
+                'images/hot_coffee.webp',
+                'images/matcha_latte.webp',
+                'images/cold_coffee.webp',
+                'images/bubble_tea.webp',
+                'images/blue_mocktail.webp',
+                'images/virgin_mojito.webp',
+                'images/masala_chai.webp',
+                'images/fresh_juice.webp'
             ],
             'cat-shakes': [
-                'images/oreo_shake.jpg',
-                'images/belgian_chocolate_shake.jpg',
-                'images/kitkat_shake.jpg',
-                'images/fruit_smoothie.jpg',
-                'images/mango_lassi.jpg'
+                'images/oreo_shake.webp',
+                'images/belgian_chocolate_shake.webp',
+                'images/kitkat_shake.webp',
+                'images/fruit_smoothie.webp',
+                'images/mango_lassi.webp'
             ],
             'cat-desserts': [
-                'images/belgian_waffle.jpg',
-                'images/choco_lava.jpg',
-                'images/belgian_chocolate_shake.jpg'
+                'images/belgian_waffle.webp',
+                'images/choco_lava.webp',
+                'images/belgian_chocolate_shake.webp'
             ],
             'cat-combos': [
-                'images/combo_feast.jpg',
-                'images/chicken_steam_momo.jpg',
-                'images/chicken_burger.jpg',
-                'images/soft_drink.jpg'
+                'images/combo_feast.webp',
+                'images/chicken_steam_momo.webp',
+                'images/chicken_burger.webp',
+                'images/soft_drink.webp'
             ]
         };
 
         const globalMenuAssets = [
             'meet me .png',
-            'images/chicken_strips.jpg',
-            'images/dry_chili_chicken.jpg',
-            'images/chicken_burger.jpg',
-            'images/matcha_latte.jpg'
+            'images/chicken_strips.webp',
+            'images/dry_chili_chicken.webp',
+            'images/chicken_burger.webp',
+            'images/matcha_latte.webp'
         ];
 
         function preloadTargetImages(targetUrl) {

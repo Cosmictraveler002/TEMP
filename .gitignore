@@ -20,3 +20,4 @@ dist/
 
 # Markdown documentation (do not track any .md files per instruction)
 *.md
+.vercel
