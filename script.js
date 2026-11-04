@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const slug = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 46);
             const cleanId = (item.id && String(item.id).startsWith('mm-')) ? String(item.id) : `mm-${slug}`;
             const cleanPrice = parseFloat(item.price) || 0;
-            const cleanImage = item.image || item.img || 'meet me .png';
+            const cleanImage = item.image || item.img || 'meet me .webp';
             const cleanQty = parseInt(item.quantity || item.qty || 1, 10) || 1;
 
             const existingIndex = cart.findIndex(i => 
@@ -928,14 +928,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let itemsHtml = '';
             cart.forEach(item => {
                 const itemTotal = (item.price || 0) * (item.qty || 1);
-                const safeImg = escapeHtml(item.image || 'meet me .png');
+                const safeImg = escapeHtml(item.image || 'meet me .webp');
                 const safeName = escapeHtml(item.name || 'Dish');
                 const safeId = escapeHtml(item.id || '');
 
                 itemsHtml += `
                     <div class="cart-item-row" data-id="${safeId}">
                         <div class="cart-item-details">
-                            <img src="${safeImg}" alt="${safeName}" class="cart-item-thumb" onerror="this.src='meet me .png'">
+                            <img src="${safeImg}" alt="${safeName}" class="cart-item-thumb" onerror="this.src='meet me .webp'">
                             <div class="cart-item-info-text">
                                 <h4>${safeName}</h4>
                                 <span>₹${item.price} each</span>
@@ -1027,7 +1027,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dishName = orderBtn.getAttribute('data-dish') || (titleEl ? titleEl.textContent.trim() : 'Delicious Dish');
         let rawPrice = orderBtn.getAttribute('data-price') || (priceEl ? priceEl.textContent.replace(/[^0-9]/g, '') : '0');
         const price = parseInt(rawPrice, 10) || 0;
-        const imgSrc = imgEl ? (imgEl.getAttribute('src') || 'meet me .png') : 'meet me .png';
+        const imgSrc = imgEl ? (imgEl.getAttribute('src') || 'meet me .webp') : 'meet me .webp';
 
         meetMeDB.addToCart({
             id: dishName.toLowerCase().replace(/[^a-z0-9]/g, '-'),
@@ -1614,14 +1614,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     const itemQty = parseInt(item.qty || item.quantity || 1, 10) || 1;
                     const itemPrice = parseFloat(item.price) || 0;
                     const itemTotal = itemPrice * itemQty;
-                    const safeImg = escapeHtml(item.image || item.img || 'meet me .png');
+                    const safeImg = escapeHtml(item.image || item.img || 'meet me .webp');
                     const safeName = escapeHtml(item.name || 'Dish');
                     const safeId = escapeHtml(item.id || '');
 
                     itemsHtml += `
                         <div class="page-cart-item" data-id="${safeId}">
                             <div class="page-cart-item-info">
-                                <img src="${safeImg}" alt="${safeName}" class="page-cart-item-img" onerror="this.src='meet me .png'">
+                                <img src="${safeImg}" alt="${safeName}" class="page-cart-item-img" onerror="this.src='meet me .webp'">
                                 <div>
                                     <h4 class="page-cart-item-title">${safeName}</h4>
                                     <span class="page-cart-item-price">₹${itemPrice} each</span>
@@ -2306,7 +2306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const globalMenuAssets = [
-            'meet me .png',
+            'meet me .webp',
             'images/chicken_strips.webp',
             'images/dry_chili_chicken.webp',
             'images/chicken_burger.webp',
