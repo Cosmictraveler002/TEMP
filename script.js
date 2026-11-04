@@ -685,8 +685,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const cart = this.getCart();
             const count = cart.reduce((sum, item) => sum + (parseInt(item.qty || item.quantity || 1, 10) || 1), 0);
             const subtotal = cart.reduce((sum, item) => sum + ((parseFloat(item.price) || 0) * (parseInt(item.qty || item.quantity || 1, 10) || 1)), 0);
-            const tax = Math.round(subtotal * 0.05); // 5% GST
-            const total = subtotal + tax;
+            const tax = 0; // GST removed per requirement
+            const total = subtotal;
             return { count, subtotal, tax, total };
         },
 
@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function triggerBadgeBounce() {
-        [navCartBadge, floatingCartBadge].forEach(badge => {
+        document.querySelectorAll('.cart-badge-count, .nav-cart-badge, #nav-cart-badge, #floating-cart-badge').forEach(badge => {
             if (badge) {
                 badge.classList.remove('badge-bounce');
                 void badge.offsetWidth; // Trigger reflow
@@ -881,7 +881,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const totals = meetMeDB.getCartTotals();
 
         // Update nav badges
-        [navCartBadge, floatingCartBadge].forEach(badge => {
+        document.querySelectorAll('.cart-badge-count, .nav-cart-badge, #nav-cart-badge, #floating-cart-badge').forEach(badge => {
             if (badge) {
                 badge.textContent = totals.count;
                 if (totals.count > 0) {
@@ -900,7 +900,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update summary numbers in drawer
         if (drawerCountPill) drawerCountPill.textContent = `${totals.count} item${totals.count === 1 ? '' : 's'}`;
         if (drawerSubtotal) drawerSubtotal.textContent = `₹${totals.subtotal}`;
-        if (drawerTax) drawerTax.textContent = `₹${totals.tax}`;
         if (drawerTotal) drawerTotal.textContent = `₹${totals.total}`;
 
         if (!cartDrawerItemsContainer) return;
@@ -959,12 +958,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Attach drawer open/close triggers
-    if (navCartBtn) {
-        navCartBtn.addEventListener('click', (e) => {
+    document.querySelectorAll('.nav-cart-trigger, #nav-cart-btn, #nav-cart-btn-desktop').forEach(btn => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
             openCartDrawer();
         });
-    }
+    });
 
     if (floatingCartBtn) {
         floatingCartBtn.addEventListener('click', (e) => {
@@ -1110,6 +1109,78 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // =========================================================================
+    // =========================================================================
+    // Mobile Navigation Drawer Controller
+    // =========================================================================
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+    const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+    const closeDrawerBtn = document.getElementById('close-drawer-btn');
+    const drawerLinks = document.querySelectorAll('.drawer-link');
+
+    function openMobileDrawer() {
+        if (!mobileNavDrawer || !mobileNavBackdrop) return;
+        mobileNavDrawer.classList.add('is-open');
+        mobileNavBackdrop.classList.add('is-open');
+        mobileNavDrawer.setAttribute('aria-hidden', 'false');
+        mobileNavBackdrop.setAttribute('aria-hidden', 'false');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.classList.add('is-active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        }
+        document.body.classList.add('mobile-drawer-open');
+    }
+
+    function closeMobileDrawer() {
+        if (!mobileNavDrawer || !mobileNavBackdrop) return;
+        mobileNavDrawer.classList.remove('is-open');
+        mobileNavBackdrop.classList.remove('is-open');
+        mobileNavDrawer.setAttribute('aria-hidden', 'true');
+        mobileNavBackdrop.setAttribute('aria-hidden', 'true');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.classList.remove('is-active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+        document.body.classList.remove('mobile-drawer-open');
+    }
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (mobileNavDrawer && mobileNavDrawer.classList.contains('is-open')) {
+                closeMobileDrawer();
+            } else {
+                openMobileDrawer();
+            }
+        });
+    }
+
+    if (closeDrawerBtn) {
+        closeDrawerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeMobileDrawer();
+        });
+    }
+
+    if (mobileNavBackdrop) {
+        mobileNavBackdrop.addEventListener('click', closeMobileDrawer);
+    }
+
+    drawerLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileDrawer();
+        });
+    });
+
+    // Global ESC dismiss
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMobileDrawer();
+            if (typeof closeCartDrawer === 'function') closeCartDrawer();
+        }
+    });
 
     // Reservation Category radio visual toggle
     const resCategoryCards = document.querySelectorAll('.category-radio-card');
@@ -1397,11 +1468,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkoutErrorAlert = document.getElementById('checkout-error-alert');
         const checkoutErrorText = document.getElementById('checkout-error-text');
 
-        const couponInput = document.getElementById('coupon-code-input');
-        const applyCouponBtn = document.getElementById('apply-coupon-btn');
-        const couponFeedback = document.getElementById('coupon-feedback');
-        let activeCoupon = null;
-
         const pSubtotal = document.getElementById('p-subtotal');
         const pTax = document.getElementById('p-tax');
         const pDelivery = document.getElementById('p-delivery');
@@ -1488,89 +1554,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Coupon code handler
-        if (applyCouponBtn && couponInput) {
-            applyCouponBtn.addEventListener('click', () => {
-                const code = couponInput.value.trim().toUpperCase();
-                if (!code) {
-                    showCouponFeedback('Please enter a coupon code.', false);
-                    return;
-                }
-
-                const totals = meetMeDB.getCartTotals();
-                if (totals.subtotal <= 0) {
-                    showCouponFeedback('Please add items to your cart first.', false);
-                    return;
-                }
-
-                if (code === 'MEETME10') {
-                    activeCoupon = { code: 'MEETME10', discountType: 'percent', value: 10, label: '10% Off' };
-                    showCouponFeedback('Coupon MEETME10 applied! 10% discount added.', true);
-                } else if (code === 'CAFEWELCOME' || code === 'FIRSTBITE' || code === 'BSR50') {
-                    if (totals.subtotal < 150) {
-                        showCouponFeedback('Minimum order ₹150 required for this coupon.', false);
-                        return;
-                    }
-                    activeCoupon = { code, discountType: 'flat', value: 50, label: '₹50 Off' };
-                    showCouponFeedback(`Coupon ${code} applied! Flat ₹50 discount added.`, true);
-                } else {
-                    activeCoupon = null;
-                    showCouponFeedback('Invalid promo code. Try MEETME10 or CAFEWELCOME.', false);
-                }
-                calculateCheckoutBill();
-            });
-        }
-
-        function showCouponFeedback(msg, isSuccess) {
-            if (!couponFeedback) return;
-            couponFeedback.textContent = msg;
-            couponFeedback.className = `coupon-feedback ${isSuccess ? 'success' : 'error'}`;
-            couponFeedback.classList.remove('hidden');
-        }
-
         function calculateCheckoutBill() {
             const totals = meetMeDB.getCartTotals();
             const orderType = getSelectedOrderType();
-            const deliveryFee = (orderType === 'Delivery' && totals.count > 0) ? 40 : 0;
+            const deliveryFee = 0; // Abolished per requirement: no packaging or delivery charges
 
-            let discountAmount = 0;
-            if (activeCoupon && totals.subtotal > 0) {
-                if (activeCoupon.discountType === 'percent') {
-                    discountAmount = Math.round((totals.subtotal * activeCoupon.value) / 100);
-                } else if (activeCoupon.discountType === 'flat') {
-                    discountAmount = Math.min(activeCoupon.value, totals.subtotal);
-                }
-            }
-
-            const grandTotal = totals.count > 0 
-                ? Math.max(0, totals.subtotal + totals.tax + deliveryFee - discountAmount)
-                : 0;
+            const grandTotal = totals.count > 0 ? totals.subtotal : 0;
 
             if (pSubtotal) pSubtotal.textContent = `₹${totals.subtotal}`;
-            if (pTax) pTax.textContent = `₹${totals.tax}`;
+            if (pTax) pTax.textContent = `₹0`;
             if (pDelivery) {
-                if (totals.count === 0) {
-                    pDelivery.textContent = '₹0';
-                } else {
-                    pDelivery.textContent = deliveryFee > 0 ? `₹${deliveryFee}` : 'FREE';
-                }
+                pDelivery.textContent = 'FREE';
+                pDelivery.style.color = '#16a34a';
+                pDelivery.style.fontWeight = '700';
             }
             if (cartItemCount) cartItemCount.textContent = totals.count;
 
-            if (discountAmount > 0) {
-                if (pDiscountContainer) pDiscountContainer.classList.remove('hidden');
-                if (pDiscount) pDiscount.textContent = `-₹${discountAmount}`;
-            } else {
-                if (pDiscountContainer) pDiscountContainer.classList.add('hidden');
-            }
-
+            if (pDiscountContainer) pDiscountContainer.classList.add('hidden');
             if (pFinalTotal) pFinalTotal.textContent = `₹${grandTotal}`;
 
             return {
                 subtotal: totals.subtotal,
-                tax: totals.tax,
-                deliveryFee,
-                discount: discountAmount,
+                tax: 0,
+                deliveryFee: 0,
+                discount: 0,
                 grandTotal,
                 count: totals.count
             };
@@ -1738,7 +1745,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     orderType,
                     tableNumber,
                     deliveryAddress,
-                    couponCode: activeCoupon ? activeCoupon.code : null,
+                    couponCode: null,
                     cartItems: cart
                 });
             } catch (err) {
@@ -1788,10 +1795,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 paymentMethod,
                 subtotal: orderResult.subtotal !== undefined ? orderResult.subtotal : bill.subtotal,
-                tax: bill.tax,
+                tax: 0,
                 delivery: bill.deliveryFee,
-                discount: orderResult.discount !== undefined ? orderResult.discount : bill.discount,
-                coupon: orderResult.coupon_code || (activeCoupon ? activeCoupon.code : null),
+                discount: 0,
+                coupon: null,
                 total: orderResult.total !== undefined ? orderResult.total : bill.grandTotal,
                 status: orderResult.status || 'Confirmed'
             };
@@ -1863,9 +1870,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.88rem; color: rgba(18,19,26,0.7);">
                             <div style="display: flex; justify-content: space-between;"><span>Items Subtotal:</span><span>₹${order.subtotal}</span></div>
-                            <div style="display: flex; justify-content: space-between;"><span>GST (5%):</span><span>₹${order.tax}</span></div>
                             <div style="display: flex; justify-content: space-between;"><span>${order.orderType === 'Delivery' ? 'Delivery Fee' : 'Packaging'}:</span><span>${order.delivery > 0 ? `₹${order.delivery}` : 'FREE'}</span></div>
-                            ${order.discount > 0 ? `<div style="display: flex; justify-content: space-between; color: #16a34a; font-weight: 700;"><span>Promo Discount (${escapeHtml(order.coupon)}):</span><span>-₹${order.discount}</span></div>` : ''}
                             <hr style="border: none; border-top: 1.5px solid rgba(18,19,26,0.1); margin: 8px 0;">
                             <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 900; color: var(--color-text-midnight-black, #12131A);">
                                 <span>Grand Total:</span>
@@ -1905,9 +1910,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 waItemsText +
                 `------------------------------------\n` +
                 `Subtotal: ₹${order.subtotal}\n` +
-                `GST (5%): ₹${order.tax}\n` +
                 `Delivery: ${order.delivery > 0 ? `₹${order.delivery}` : 'FREE'}\n` +
-                (order.discount > 0 ? `Discount: -₹${order.discount} (${order.coupon})\n` : '') +
                 `*TOTAL BILL: ₹${order.total}*\n` +
                 `------------------------------------\n` +
                 `Please confirm this order. Thank you!`;
